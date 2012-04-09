@@ -40,7 +40,7 @@ init([NodeName,Port]) ->
 handle_cast({insert,{Url,Params}},State = #state{riakc_pid = Pid}) ->
 	Object = riakc_obj:new(?URL_BUCKET,term_to_binary(Url),term_to_binary(Params)),
 	riakc_pb_socket:put(Pid,Object),
-	{noreply,State};	
+	{noreply,State};
 	
 handle_cast({update,{Url,Params}},State = #state{riakc_pid = Pid}) ->
 	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),

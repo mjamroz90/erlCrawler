@@ -2,7 +2,6 @@
 -include_lib("eunit/include/eunit.hrl").
 -define(NODENAME,"127.0.0.1").
 -define(PORT,8087).
--compile(export_all).
 
 disk_cache_server_test_() ->
 	{setup,
