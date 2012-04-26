@@ -19,7 +19,7 @@ cleanup(_) ->
 	disk_cache_server:stop().
 	
 test_function() ->
-	Seq = lists:seq(1,100),
+	Seq = lists:seq(1,1000),
 	lists:foreach(fun(X) -> disk_cache_server:insert(make_url(X),{{width,X},{depth,X*2}}) end, Seq),
 	lists:foreach(fun(X) -> ?assertEqual({{width,X},{depth,X*2}},disk_cache_server:lookup(make_url(X))) end, Seq),
 	?assertEqual(not_found,disk_cache_server:lookup("www.abcd.pl")),

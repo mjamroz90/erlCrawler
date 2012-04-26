@@ -12,16 +12,16 @@ start(NodeName,Port) ->
 	gen_server:start_link({local,?MODULE},?MODULE,[NodeName,Port],[]).
 	
 insert(Url,Params) ->
-	gen_server:cast(?MODULE,{insert,{Url,Params}}).
+	gen_server:call(?MODULE,{insert,{Url,Params}}).
 	
 lookup(Url) ->
 	gen_server:call(?MODULE,{lookup,Url}).
 	
 update(Url,Params) ->
-	gen_server:cast(?MODULE,{update,{Url,Params}}).
+	gen_server:call(?MODULE,{update,{Url,Params}}).
 	
 delete(Url) ->
-	gen_server:cast(?MODULE,{delete,Url}).
+	gen_server:call(?MODULE,{delete,Url}).
 	
 change_host(NewNodeName,NewPort) ->
 	gen_server:call(?MODULE,{change_host,{NewNodeName,NewPort}}).
@@ -35,26 +35,22 @@ init([NodeName,Port]) ->
 	case riakc_pb_socket:start_link(NodeName,Port) of
 		{ok,Pid} -> {ok,#state{riakc_pid = Pid}};
 		{error,Reason} -> {stop,Reason}
-	end.	
-	
-handle_cast({insert,{Url,Params}},State = #state{riakc_pid = Pid}) ->
-	Object = riakc_obj:new(?URL_BUCKET,term_to_binary(Url),term_to_binary(Params)),
-	riakc_pb_socket:put(Pid,Object),
-	{noreply,State};
-	
-handle_cast({update,{Url,Params}},State = #state{riakc_pid = Pid}) ->
-	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),
-	Updated_Obj = riakc_obj:update_value(Obj,term_to_binary(Params)),
-	riakc_pb_socket:put(Pid,Updated_Obj),
-	{noreply,State};
-	
-handle_cast({delete,Url},State = #state{riakc_pid = Pid}) ->
-	riakc_pb_socket:delete(Pid,?URL_BUCKET,term_to_binary(Url)),
-	{noreply,State};
-	
+	end.
+		
 handle_cast(stop,State) ->
 	{stop,"Made to stop",State}.
+		
+handle_call({update,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
+	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),
+	Updated_Obj = riakc_obj:update_value(Obj,term_to_binary(Params)),
+	Result = riakc_pb_socket:put(Pid,Updated_Obj),
+	{reply,Result,State};
 	
+handle_call({insert,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->	
+	Object = riakc_obj:new(?URL_BUCKET,term_to_binary(Url),term_to_binary(Params)),
+	Result = riakc_pb_socket:put(Pid,Object),
+	{reply,Result,State};
+		
 handle_call({lookup,Url},_From,State = #state{riakc_pid = Pid}) ->
 	Result = case riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)) of
 		{ok,Object} -> 
@@ -64,6 +60,12 @@ handle_call({lookup,Url},_From,State = #state{riakc_pid = Pid}) ->
 	end,
 	{reply,Result,State};	
  
+	
+handle_call({delete,Url},_From,State = #state{riakc_pid = Pid}) ->
+	Result = riakc_pb_socket:delete(Pid,?URL_BUCKET,term_to_binary(Url)),
+	{reply,Result,State}; 
+
+	 
 handle_call({change_host,{NewNodeName,NewPort}},_From,State = #state{riakc_pid=Pid}) ->
 	Result = case riakc_pb_socket:start_link(NewNodeName,NewPort) of
 		{ok,NewPid} -> ok;
