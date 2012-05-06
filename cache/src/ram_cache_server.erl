@@ -3,13 +3,13 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
 		 
--export([start/1,insert/2,lookup/1,delete/1,stop/0,get_cache_size/0]).
+-export([start/1,insert/2,lookup/1,delete/1,stop/0,get_cache_size/0,delete_all/0]).
 -record(state,{current_item_number,max_item_number,ram_table}).
 
 %================================API===========================================
 start(Max_Item_Number) ->
 	gen_server:start_link({local,?MODULE},?MODULE,[Max_Item_Number],[]).
-	
+
 insert(Url,Params) ->
 	gen_server:cast(?MODULE,{insert,{Url,Params}}).
 
@@ -17,8 +17,11 @@ lookup(Url) ->
 	gen_server:call(?MODULE,{lookup,Url}).
 
 delete(Url) ->
-	gen_server:cast(?MODULE,{delete,Url}).
+	gen_server:cast(?MODULE,{delete,Url}).	
 	
+delete_all() ->
+	gen_server:cast(?MODULE,delete_all).
+		
 get_cache_size() ->
 	gen_server:call(?MODULE,get_cache_size).
 	
@@ -41,6 +44,10 @@ handle_cast({insert,{Url,Params}},State = #state{max_item_number=Max,current_ite
 	end,
 	{noreply,State#state{current_item_number=Curr_Num}};
 
+handle_cast(delete_all, State = #state{ram_table=Ram_Table}) ->
+	ram_cache:delete_all(Ram_Table),
+	{noreply,State#state{current_item_number = 0}};
+	
 handle_cast({delete,Url},State = #state{current_item_number=CurrNum,ram_table=Ram_Table}) ->
 	Curr_Num = 
 	case ram_cache:exists(Ram_Table,Url) of 

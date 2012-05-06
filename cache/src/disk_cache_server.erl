@@ -1,5 +1,5 @@
 -module(disk_cache_server).
--export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0]).
+-export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0]).
 -record(state,{nodename, port, riakc_pid}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
@@ -22,6 +22,9 @@ update(Url,Params) ->
 	
 delete(Url) ->
 	gen_server:call(?MODULE,{delete,Url}).
+
+delete_all() ->
+	gen_server:call(?MODULE,delete_all,infinity).
 	
 change_host(NewNodeName,NewPort) ->
 	gen_server:call(?MODULE,{change_host,{NewNodeName,NewPort}}).
@@ -39,6 +42,15 @@ init([NodeName,Port]) ->
 		
 handle_cast(stop,State) ->
 	{stop,"Made to stop",State}.
+	
+handle_call(delete_all,_From,State = #state{riakc_pid = Pid}) ->
+	io:format("Szukam kluczy\n"),
+	Result = case riakc_pb_socket:list_keys(Pid,?URL_BUCKET) of		
+		{ok,Keys} -> 			
+			io:format("Znalazlem klucze\n,dlugosc listy:~p\n",[length(Keys)]),lists:foreach(fun(Key) -> riakc_pb_socket:delete(Pid,?URL_BUCKET,Key) end,Keys),ok;
+		Err ->	Err
+	end,	
+	{reply,Result,State};	
 		
 handle_call({update,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
 	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),
@@ -68,7 +80,7 @@ handle_call({delete,Url},_From,State = #state{riakc_pid = Pid}) ->
 	 
 handle_call({change_host,{NewNodeName,NewPort}},_From,State = #state{riakc_pid=Pid}) ->
 	Result = case riakc_pb_socket:start_link(NewNodeName,NewPort) of
-		{ok,NewPid} -> ok;
+		{ok,NewPid} -> riakc_pb_socket:stop(Pid),ok;
 		
 		{error,Reason} -> NewPid = Pid,{error,Reason}
 	end,

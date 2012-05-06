@@ -1,5 +1,5 @@
 -module(ram_cache).
--export([new/1,insert/3,delete/2,lookup/2,test/0,exists/2,remove_random/1,remove/1,size/1]).
+-export([new/1,insert/3,delete/2,lookup/2,test/0,exists/2,remove_random/1,remove/1,tab_size/1,delete_all/1]).
 
 test() ->
 	Tab = new(?MODULE),
@@ -20,6 +20,10 @@ insert(Tab,Url,Value) ->
 	
 delete(Tab,Url) ->
 	ets:delete(Tab,Url).
+
+delete_all(Tab) ->
+	Size = tab_size(Tab),
+	remove_random(Tab,Size).	
 	
 lookup(Tab,Url) ->	
 	case ets:lookup(Tab,Url) of
@@ -36,7 +40,7 @@ exists(Tab,Url) ->
 remove_random(Tab) ->
 	remove_random(Tab,1).
 
-size(Tab) ->
+tab_size(Tab) ->
 	ets:info(Tab,size).
 	
 %=========================================================================	
