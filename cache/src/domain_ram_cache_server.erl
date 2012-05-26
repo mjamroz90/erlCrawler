@@ -1,4 +1,4 @@
--module(ram_cache_server).	 
+-module(domain_ram_cache_server).	 
 -export([start/1,insert/2,lookup/1,delete/1,stop/0,get_cache_size/0,delete_all/0]).
 -define(SERVER,?MODULE).
 

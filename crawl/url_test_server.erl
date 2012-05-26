@@ -1,26 +1,6 @@
 -module(url_test_server).
--behaviour(gen_server).
--export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-         terminate/2, code_change/3]).
--export([start/3,stop/0]).         
+-compile(export_all).
 
-start() ->
-	gen_server:start_link({local,?MODULE},?MODULE,[],[]).
-	
-stop() ->
-	gen_server:cast(?MODULE,stop).
-	
-%============================CallBacks============================
-init([]) ->
-	application:start(cache),
-	{ok,[]}.
-	
-handle_cast(stop,State) ->
-	{stop,"Made to stop",State}.
-	
-terminate(_Reason,State) ->
-	ok.
-	
 remove_partially(Size,Max) ->
 	start(),
 	{ok,Descr} = file:open("crawl/urls2",[read]),

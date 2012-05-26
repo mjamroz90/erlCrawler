@@ -4,7 +4,7 @@
 -export([init/1]).
 
 start(MaxItemNum,NodeName,Port) ->
-	supervisor:start_link({local,cache_sup},?MODULE,[MaxItemNum,NodeName,Port]).
+	supervisor:start_link({local,?MODULE},?MODULE,[MaxItemNum,NodeName,Port]).
 	
 init([MaxItemNum,NodeName,Port]) ->
 	RamCacheServer = {ram_cache_server,{ram_cache_server,start,[MaxItemNum]},
