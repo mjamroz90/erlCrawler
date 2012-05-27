@@ -65,7 +65,7 @@ handle_cast(stop,State) ->
 handle_call({lookup,Url},_From,State) ->
 	Result = case domain_ram_cache_server:lookup(Url) of 
 		not_found ->
-			case mnesia:read(?TABLE,Url) of
+			case mnesia:read(domain_dispatch_server:get_domain_table_name(),Url) of
 				[{domain_to_node,Url,Node}] -> Node;
 				[] -> not_found
 			end;	
