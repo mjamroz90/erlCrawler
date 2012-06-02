@@ -712,8 +712,7 @@ search(Pid, Bucket, SearchQuery) ->
     %% of BKeys.
     IdentityQuery = [{reduce,
                       {modfun, riak_kv_mapreduce, reduce_identity},
-                      %[{reduce_phase_only_1, true}],
-                      []
+                      [{reduce_phase_only_1, true}],
                       true}],
     case search(Pid, Bucket, SearchQuery, IdentityQuery,
                 default_timeout(search_timeout)) of
