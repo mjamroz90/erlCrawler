@@ -18,7 +18,7 @@ get_domain_table_name() ->
 start(Nodes) ->	
 	gen_server:start_link({local,?MODULE},?MODULE,[Nodes],[]).
 
-%=mozna pomyslec, czy to ma byc asynchroniczne, czy synchroniczne wywolanie	
+%=mozna pomyslec, czy to ma byc asynchroniczne, czy synchroniczne wywolanie	- w sumie to synchroniczne, bo klient potrzebuje wezla
 insert(Url) ->
 	gen_server:call(?MODULE,{insert,Url}).
 
@@ -60,7 +60,8 @@ code_change(_OldVsn,State,_Extra) ->
 	{ok,State}.
 	
 write_to_caches(Url,NodeName,Nodes) ->
-	mnesia:write(?DOMAIN_TO_NODES,#domain_to_node{domain=Url,node=NodeName},write),
+	F = fun() -> mnesia:write(?DOMAIN_TO_NODES,#domain_to_node{domain=Url,node=NodeName},write) end,
+	mnesia:transaction(F),
 	rpc:multicall(Nodes,domain_ram_cache_server,insert,[Url,NodeName]).
 		
 %=====================Internal========================================
