@@ -1,4 +1,5 @@
 -module(scheduler).
+-behaviour(gen_server).
 -export([start_link/2,insert/2,completed/0, stop/0]).
 -record(state,{process_count, buffer_size, urls, current_processes_count}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
