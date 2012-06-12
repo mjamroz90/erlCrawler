@@ -3,7 +3,7 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
 		 
--export([start/0,insert/2,lookup/1,stop/0]).
+-export([start/0,insert/2,lookup/1, update/2,stop/0]).
 
 %================================API===========================================
 start() ->
@@ -11,6 +11,9 @@ start() ->
 	
 insert(Url,Params) ->
 	gen_server:call(?MODULE,{insert,{Url,Params}}).
+
+update(Url, Params) ->
+	gen_server:call(?MODULE,{update, {Url, Params}}).
 
 lookup(Url) ->
 	gen_server:call(?MODULE,{lookup,Url}).
@@ -29,6 +32,12 @@ handle_cast(stop,State) ->
 
 handle_call({insert,{Url,Params}},_From, State) ->
 	disk_cache_server:insert(Url, Params),
+	ram_cache_server:insert(Url, Params),
+	{reply,ok,State};
+	
+handle_call({update, {Url, Params}}, _From, State) ->
+	disk_cache_server:update(Url, Params),
+	ram_cache_server:delete(Url),
 	ram_cache_server:insert(Url, Params),
 	{reply,ok,State};
 

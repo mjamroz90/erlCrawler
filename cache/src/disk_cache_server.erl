@@ -1,5 +1,5 @@
 -module(disk_cache_server).
--export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/1]).
+-export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/1, set_visited/1, set_not_visited/1]).
 -record(state,{nodename, port, riakc_pid}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
@@ -28,6 +28,12 @@ delete_all() ->
 	
 pull_urls(Count) ->
 	gen_server:call(?MODULE, {pull_urls, Count}).
+	
+set_visited(Url) ->
+	gen_server:call(?MODULE, {set_visited, Url}).
+
+set_not_visited(Url) ->
+	gen_server:call(?MODULE, {set_not_visited, Url}).
 	
 change_host(NewNodeName,NewPort) ->
 	gen_server:call(?MODULE,{change_host,{NewNodeName,NewPort}}).
@@ -93,7 +99,29 @@ handle_call({change_host,{NewNodeName,NewPort}},_From,State = #state{riakc_pid=P
 	{reply,Result,State#state{nodename=NewNodeName,port=NewPort,riakc_pid=NewPid}};
 	
 handle_call({pull_urls, Count}, _From, State = #state{riakc_pid = Pid}) ->
-	{reply, pull_urls(Pid, ?URL_BUCKET, Count), State}.
+	{reply, pull_urls(Pid, ?URL_BUCKET, Count), State};
+	
+handle_call({set_visited, Url}, _From, State = #state{riakc_pid = Pid}) ->
+	case riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)) of
+		{ok,Object} -> 
+			Index = [{term_to_binary("visited_bin"), term_to_binary(yes)}],
+			Meta = dict:store(<<"index">>, Index, riakc_obj:get_update_metadata(Object)),
+			Object2 = riakc_obj:update_metadata(Object, Meta),
+			Result = riakc_pb_socket:put(Pid,Object2);
+		{error,Term} -> Result = {error, Term}
+	end,
+	{reply, Result, State};
+	
+handle_call({set_not_visited, Url}, _From, State = #state{riakc_pid = Pid}) ->
+	case riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)) of
+		{ok,Object} -> 
+			Index = [{term_to_binary("visited_bin"), term_to_binary(no)}],
+			Meta = dict:store(<<"index">>, Index, riakc_obj:get_update_metadata(Object)),
+			Object2 = riakc_obj:update_metadata(Object, Meta),
+			Result = riakc_pb_socket:put(Pid,Object2);
+		{error,Term} -> Result = {error, Term}
+	end,
+	{reply, Result, State}.
 	
 handle_info(_Msg,State) ->
 	{noreply,State}.
