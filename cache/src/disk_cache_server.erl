@@ -1,11 +1,13 @@
 -module(disk_cache_server).
--export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/1, set_visited/1, set_not_visited/1]).
+-export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/1, set_visited/1, set_not_visited/1, 
+		get_param/2]).
 -record(state,{nodename, port, riakc_pid}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
     
 -define(URL_BUCKET,term_to_binary("Urls")).
-    
+-define(ID_URL_BUCKET,term_to_binary("IdUrls")).
+   
 %======================================API==================================
          
 start(NodeName,Port) ->
@@ -37,15 +39,22 @@ set_not_visited(Url) ->
 	
 change_host(NewNodeName,NewPort) ->
 	gen_server:call(?MODULE,{change_host,{NewNodeName,NewPort}}).
+
+get_param(ParamName,ParamList) ->
+	get_param1(ParamName,ParamList).
 	
 stop() ->
 	gen_server:cast(?MODULE,stop).
 	
 %===================================Callbacks==============================
 
+%%byc moze na nowo utworzonym buckecie trzeba będzie ustawić n_val = 1
+
 init([NodeName,Port]) ->	
 	case riakc_pb_socket:start_link(NodeName,Port) of
-		{ok,Pid} -> {ok,#state{riakc_pid = Pid}};
+		{ok,Pid} -> set_n_val(?URL_BUCKET,1,Pid),
+					set_n_val(?ID_URL_BUCKET,1,Pid),
+					{ok,#state{riakc_pid = Pid}};
 		{error,Reason} -> {stop,Reason}
 	end.
 		
@@ -68,7 +77,10 @@ handle_call({update,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
 	{reply,Result,State};
 	
 handle_call({insert,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->	
-	Object = riakc_obj:new(?URL_BUCKET,term_to_binary(Url),term_to_binary(Params)),
+	Id = generate_id(),
+	NewParams = stick_params({id,Id},Params),
+	insert_id_url(Pid,Id,Url),
+	Object = riakc_obj:new(?URL_BUCKET,term_to_binary(Url),term_to_binary(NewParams)),
 	Index = [{term_to_binary("visited_bin"), term_to_binary(no)}],
 	Meta = dict:store(<<"index">>, Index, riakc_obj:get_update_metadata(Object)),
 	Object2 = riakc_obj:update_metadata(Object, Meta),
@@ -135,8 +147,35 @@ code_change(_OldVsn,State,_Extra) ->
 	
 
 
+%=======================================Internal=======================================
 
+set_n_val(BucketName,Val,Pid) ->
+	Buckets = riakc_pb_socket:list_buckets(Pid),
+	case lists:member(BucketName,Buckets) of 
+		false -> riakc_pb_socket:set_bucket(Pid,BucketName,[{n_val,Val}]);
+		_ -> ok
+	end,
+	{ok,Prop} = riakc_pb_socket:get_bucket(Pid,BucketName),
+	Prop.
 
+get_param1(ParamName,ParamList) ->
+	case lists:keyfind(ParamName,1,ParamList) of
+		false -> not_found;
+		{_,Value} -> Value
+	end.
+
+insert_id_url(Pid,Id,Url) ->
+	Object = riakc_obj:new(?ID_URL_BUCKET,term_to_binary(Id),term_to_binary(Url)),	
+	riakc_pb_socket:put(Pid,Object).
+
+stick_params(NewTuple,Params) ->	
+	NewParams = lists:keydelete(element(1,NewTuple),1,Params),
+	[NewTuple | NewParams].
+
+generate_id() ->
+	{Mega,Sec,Micro} = erlang:now(),
+    (Mega*1000000+Sec)*1000000+Micro - 1339670326906632.
+	% 1339670326906632 - magic Value
 % returns list up to Count urls which have secondary index visited_bin=no
 pull_urls(Pid, Bucket, Count) ->
 	case get_index_count(Pid, Bucket, term_to_binary("visited_bin"), term_to_binary(no), Count) of
