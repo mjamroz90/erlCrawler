@@ -80,7 +80,7 @@ time_insert_list_ram(List) ->
 	
 insert_disk(List) ->
 	lists:foreach(fun(Url) -> try 
-								disk_cache_server:insert(Url,{{width,2},{depth,3}}) 
+								disk_cache_server:insert(Url,[{width,2},{depth,3}]) 
 							  catch
 								 _:_ -> void
 							  end

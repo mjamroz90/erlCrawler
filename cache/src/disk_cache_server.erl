@@ -52,8 +52,8 @@ stop() ->
 
 init([NodeName,Port]) ->	
 	case riakc_pb_socket:start_link(NodeName,Port) of
-		{ok,Pid} -> set_n_val(?URL_BUCKET,1,Pid),
-					set_n_val(?ID_URL_BUCKET,1,Pid),
+		{ok,Pid} -> 					
+					io:format("Parametry: Url_Bucket ~p , Id_Url_Bucket ~p \n",[set_n_val(?URL_BUCKET,1,Pid),set_n_val(?ID_URL_BUCKET,1,Pid)]),
 					{ok,#state{riakc_pid = Pid}};
 		{error,Reason} -> {stop,Reason}
 	end.
@@ -79,7 +79,7 @@ handle_call({update,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
 handle_call({insert,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->	
 	Id = generate_id(),
 	NewParams = stick_params({id,Id},Params),
-	insert_id_url(Pid,Id,Url),
+	spawn(fun() -> insert_id_url(Pid,Id,Url) end),
 	Object = riakc_obj:new(?URL_BUCKET,term_to_binary(Url),term_to_binary(NewParams)),
 	Index = [{term_to_binary("visited_bin"), term_to_binary(no)}],
 	Meta = dict:store(<<"index">>, Index, riakc_obj:get_update_metadata(Object)),
@@ -150,7 +150,7 @@ code_change(_OldVsn,State,_Extra) ->
 %=======================================Internal=======================================
 
 set_n_val(BucketName,Val,Pid) ->
-	Buckets = riakc_pb_socket:list_buckets(Pid),
+	{ok,Buckets} = riakc_pb_socket:list_buckets(Pid),
 	case lists:member(BucketName,Buckets) of 
 		false -> riakc_pb_socket:set_bucket(Pid,BucketName,[{n_val,Val}]);
 		_ -> ok
