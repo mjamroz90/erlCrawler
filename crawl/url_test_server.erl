@@ -79,12 +79,15 @@ time_insert_list_ram(List) ->
 %%	insert(L).
 	
 insert_disk(List) ->
+	[H | T] = List,
+	disk_cache_server:insert(H,[{width,2},{depth,3}]),
+	disk_cache_server:set_visited(H),
 	lists:foreach(fun(Url) -> try 
 								disk_cache_server:insert(Url,[{width,2},{depth,3}]) 
 							  catch
 								 _:_ -> void
 							  end
-							  end,List).							 
+							  end,T).							 
 	
 insert_ram(List) ->
 	lists:foreach(fun(Url) -> ram_cache_server:insert(Url,{{width,2},{depth,3}}) end,List).

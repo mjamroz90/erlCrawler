@@ -1,5 +1,5 @@
 -module(disk_cache_server).
--export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/1, set_visited/1, set_not_visited/1, 
+-export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/2, set_visited/1, set_not_visited/1, 
 		get_param/2]).
 -record(state,{nodename, port, riakc_pid}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -28,8 +28,8 @@ delete(Url) ->
 delete_all() ->
 	gen_server:call(?MODULE,delete_all,infinity).
 	
-pull_urls(Count) ->
-	gen_server:call(?MODULE, {pull_urls, Count}).
+pull_urls(Count,Visited) ->
+	gen_server:call(?MODULE, {pull_urls, {Count,Visited}}).
 	
 set_visited(Url) ->
 	gen_server:call(?MODULE, {set_visited, Url}).
@@ -110,8 +110,8 @@ handle_call({change_host,{NewNodeName,NewPort}},_From,State = #state{riakc_pid=P
 	end,
 	{reply,Result,State#state{nodename=NewNodeName,port=NewPort,riakc_pid=NewPid}};
 	
-handle_call({pull_urls, Count}, _From, State = #state{riakc_pid = Pid}) ->
-	{reply, pull_urls(Pid, ?URL_BUCKET, Count), State};
+handle_call({pull_urls, {Count,Visited}}, _From, State = #state{riakc_pid = Pid}) ->
+	{reply, pull_urls(Pid, ?URL_BUCKET, Count,Visited), State};
 	
 handle_call({set_visited, Url}, _From, State = #state{riakc_pid = Pid}) ->
 	case riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)) of
@@ -177,8 +177,8 @@ generate_id() ->
     (Mega*1000000+Sec)*1000000+Micro - 1339670326906632.
 	% 1339670326906632 - magic Value
 % returns list up to Count urls which have secondary index visited_bin=no
-pull_urls(Pid, Bucket, Count) ->
-	case get_index_count(Pid, Bucket, term_to_binary("visited_bin"), term_to_binary(no), Count) of
+pull_urls(Pid, Bucket, Count,Visited) ->
+	case get_index_count(Pid, Bucket, term_to_binary("visited_bin"), term_to_binary(Visited), Count) of
 		{ok, Result} -> Result;
 		{error, {timeout, Result}} -> Result;
 		Error -> Error
