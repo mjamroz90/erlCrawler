@@ -1,6 +1,6 @@
-compile: compile_cache compile_riak-erlang-client compile_domain_manager compile_crawl_event compile_scheduler
+compile: compile_cache compile_test compile_riak-erlang-client compile_domain_manager compile_crawl_event compile_scheduler
 	
-clean: clean_cache clean_riak-erlang-client clean_domain_manager clean_crawl_event clean_scheduler
+clean: clean_cache clean_test clean_riak-erlang-client clean_domain_manager clean_crawl_event clean_scheduler
 	
 compile_cache:
 	cd ./cache; make compile
@@ -17,6 +17,9 @@ compile_crawl_event:
 compile_scheduler:
 	cd ./scheduler; make compile
 
+compile_test:
+	cd ./crawl_test; make compile
+	
 clean_cache:
 	cd ./cache; make clean
 	
@@ -32,6 +35,9 @@ clean_crawl_event:
 clean_scheduler:
 	cd ./scheduler; make clean
 	
+clean_test:
+	cd ./crawl_test; make clean
+	
 run:
-	erl -pa crawl cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin -name michal@192.168.1.103 -mnesia dir '"cache/priv"' -setcookie abc
+	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin -name michal@192.168.1.103 -mnesia dir '"cache/priv"' -setcookie abc
 			
