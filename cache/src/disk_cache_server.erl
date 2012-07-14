@@ -1,5 +1,8 @@
+%% @doc Serwer, ktory stanowi interfejs dostepu do bazy Urli na dysku, ktora na razie jest Riak.
+%% @end
+
 -module(disk_cache_server).
--export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0,delete_all/0, pull_urls/2, set_visited/1, set_not_visited/1, 
+-export([start/2,insert/2,lookup/1,update/2,delete/1,change_host/2,stop/0, pull_urls/2, set_visited/1, set_not_visited/1, 
 		get_param/2]).
 -record(state,{nodename, port, riakc_pid}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -9,40 +12,63 @@
 -define(ID_URL_BUCKET,term_to_binary("IdUrls")).
    
 %======================================API==================================
-         
+%% @type key() = string() | term()
+%% @type proplist() = [{Key::term(), Value::term()}]   
+%% @type address() = atom() | string() | inet:ip_address()
+
+   
+%% @spec start(NodeName :: address(), Port :: integer()) -> {ok,Pid :: pid()} | {error, term()}
+%% @doc Uruchamia serwer, wykorzystujacy do komunikacji z baza biblioteke riak_erlang_client.       
 start(NodeName,Port) ->
 	gen_server:start_link({local,?MODULE},?MODULE,[NodeName,Port],[]).
 	
+%% @spec insert(Url :: key(), Params :: proplist()) -> 	ok | {error, term()}
+%% @doc Wstawia do bazy pare klucz-wartosc.
 insert(Url,Params) ->
 	gen_server:call(?MODULE,{insert,{Url,Params}}).
-	
+
+%% @spec lookup(Url :: key()) -> proplist() | not_found
+%% @doc Wyszukuje w bazie obiekt o danym kluczu.	
 lookup(Url) ->
 	gen_server:call(?MODULE,{lookup,Url}).
 	
+%% @spec update(Url :: key(), Params :: proplist()) -> ok | {error, term()}
+%% @doc Aktualizuje obiekt o podanym kluczu podana wartoscia.	
 update(Url,Params) ->
 	gen_server:call(?MODULE,{update,{Url,Params}}).
 	
+%% @spec delete(Url :: key()) -> ok | {error, term()}
+%% @doc Usuwa obiekt o podanym kluczu.
 delete(Url) ->
 	gen_server:call(?MODULE,{delete,Url}).
-
-delete_all() ->
-	gen_server:call(?MODULE,delete_all,infinity).
 	
+%% @spec pull_urls(Count :: integer(), Visited :: bool()) -> [key()]
+%% @doc zwraca liste kluczy o dlugosci Count, w zaleznosci od Visited - albo przetworzonych, albo nie.
 pull_urls(Count,Visited) ->
 	gen_server:call(?MODULE, {pull_urls, {Count,Visited}}).
 	
+%% @spec set_visited(Url :: key()) -> ok | {error, term()}
+%% @doc ustawia Url jako przetworzony przez crawler.
 set_visited(Url) ->
 	gen_server:call(?MODULE, {set_visited, Url}).
 
+%% @spec set_not_visited(Url :: key()) -> ok | {error, term()}
+%% @see set_visited.
+%% @doc odwrotnie do set_visited.
 set_not_visited(Url) ->
 	gen_server:call(?MODULE, {set_not_visited, Url}).
-	
+
+%% @see start
+%% @doc zmienia serwer bazy danych.	
 change_host(NewNodeName,NewPort) ->
 	gen_server:call(?MODULE,{change_host,{NewNodeName,NewPort}}).
 
+%% @spec get_param(ParamaName :: atom(), ParamList :: proplist()) -> Value::term() | not_found
+%% @doc zwraca wartosc skojarzona z kluczem na liscie.
 get_param(ParamName,ParamList) ->
 	get_param1(ParamName,ParamList).
-	
+
+%% @doc zamyka polaczenie z baza.	
 stop() ->
 	gen_server:cast(?MODULE,stop).
 	
@@ -50,6 +76,7 @@ stop() ->
 
 %%byc moze na nowo utworzonym buckecie trzeba będzie ustawić n_val = 1
 
+%% @private
 init([NodeName,Port]) ->	
 	case riakc_pb_socket:start_link(NodeName,Port) of
 		{ok,Pid} -> 					
@@ -57,19 +84,12 @@ init([NodeName,Port]) ->
 					{ok,#state{riakc_pid = Pid}};
 		{error,Reason} -> {stop,Reason}
 	end.
-		
+	
+%% @private		
 handle_cast(stop,State) ->
 	{stop,"Made to stop",State}.
 	
-handle_call(delete_all,_From,State = #state{riakc_pid = Pid}) ->
-	io:format("Szukam kluczy\n"),
-	Result = case riakc_pb_socket:list_keys(Pid,?URL_BUCKET) of		
-		{ok,Keys} -> 			
-			io:format("Znalazlem klucze\n,dlugosc listy:~p\n",[length(Keys)]),lists:foreach(fun(Key) -> riakc_pb_socket:delete(Pid,?URL_BUCKET,Key) end,Keys),ok;
-		Err ->	Err
-	end,	
-	{reply,Result,State};	
-		
+%% @private		
 handle_call({update,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
 	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),
 	Updated_Obj = riakc_obj:update_value(Obj,term_to_binary(Params)),
@@ -135,13 +155,14 @@ handle_call({set_not_visited, Url}, _From, State = #state{riakc_pid = Pid}) ->
 	end,
 	{reply, Result, State}.
 	
+%% @private	
 handle_info(_Msg,State) ->
 	{noreply,State}.
-	
+%% @private	
 terminate(_Reason,#state{riakc_pid = Pid}) ->
 	riakc_pb_socket:stop(Pid),
 	ok.
-	
+%% @private	
 code_change(_OldVsn,State,_Extra) ->
 	{ok,State}.
 	

@@ -22,10 +22,20 @@ remove_partially(Ins,Size,Max,Descr) ->
 	io:format("Usunalem ~p\n",[Ins+Size]),
 	remove_partially(Ins+Size,Size,Max,Descr).
 
-test_insert_disk(Filename,Max,Size) ->
-	url_test_server:start(),
-	test(Filename,Max,Size,fun(List) -> time_insert_list_disk(List) end),
-	url_test_server:stop().
+test_insert_disk_domain(FileName,Max,Size) ->	
+		url_test_server:start(),
+		domain_manager_app:do_once(),
+		mnesia:start(),
+		domain_manager_app:do_once1(),
+		domain_dispatch_server:start([node()]),
+		test(FileName,Max,Size,fun(List) -> time_insert_list_domain(List) end),
+		url_test_server:stop().
+	
+test_insert_disk_url(Filename,Max,Size) ->	
+		spawn(fun() -> 
+		url_test_server:start(),
+		test(Filename,Max,Size,fun(List) -> time_insert_list_disk(List) end),
+		url_test_server:stop() end).
 
 test_insert_ram(Filename,Max,Size) ->
 	test(Filename,Max,Size,fun(List) -> time_insert_list_ram(List) end).
@@ -55,6 +65,11 @@ start() ->
 stop() ->
 	application:stop(cache).
 
+time_insert_list_domain(List) ->
+	{Time_ins,_} = timer:tc(fun()->insert_domain(List) end),
+	{Time_lookup,_} = timer:tc(fun() -> lookup_domain(List) end),
+	{{wholeTime,Time_ins/1000000},{avgTime,{Time_ins/(length(List)*1000),Time_lookup/(length(List)*1000)}}}.
+	
 time_insert_list_disk(List) ->
 	{Time_ins,_} = timer:tc(fun()->insert_disk(List) end),
 	{Time_lookup,_} = timer:tc(fun() -> lookup_disk(List) end),
@@ -74,10 +89,16 @@ insert_disk(List) ->
 							  catch
 								 _:_ -> void
 							  end
-							  end,T).							 
+					end,T).
+
+insert_domain(List) ->
+	lists:foreach(fun(Domain) -> domain_dispatch_server:insert(Domain) end,List).
+	
+lookup_domain(List) ->
+	lists:foreach(fun(Url) -> domain_cache_server:lookup(Url) end,List).
 	
 insert_ram(List) ->
-	lists:foreach(fun(Url) -> ram_cache_server:insert(Url,{{width,2},{depth,3}}) end,List).
+	lists:foreach(fun(Url) -> ram_cache_server:insert(Url,[{width,2},{depth,3}]) end,List).
 
 lookup_disk(List) ->
 	lists:foreach(fun(Url) -> disk_cache_server:lookup(Url) end,List).
@@ -86,7 +107,7 @@ lookup_ram(List) ->
 	lists:foreach(fun(Url) -> ram_cache_server:lookup(Url) end,List).
 
 %=======================================================================
-
+	
 get_list(FileName,Num) ->
 	case file:open(FileName,[read]) of
 		{ok,Descr} ->			
@@ -134,8 +155,8 @@ process_data(Data,Descr1) ->
 	end.	
 	
 write_to_file(List) ->
-	{ok,Descr} = file:open("crawl/ins_results",[write]),
-	{ok,Descr1} = file:open("crawl/lookup_results",[write]),
+	{ok,Descr} = file:open("crawl_test/ins_results",[write]),
+	{ok,Descr1} = file:open("crawl_test/lookup_results",[write]),
 	lists:foreach(fun({Num,{Time_ins,Time_lookup}}) ->  io:format(Descr,"~p\t~p\n",[Num,Time_ins]),
 														io:format(Descr1,"~p\t~p\n",[Num,Time_lookup]) end,List),
 	file:close(Descr),

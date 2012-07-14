@@ -5,7 +5,7 @@
 -export([do_once/0,do_once1/0]).
 -record(domain_to_node,{domain,node}).
 
--define(CONTACT_NODES,['michal@192.168.1.103','michal@192.168.1.105']).
+-define(CONTACT_NODES,[node()]).
 
 start(_StartType,_StartArgs) ->	
 	Nodes = case application:get_env(erlCrawler,contact_nodes) of
@@ -13,7 +13,7 @@ start(_StartType,_StartArgs) ->
 			undefined -> ?CONTACT_NODES
 		end,	
 	mnesia:start(),	
-	mnesia:wait_for_tables([domain_dispatch_server:get_domain_table_name()],2000),
+	mnesia:wait_for_tables([domain_dispatch_server:get_domain_table_name()],2000),	
 	TargetFun = fun(Load) -> Load end,
 	domain_manager_sup:start(TargetFun,Nodes).
 

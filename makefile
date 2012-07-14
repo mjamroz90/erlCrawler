@@ -39,5 +39,6 @@ clean_test:
 	cd ./crawl_test; make clean
 	
 run:
-	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin -name michal@192.168.1.103 -mnesia dir '"cache/priv"' -setcookie abc
+	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin -name michal@10.20.114.119 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
+	
 			

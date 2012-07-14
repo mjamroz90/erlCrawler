@@ -1,3 +1,6 @@
+%% @doc Modul uruchamiajacy cala aplikacje oferujaca funkcjonalnosc dostepu do danych.
+%% @end
+
 -module(cache_app).
 -behaviour(application).
 
@@ -8,6 +11,7 @@
 -define(NODE_NAME,"127.0.0.1").
 -define(PORT,8087).
 
+%% @private
 start(_StartType,_StartArgs) ->	
 	MaxItemNumCache = case application:get_env(erlCrawler,max_item_num_cache) of
 			{ok,M} -> M;
@@ -29,10 +33,11 @@ start(_StartType,_StartArgs) ->
 	%trzeba dorobic mnesia:wait_for_Table wtedy kiedy bedzie stworzony schemat bazy i tabela 	
 	main_sup:start(MaxItemNumCache,MaxItemNumDomain,NodeName,Port).
 
+%% @private
 stop(_State) ->
 	ram_cache_server:stop(),
 	domain_ram_cache_server:stop(),
 	domain_cache_server:stop(),
 	disk_cache_server:stop(),
-	mnesia:stop(),
+	spawn(fun() -> mnesia:stop() end),
 	ok.

@@ -1,47 +1,44 @@
+%% @doc Modul Stanowiacy interfejs dostepu do bazy Url-i. Zewnetrzne podystsemy powinny z niego korzystac.
+%% @end
+
 -module(url_server).
--behaviour(gen_server).
--export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-         terminate/2, code_change/3]).
-		 
--export([start/0,insert/2,lookup/1, update/2,stop/0]).
+-export([insert/2,lookup/1, update/2]).
 
 %================================API===========================================
-start() ->
-	gen_server:start_link({local,?MODULE},?MODULE,[],[]).
-	
+
+%% @type url() = string()
+%% @type proplist() = [{Key::term(), Value::term()}]
+
+%% @spec insert(Url :: url(), Params :: proplist()) -> ok
+%% @doc Wstawia pare klucz-wartosc do bazy.
 insert(Url,Params) ->
-	gen_server:call(?MODULE,{insert,{Url,Params}}).
+	insert1(Url,Params).
 
+%% @spec update(Url :: url(), Params :: proplist()) -> ok
+%% @doc Aktualizuje liste parametrow dla podanego adresu.	
 update(Url, Params) ->
-	gen_server:call(?MODULE,{update, {Url, Params}}).
-
+	update1(Url,Params).
+	
+%% @spec lookup(Url :: url()) -> proplist()
+%% @doc Zwraca liste parametrow dla podanego adresu.
 lookup(Url) ->
-	gen_server:call(?MODULE,{lookup,Url}).
-	
-stop() ->
-	gen_server:cast(?MODULE,stop).
-	
+	lookup1(Url).
+
 %===============================Callbacks======================================
 
-init(State) ->
-	{ok,State}.
-	
 
-handle_cast(stop,State) ->
-	{stop,"Made to stop",State}.
-
-handle_call({insert,{Url,Params}},_From, State) ->
+insert1(Url,Params) ->
 	disk_cache_server:insert(Url, Params),
 	ram_cache_server:insert(Url, Params),
-	{reply,ok,State};
+	ok.
 	
-handle_call({update, {Url, Params}}, _From, State) ->
+update1(Url, Params) ->
 	disk_cache_server:update(Url, Params),
 	ram_cache_server:delete(Url),
 	ram_cache_server:insert(Url, Params),
-	{reply,ok,State};
+	ok.
 
-handle_call({lookup,Url},_From,State) ->
+lookup1(Url) ->
 	Result = case ram_cache_server:lookup(Url) of
 		not_found -> 
 			%not found in memory, search in db
@@ -54,14 +51,6 @@ handle_call({lookup,Url},_From,State) ->
 			end;
 		Value -> Value
 	end,
-	{reply,Result,State}.
-	
-handle_info(_Msg,State) ->
-	{noreply,State}.
+	Result.
 
-terminate(_Reason,_State) ->
-	ok.
-	
-code_change(_OldVsn,State,_Extra) ->
-	{ok,State}.
 	
