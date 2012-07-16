@@ -1,3 +1,6 @@
+%% @doc Supervisor nadzorujacy prace Event Manager'a
+%% @end
+
 -module(crawl_event_sup).
 -behaviour(supervisor).
 -export([start/0,init/1]).

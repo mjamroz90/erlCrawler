@@ -1,0 +1,3 @@
+{packages,[]}.
+{modules,[domain_dispatch_server,domain_manager_app,domain_manager_sup,
+          load_collector_server]}.

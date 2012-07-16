@@ -1,0 +1,2 @@
+{packages,[]}.
+{modules,[crawl_event,crawl_event_app,crawl_event_sup,load_collector_handler]}.

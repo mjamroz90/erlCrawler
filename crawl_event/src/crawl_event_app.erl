@@ -1,3 +1,6 @@
+%% @doc Modul uruchamiajacy cala aplikacje obslugujaca zdarzenia.
+%% @end
+
 -module(crawl_event_app).
 -behaviour(application).
 -export([start/2,stop/1]).

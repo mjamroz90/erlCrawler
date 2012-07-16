@@ -22,7 +22,7 @@
 start(NodeName,Port) ->
 	gen_server:start_link({local,?MODULE},?MODULE,[NodeName,Port],[]).
 	
-%% @spec insert(Url :: key(), Params :: proplist()) -> 	ok | {error, term()}
+%% @spec insert(Url :: key(), Params :: proplist()) -> 	{ok,NewParams :: proplist()} | {error, term()}
 %% @doc Wstawia do bazy pare klucz-wartosc.
 insert(Url,Params) ->
 	gen_server:call(?MODULE,{insert,{Url,Params}}).
@@ -92,7 +92,9 @@ handle_cast(stop,State) ->
 %% @private		
 handle_call({update,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
 	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),
-	Updated_Obj = riakc_obj:update_value(Obj,term_to_binary(Params)),
+	Id = get_param1(id,binary_to_term(riakc_obj:get_value(Obj))),
+	NewParams = stick_params({id,Id}, Params),
+	Updated_Obj = riakc_obj:update_value(Obj,term_to_binary(NewParams)),
 	Result = riakc_pb_socket:put(Pid,Updated_Obj),
 	{reply,Result,State};
 	
@@ -104,7 +106,10 @@ handle_call({insert,{Url,Params}},_From,State = #state{riakc_pid = Pid}) ->
 	Index = [{term_to_binary("visited_bin"), term_to_binary(no)}],
 	Meta = dict:store(<<"index">>, Index, riakc_obj:get_update_metadata(Object)),
 	Object2 = riakc_obj:update_metadata(Object, Meta),
-	Result = riakc_pb_socket:put(Pid,Object2),
+	Result = case riakc_pb_socket:put(Pid,Object2) of
+			{error, Term } -> {error,Term};
+			_ -> {ok,NewParams}
+	end,		
 	{reply,Result,State};
 		
 handle_call({lookup,Url},_From,State = #state{riakc_pid = Pid}) ->
@@ -118,7 +123,10 @@ handle_call({lookup,Url},_From,State = #state{riakc_pid = Pid}) ->
  
 	
 handle_call({delete,Url},_From,State = #state{riakc_pid = Pid}) ->
+	{ok,Obj} = riakc_pb_socket:get(Pid,?URL_BUCKET,term_to_binary(Url)),
+	Id = get_param1(id,binary_to_term(riakc_obj:get_value(Obj))),
 	Result = riakc_pb_socket:delete(Pid,?URL_BUCKET,term_to_binary(Url)),
+	riakc_pb_socket:delete(Pid,?ID_URL_BUCKET,term_to_binary(Id)),
 	{reply,Result,State}; 
 
 	 
