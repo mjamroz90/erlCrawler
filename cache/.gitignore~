@@ -2,4 +2,4 @@ ebin/*.beam
 priv/*
 docs/*.html
 docs/*.css
-db
+db/*
