@@ -35,9 +35,12 @@ insert1(Url,Params) ->
 	ok.
 	
 update1(Url, Params) ->
-	disk_cache_server:update(Url, Params),
-	ram_cache_server:delete(Url),
-	ram_cache_server:insert(Url, Params),
+	case disk_cache_server:update(Url, Params) of
+		{ok,NewParams} -> 
+			ram_cache_server:delete(Url),
+			ram_cache_server:insert(Url, NewParams);
+		_ -> void
+	end,		
 	ok.
 
 lookup1(Url) ->

@@ -13,21 +13,21 @@
 
 %% @private
 start(_StartType,_StartArgs) ->	
-	MaxItemNumCache = case application:get_env(erlCrawler,max_item_num_cache) of
-			{ok,M} -> M;
-			undefined -> ?CACHE_MAX_ITEM_NUM
+	MaxItemNumCache = case get_env_property(max_item_num_cache) of
+			undefined -> ?CACHE_MAX_ITEM_NUM;
+			M -> M			
 		end,
-	NodeName = case application:get_env(erlCrawler,node_name) of
-			{ok,N} -> N;
-			undefined -> ?NODE_NAME
+	NodeName = case get_env_property(node_name) of
+			undefined -> ?NODE_NAME;			N -> N
+			
 		end,
-	Port = case application:get_env(erlCrawler,riak_port) of
-			{ok,P} -> P;
-			undefined -> ?PORT
+	Port = case get_env_property(port) of
+			undefined -> ?PORT;
+			P -> P			
 		end,			
-	MaxItemNumDomain = case application:get_env(erlCrawler,max_item_num_domain) of
-			{ok,M1} -> M1;
-			undefined -> ?DOMAIN_MAX_ITEM_NUM
+	MaxItemNumDomain = case get_env_property(max_item_num_domain) of
+			undefined -> ?DOMAIN_MAX_ITEM_NUM;
+			M1 -> M1			
 		end,	
 	mnesia:start(),	
 	%trzeba dorobic mnesia:wait_for_Table wtedy kiedy bedzie stworzony schemat bazy i tabela 	
@@ -41,3 +41,11 @@ stop(_State) ->
 	disk_cache_server:stop(),
 	spawn(fun() -> mnesia:stop() end),
 	ok.
+	
+get_env_property(PropName) ->	
+	case application:get_env(cache,riak_env) of
+		{ok,Prop} ->					
+					{_,Opts} = lists:keyfind(PropName,1,Prop),
+					Opts;
+		undefined -> undefined
+	end.				
