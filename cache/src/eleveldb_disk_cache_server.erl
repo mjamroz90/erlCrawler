@@ -128,6 +128,7 @@ get_index(HashValue,Slice,MaxRem) ->
 	(HashMod div Slice)+1.
 	
 create_processes(MaxRem,PartitionNum,RootDir) ->
+	%io:format("~p ~p ~n", [MaxRem, PartitionNum]),
 	Slice = MaxRem div PartitionNum,
 	Workers = lists:map(fun(Num) -> create_process(Slice*(Num-1),RootDir) end,lists:seq(1,PartitionNum)),
 	Workers.	

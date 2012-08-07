@@ -85,7 +85,9 @@ write_to_caches(Url,NodeName,Nodes) ->
 		
 %=====================Internal========================================
 get_node(ContactNodes) ->
-	lists:nth(1,ContactNodes).
+	%lists:nth(1,ContactNodes).
+	Index = random:uniform(length(ContactNodes)), 
+	lists:nth(Index, ContactNodes).
 	
 ensure_contact(Nodes) ->
 	[ContactNode || ContactNode <- Nodes, net_adm:ping(ContactNode) =:= pong].
