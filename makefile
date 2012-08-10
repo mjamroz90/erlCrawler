@@ -1,6 +1,6 @@
-compile: compile_cache compile_test compile_riak-erlang-client compile_domain_manager compile_crawl_event compile_scheduler
+compile: compile_cache compile_test compile_riak-erlang-client compile_domain_manager compile_crawl_event compile_scheduler compile_eleveldb compile_session_manager
 	
-clean: clean_cache clean_test clean_riak-erlang-client clean_domain_manager clean_crawl_event clean_scheduler
+clean: clean_cache clean_test clean_riak-erlang-client clean_domain_manager clean_crawl_event clean_scheduler clean_eleveldb clean_session_manager
 	
 compile_cache:
 	cd ./cache; make compile
@@ -20,6 +20,12 @@ compile_scheduler:
 compile_test:
 	cd ./crawl_test; make compile
 	
+compile_eleveldb:
+	cd ./eleveldb; make compile	
+
+compile_session_manager:
+	cd ./session_manager; make compile
+		
 clean_cache:
 	cd ./cache; make clean
 	
@@ -38,7 +44,13 @@ clean_scheduler:
 clean_test:
 	cd ./crawl_test; make clean
 	
+clean_eleveldb:
+	cd ./eleveldb; make clean
+	
+clean_session_manager:
+	cd ./session_manager; make clean
+	
 run:
-	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin -name michal@10.20.114.119 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
+	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin -name lukasz@192.168.0.7 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
 	
 			

@@ -7,9 +7,11 @@
 			 processing_sup,
 			 url_processing,
 			 reg,
-			 reg_sup
+			 reg_sup,
+			 trigger,
+			 trigger_sup
              ]},
-  {registered, [scheduler, scheduler_app, scheduler_sup, processing_sup, reg, reg_sup]},
-  {applications, [kernel, stdlib, cache]}, %TODO -add domain_manager
+  {registered, [scheduler, scheduler_app, scheduler_sup, processing_sup, reg, reg_sup, trigger, trigger_sup]},
+  {applications, [kernel, stdlib, cache]},
   {mod, {scheduler_app, []}}
  ]}.

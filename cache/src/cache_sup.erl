@@ -1,9 +1,8 @@
 %% @doc Supervisor nadzorujacy procesy zwiazane z bazu Url-i.
-%% Uruchamia on 3 serwery:
+%% Uruchamia on 2 procesy:
 %% <ul>
 %% <li>  Serwer trzymajacy adresy w pamieci RAM. </li>
-%% <li>  Serwer trzymajacy adresy na dysku. </li>
-%% <li>  Serwer, ktory stanowi glowny interfejs dostepu do bazy Url-i, korzysta z dwoch wyzej wymienionych. </li>
+%% <li>  Supervisor nadzorujacy procesy trzymajace adresy na dysku. </li>
 %% </ul>
 %% @end
 
@@ -28,11 +27,12 @@ start(MaxItemNum,NodeName,Port) ->
 init([MaxItemNum,NodeName,Port]) ->
 	RamCacheServer = {ram_cache_server,{ram_cache_server,start,[MaxItemNum]},
 				permanent,brutal_kill,worker,[ram_cache_server]},	
-	DiskCacheServer = {disk_cache_server,{disk_cache_server,start,[NodeName,Port]},
-				permanent,brutal_kill,worker,[disk_cache_server]},
-	UrlServer = {url_server,{url_server,start,[]},
-				permanent,brutal_kill,worker,[url_server]},
+	%DiskCacheServer = {disk_cache_server,{disk_cache_server,start,[NodeName,Port]},
+				%permanent,brutal_kill,worker,[disk_cache_server]},				
+	
+	EleveldbMainSup = {eleveldb_main_sup,{eleveldb_main_sup,start,[]},
+					permanent,brutal_kill,supervisor,[eleveldb_main_sup]},
 	
 	RestartStrategy = {one_for_all,100,1},
-	{ok,{RestartStrategy,[RamCacheServer,DiskCacheServer,UrlServer]}}.
+	{ok,{RestartStrategy,[RamCacheServer,EleveldbMainSup]}}.
 

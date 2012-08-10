@@ -52,7 +52,7 @@ handle_cast(process_next, State) when State#state.process_limit /= State#state.c
 	
 	case State#state.urls of	
 		[H | T] -> 
-			processing_sup:start_child(124,H),
+			processing_sup:start_child(common:get_param(id, url_server:lookup(H)),H),
 			
 			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = T},
 			gen_server:cast(?MODULE, process_next);
@@ -71,25 +71,67 @@ handle_cast(process_next, State) ->
 handle_call({insert,{Url, Params}}, _From, State) ->	
 	case url_server:lookup(Url) of
 		not_found ->
-			url_server:insert(Url, Params);
-		_ -> ok %porownac parametry szerokosci, glebokosci i podmienic lub nie
+			url_server:insert(Url, Params),
+			Id = common:get_param(id, url_server:lookup(Url)),
+			visited_urls_server:insert(Id);
+		ExistingParams ->
+			process_new_params(Url, ExistingParams, Params)
 	end,
 	{reply,ok,State}.
 	
 	
 pull_urls() ->
-	Urls = disk_cache_server:pull_urls(100),
-	set_visited(Urls),
+	%Urls = disk_cache_server:pull_urls(100, false),
+	%Urls = disk_cache_server:pull_urls(100),
+	Urls = visited_urls_server:pull_urls(100), % due to a bug in disk_cache_server (gen_server call loop)
+	%set_visited(Urls),
 	Urls.
 	
-set_visited([]) -> ok;
-set_visited([H|T]) ->
-	disk_cache_server:set_visited(H),
-	set_visited(T).
+%set_visited([]) -> ok;
+%set_visited([H|T]) ->
+	%disk_cache_server:set_visited(H),
+	%set_visited(T).
 	
 current_process_count(PropListOfCounts) ->
 	[_, {active, Count}, _, _] = PropListOfCounts,
 	Count.
+	
+process_new_params(Url, OldParams, NewParams) ->
+	OldTimestamp = common:get_param(timestamp, OldParams),
+	OldWidth = common:get_param(width, OldParams),
+	OldDepth = common:get_param(depth, OldParams),
+	
+	Width = common:get_param(width, NewParams),
+	Depth = common:get_param(depth, NewParams),
+		
+	if
+		OldWidth > Width -> %bylismy blizej
+			true;
+		((Width > OldWidth) and (Depth >= 0)) or ((Width == OldWidth) and (Depth > OldDepth)) ->
+			%jestesmy w mniejszej szerokosci badz w tej samej, ale na mniejszej glebokosci
+			%Params = [{timestamp, OldTimestamp}, {width, Width}, {depth, Depth}],
+			Params = common:stick_params({timestamp, OldTimestamp},
+				common:stick_params({width, Width},
+					common:stick_params({depth, Depth}, OldParams)
+				)
+			),
+			url_server:update(Url, Params);
+		true ->
+			false
+	end,
+
+	%sprawdzamy timestamp czy czas juz odswiezyc
+	ValidityTime = session_manager:get_validity_time(reg:get_domain(Url)),
+	RefreshTime = OldTimestamp + ValidityTime,
+	CurrentTime = common:timestamp(),
+	if
+		CurrentTime > RefreshTime ->
+			%disk_cache_server:set_not_visited(Url);
+			io:format("refreshing ~p ~p ~p ~n", [Url, RefreshTime, CurrentTime]),
+			visited_urls_server:insert(common:get_param(id, OldParams));
+		true ->
+			false
+	end.
 		
 	
 handle_info(_Msg,State) ->

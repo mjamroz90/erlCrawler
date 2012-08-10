@@ -28,7 +28,7 @@ init([MaxItemNumCache,MaxItemNumDomain,NodeName,Port]) ->
 				permanent,brutal_kill,supervisor,[cache_sup]},	
 	DomainCacheSup = {domain_cache_sup,{domain_cache_sup,start,[MaxItemNumDomain]},
 				permanent,brutal_kill,supervisor,[domain_cache_sup]},
-	
+					
 	RestartStrategy = {one_for_one,100,1},
 	{ok,{RestartStrategy,[CacheSup,DomainCacheSup]}}.
 
