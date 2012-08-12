@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cache/cache.iml" filepath="$PROJECT_DIR$/cache/cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crawl/crawl.iml" filepath="$PROJECT_DIR$/crawl/crawl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crawl_event/crawl_event.iml" filepath="$PROJECT_DIR$/crawl_event/crawl_event.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crawl_test/crawl_test.iml" filepath="$PROJECT_DIR$/crawl_test/crawl_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain_manager/domain_manager.iml" filepath="$PROJECT_DIR$/domain_manager/domain_manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eleveldb/eleveldb.iml" filepath="$PROJECT_DIR$/eleveldb/eleveldb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/erlCrawler.iml" filepath="$PROJECT_DIR$/erlCrawler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/riak-erlang-client/riak-erlang-client.iml" filepath="$PROJECT_DIR$/riak-erlang-client/riak-erlang-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scheduler/scheduler.iml" filepath="$PROJECT_DIR$/scheduler/scheduler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/session_manager/session_manager.iml" filepath="$PROJECT_DIR$/session_manager/session_manager.iml" />
+    </modules>
+  </component>
+</project>
+

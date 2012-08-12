@@ -83,8 +83,9 @@ handle_call({delete,Url},From,State = #state{worker_list=Workers,slice = Slice, 
 	eleveldb_worker:delete(Pid,From,Url),
 	{noreply,State};
 	
-handle_call({pull_urls,Count},_From,State) ->
-	{reply,visited_urls_server:pull_urls(Count),State};
+handle_call({pull_urls,Count},From,State) ->
+    visited_urls_server:pull_urls(Count,From),
+	{noreply,State};
 
 handle_call({get_url_by_id,Id}, _From, State = #state{worker_list=Workers}) ->
 	{reply,lookup_id(Id,Workers),State};

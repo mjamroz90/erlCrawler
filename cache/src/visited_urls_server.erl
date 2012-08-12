@@ -5,7 +5,7 @@
 -behaviour(gen_server).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
--export([start/0, insert/1, pull_urls/1, stop/0, delete/1]).         
+-export([start/0, insert/1, pull_urls/2, stop/0, delete/1]).
 -define(ROOT_DIR,get_env_property(root_dir)).
 -define(DB_NAME,"visited").
 -record(state,{visitedurl_db_ref}).
@@ -29,10 +29,10 @@ insert(Id) ->
 delete(Id) ->
 	gen_server:call(?MODULE,{delete,Id}).
 
-%% @spec pull_urls(Count :: integer()) -> [key()]
-%% @doc Wydobywa z bazy nieprzetworzone adresy w ilosc Count, lub mniejszej, jezeli tylu ich tam nie ma.	
-pull_urls(Count) ->
-	gen_server:call(?MODULE,{pull_urls,Count}).
+%% @spec pull_urls(Count :: integer(), From :: pid()) -> [key()]
+%% @doc Wydobywa z bazy nieprzetworzone adresy w ilosc Count, lub mniejszej, jezeli tylu ich tam nie ma i zwraca odpowiedz do procesu o pid-ie From.
+pull_urls(Count,From) ->
+	gen_server:cast(?MODULE,{pull_urls,{Count,From}}).
 
 %% @doc Zatrzymuje proces serwera.
 stop() ->
@@ -46,9 +46,24 @@ init([VisitedUrlDbName]) ->
 		{ok,VisitedUrlDb_Ref} -> 
 						{ok,#state{visitedurl_db_ref = VisitedUrlDb_Ref}};
 		{error,Reason} -> {stop,Reason}
-	end.	
+	end.
 
-%% @private	
+%% @private
+handle_cast({pull_urls,{Count,From}},State = #state{visitedurl_db_ref = VisitedUrlDb_Ref}) ->
+    Result = case eleveldb:iterator(VisitedUrlDb_Ref,[]) of
+        {ok,ItrRef} ->
+            case eleveldb:iterator_move(ItrRef,first) of
+                {ok,BinKey,_Value} ->
+                    List = collect_keys(ItrRef,1,Count,[binary_to_term(BinKey)]),
+                    remove_keys(List,VisitedUrlDb_Ref),
+                    lists:map(fun(Id) -> eleveldb_disk_cache_server:get_url_by_id(Id) end,List);
+                {error,_ } ->	[]
+            end;
+        {error,_} -> []
+    end,
+    gen_server:reply(From,Result),
+    {noreply,Result,State};
+
 handle_cast(stop,State) ->
 	{stop, "Made to stop", State}.
 
@@ -63,20 +78,7 @@ handle_call({insert,Id},_From,State = #state{visitedurl_db_ref = VisitedUrlDb_Re
 handle_call({delete,Id},_From,State = #state{visitedurl_db_ref = VisitedUrlDb_Ref}) ->	
 	Result = eleveldb:delete(VisitedUrlDb_Ref,term_to_binary(Id),[{sync,false}]),
 	{reply,Result,State};
-		
-handle_call({pull_urls,Count},_From,State = #state{visitedurl_db_ref = VisitedUrlDb_Ref}) ->
-	Result = case eleveldb:iterator(VisitedUrlDb_Ref,[]) of
-		{ok,ItrRef} -> 
-			case eleveldb:iterator_move(ItrRef,first) of
-				{ok,BinKey,_Value} ->			
-					List = collect_keys(ItrRef,1,Count,[binary_to_term(BinKey)]),
-					remove_keys(List,VisitedUrlDb_Ref),
-					lists:map(fun(Id) -> eleveldb_disk_cache_server:get_url_by_id(Id) end,List);
-				{error,_ } ->	[]
-			end;				
-		{error,_} -> []
-	end,	
-	{reply,Result,State};
+
 
 handle_call(_Msg,_From,State) ->
 	{reply,ok,State}.
