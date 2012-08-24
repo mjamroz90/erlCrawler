@@ -1,0 +1,3 @@
+{packages,[]}.
+{modules,['RemoteManager_RemoteManagerServer_impl',corba_object_sup,
+          remote_crawl_manager_app,remote_crawl_manager_sup,reporting_server]}.

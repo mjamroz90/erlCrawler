@@ -1,12 +1,17 @@
+%% @doc Modul wspomagajacy.
 -module(session_manager).
 
 -export([get_validity_time/1]).
 -export([insert/4, update/4, remove/1]).
 
+%% @type url() = string()
 
+%% @private
 get_validity_time(_Domain) ->
 	1000000000.
 
+%% @spec insert(Url :: url(), MaxDepth :: integer(), MaxWidth :: integer(), _ValidityTime :: integer()) -> node()
+%% @doc Przekazuje adres do przetworzenia dla scheduler'a.
 insert(Url, MaxDepth, MaxWidth, _ValidityTime) ->
 	Domain = reg:get_domain(Url),
 	case application:get_env(erlCrawler,domain_manager_node) of
@@ -22,10 +27,12 @@ insert(Url, MaxDepth, MaxWidth, _ValidityTime) ->
 			),
 	rpc:call(DestinationNode, scheduler, insert, [Url, Params]),
 	DestinationNode.
-	
+
+%% @private
 update(_Url, _MaxDepth, _MaxWidth, _ValidityTime) ->
 	ok.
-	
+
+%% @private
 remove(_Url) ->
 	ok.
 

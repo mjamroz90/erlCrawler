@@ -36,7 +36,7 @@ report_load(Node,Load) ->
 replace_target_fun(NewFun) ->
 	gen_server:call(?MODULE,{replace_target,NewFun}).
 	
-%% @spec get_least_charged_node() -> node()
+%% @spec get_least_charged_node() -> node() | no_nodes
 %% @doc Zwraca nazwe najmniej obciazonego wezla.	
 get_least_charged_node() ->
 	gen_server:call(?MODULE,get_least_charged_node).

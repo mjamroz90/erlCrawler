@@ -1,0 +1,15 @@
+- Uruchamianie:
+	- uruchamiamy wszystko na konkretnym wezle (argumenty to proplist i wezel).
+	- uruchamiamy sesje na wezle (argumenty to proplist i wezel).
+	- uruchamiamy wszystko na wszystkich wezlach, szybki start (argumenty to lista proplist).
+	
+- Diagnostyczne:
+	- pingi, do aplikacji (argumenty: nazwa aplikacji, oraz wezel).
+	
+- Zatrzymywanie:
+	- zatrzymaj biezaca sesje na wezle.
+	- zatrzymaj biezace sesje na wszystkich wezlach.
+	
+=======================================WAZNE======================================
+
+	Przy odpalaniu domain_manager - a, ten musi pouruchamia� mnesie na wszystkich wezlach, zanim potworzy na nich tabele.

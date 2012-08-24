@@ -1,0 +1,20 @@
+Do aplikacji session_manager jedyna zmienna srodowiska jest 'prop_list'.
+Pozniej w inicjalizacji session_manager server'a jest ustawiane kilka zmiennych,dla aplikacji session_manager,
+ktore sa konfigurowane w aplikacji webowej:
+
+- 'max_process_count'
+- 'buffer_size'
+- 'trigger_time'
+- 'contact_nodes'
+- 'domain_manager_node'
+
+Oprocz tych co powyzej, z CorbaServer'a przychodza jeszcze:
+
+- 'remote_manager_server_node'
+- 'init_url'
+- 'width'
+- 'depth'
+- 'validity_time'
+
+
+

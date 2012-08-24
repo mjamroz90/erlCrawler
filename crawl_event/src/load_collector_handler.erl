@@ -23,7 +23,10 @@ handle_event({report_load,{Node,Load}},NodeToReport) ->
 		true ->  ?LOAD_COLLECTOR_SERVER:report_load(NodeToReport,Load);
 		false -> gen_server:cast({?LOAD_COLLECTOR_SERVER,NodeToReport},{report_load,{Node,Load}})
 	end,
-	{ok,NodeToReport}.
+	{ok,NodeToReport};
+
+handle_event(_Msg,NodeToReport) ->
+    {ok,NodeToReport}.
 
 %% @private
 handle_call(_Req,State) ->

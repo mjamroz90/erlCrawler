@@ -6,7 +6,7 @@
 -export([start/2]).
 -export([init/1]).
 
-%% @spec start(TargetFun :: function(), Nodes :: [node()]) -> ok | {error,term()}
+%% @spec start(TargetFun :: function(), Nodes :: [node()]) -> {ok,pid()} | {error,term()}
 %% @doc Uruchamia supervisor, argumenty to:
 %% <ul>
 %% <li> TargetFun - Funkcja celu dla serwera zbierajacego obciazenie. </li>

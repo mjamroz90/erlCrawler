@@ -83,7 +83,7 @@ handle_call({insert,{Url, Params}}, _From, State) ->
 pull_urls() ->
 	%Urls = disk_cache_server:pull_urls(100, false),
 	%Urls = disk_cache_server:pull_urls(100),
-	Urls = visited_urls_server:pull_urls(100), % due to a bug in disk_cache_server (gen_server call loop)
+	Urls = disk_cache_server:pull_urls(100), % due to a bug in disk_cache_server (gen_server call loop)
 	%set_visited(Urls),
 	Urls.
 	

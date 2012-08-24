@@ -68,7 +68,7 @@ process_urls([Url | T], RefParams, RefDomain) ->
 				OtherDomain -> %inna domena - sprawdzamy gdzie ma byc przetwarzany dany adres
 					case domain_cache_server:lookup(OtherDomain) of
 						not_found ->
-							case application:get_env(erlCrawler,domain_manager_node) of
+							case application:get_env(session_manager,domain_manager_node) of
 								{ok, Node} ->
 									DestinationNode = rpc:call(Node, domain_dispatch_server, insert, [OtherDomain]);
 								undefined ->

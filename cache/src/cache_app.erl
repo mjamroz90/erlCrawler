@@ -29,17 +29,18 @@ start(_StartType,_StartArgs) ->
 			undefined -> ?DOMAIN_MAX_ITEM_NUM;
 			M1 -> M1			
 		end,	
-	mnesia:start(),	
-	%trzeba dorobic mnesia:wait_for_Table wtedy kiedy bedzie stworzony schemat bazy i tabela 	
+
+    MsgContent = io_lib:format("Aplikacja cache wystartowala z nastepujacymi parametrami dotyczacymi pamieci RAM :\n
+    - Cache dla bazy Url-i : ~p elementow \n
+    - Cache dla bazy domen : ~p elementow",[MaxItemNumCache,MaxItemNumDomain]),
+
+    crawl_event:log_message({info,node(),cache,start,lists:flatten(MsgContent)}),
 	main_sup:start(MaxItemNumCache,MaxItemNumDomain,NodeName,Port).
 
 %% @private
 stop(_State) ->
-	ram_cache_server:stop(),
-	domain_ram_cache_server:stop(),
-	domain_cache_server:stop(),
-	disk_cache_server:stop(),
-	spawn(fun() -> mnesia:stop() end),
+    MsgContent = "Aplikacja cache zostala zatrzymana\n",
+    crawl_event:log_message({info,node(),cache,stop,MsgContent}),
 	ok.
 	
 get_env_property(PropName) ->	

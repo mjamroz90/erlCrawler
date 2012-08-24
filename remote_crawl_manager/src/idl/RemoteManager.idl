@@ -1,0 +1,42 @@
+#ifndef _REMOTE_IDL
+#define _REMOTE_IDL
+
+module RemoteManager
+{
+    typedef string property[2];
+    typedef sequence<property> propList;
+    struct nodeProperty;
+    typedef sequence<nodeProperty> nodesProperties;
+    typedef sequence<string> stringList;
+    struct nodeProperty
+    {
+        string nodeName;
+        propList propList;
+    };
+
+    interface RemoteManagerServer
+    {
+        propList startCrawlerOnNode(in string nodeName, in propList propertyList);
+
+        nodesProperties startCrawlerOnNodes(in nodesProperties nodeProperties);
+
+        propList startSessionOnNode(in string nodeName, in propList propList);
+
+        nodesProperties startSessionOnNodes(in nodesProperties nodeProperties);
+
+        boolean pingNode(in string nodeName,out string message);
+
+        boolean pingApp(in string nodeName, in string appName, out string message);
+
+        propList stopSessionOnNode(in string nodeName);
+
+        nodesProperties stopSessionOnNodes(in stringList nodes);
+
+        propList stopCrawlerOnNode(in string nodeName);
+
+        nodesProperties stopCrawlerOnNodes(in stringList  nodes);
+
+    };
+};
+
+#endif
