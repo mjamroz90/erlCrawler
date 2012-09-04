@@ -1,3 +1,5 @@
+%% @doc Modul uruchamiajacy aplikacje sterujaca przetwarzaniem.
+%% @end
 -module(scheduler_app).
 -behaviour(application).
 
@@ -7,6 +9,7 @@
 -define(BUFFER_SIZE,1000).
 -define(TRIGGER_TIME, 3000).
 
+%% @private
 start(_StartType,_StartArgs) ->	
 	MaxProcessCount = case application:get_env(session_manager,max_process_count) of
 			{ok,M} -> M;
@@ -28,11 +31,13 @@ start(_StartType,_StartArgs) ->
     crawl_event:log_message({info,node(),scheduler,start,prepareMsgContent(MaxProcessCount,BufferSize,TriggerTime)}),
 	scheduler_sup:start(MaxProcessCount,BufferSize).
 
+%% @private
 stop(_State) ->
     MsgContent = "Aplikacja scheduler zostala zatrzymana\n",
     crawl_event:log_message({info,node(),scheduler,stop,MsgContent}),
 	ok.
 
+%% @private
 prepareMsgContent(MaxProcessCount,BufferSize,TriggerTime) ->
     lists:flatten(io_lib:format("Aplikacja scheduler wystartowala z parametrami :\n
     - liczba procesow sciagajacych : ~p\n

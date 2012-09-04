@@ -1,12 +1,19 @@
+%% @doc Modul odpowiedzialny za uruchomienienie przetwarzania strony i przetworzenie adresow z niej zebranych
+%% @end
 -module(url_processing).
 
 -export([start_link/2, process/2]).
 
+%% @spec start_link(Id :: term(), Url :: string()) -> {ok, Pid}
+%% @doc Uruchamia proces przetwarzajacy adres Url z identyfikatorem Id.
+%% @end
 start_link(Id, Url) ->
 	Pid = spawn_link(?MODULE, process, [Id, Url]),
 	{ok, Pid}.
 
-
+%% @spec process(Id :: term(), Url :: string()) -> ok
+%% @doc Aktualizuje date przetworzenia strony, uruchamia parsowanie, przetwarzanie adresow uzyskanych ze strony, powiadamia schedulera o zakonczeniu przetwarzania.
+%% @end
 process(Id, Url) ->
 	%io:format("~p ~p ~n", [Id, Url]),
 	timer:sleep(5000),
@@ -32,12 +39,12 @@ process(Id, Url) ->
 	scheduler:completed(),
 	ok.
 
-
+%% @private
 parse(Id, Url)->
 	io:format("parsing ~p ~p ~n", [Id, Url]),
 	[Url, Url ++ "/1"].
 
-
+%% @private
 process_urls([], _RefParams, _RefDomain) -> ok;
 process_urls([Url | T], RefParams, RefDomain) ->
 	RefWidth = common:get_param(width, RefParams),
