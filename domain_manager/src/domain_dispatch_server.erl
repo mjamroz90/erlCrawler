@@ -45,15 +45,20 @@ stop() ->
 
 %% @private
 init([Nodes]) ->
-	ContactNodes = ensure_contact(Nodes),	
+	ContactNodes = ensure_contact(Nodes),
 	mnesia:create_table(?INFO_TAB,[{ram_copies,ContactNodes},{attributes,record_info(fields,manager_info)}]),
 	mnesia:dirty_write(?INFO_TAB,#manager_info{current_dispatcher=node(),nodes_num=length(ContactNodes)}),
 	{ok,#state{contact_nodes = ContactNodes}}.
 
 %% @private	
 handle_call({insert,Url},_From,State = #state{contact_nodes = Nodes}) ->
-	NodeName = get_node(Nodes),
-	write_to_caches(Url,NodeName,Nodes),
+	case domain_cache_server:lookup(Url) of
+		not_found ->
+			NodeName = get_node(Nodes),
+			write_to_caches(Url,NodeName,Nodes);
+		Node ->
+			NodeName = Node
+	end,
 	{reply,NodeName,State};
 
 handle_call({update,{Url,NewNode}},_From,State = #state{contact_nodes = Nodes}) ->	
@@ -85,9 +90,11 @@ write_to_caches(Url,NodeName,Nodes) ->
 		
 %=====================Internal========================================
 get_node(ContactNodes) ->
+	load_collector_server:get_least_charged_node().
 	%lists:nth(1,ContactNodes).
-	Index = random:uniform(length(ContactNodes)), 
-	lists:nth(Index, ContactNodes).
+	%Index = random:uniform(length(ContactNodes)), %for tests only
+	%lists:nth(Index, ContactNodes).
 	
 ensure_contact(Nodes) ->
 	[ContactNode || ContactNode <- Nodes, net_adm:ping(ContactNode) =:= pong].
+	

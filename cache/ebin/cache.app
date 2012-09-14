@@ -22,7 +22,7 @@
   {registered, [ram_cache_server,domain_ram_cache_server,
 				eleveldb_disk_cache_server,domain_cache_server,cache_sup,
 				domain_cache_sup,main_sup,visited_urls_server,eleveldb_worker_sup,eleveldb_main_sup,eleveldb_disk_sup]},
-  {applications, [kernel, stdlib]},
+  {applications, [kernel, stdlib, crawl_event]},
   {mod, {cache_app, []}},
   {env, [{eleveldb_env,[{open_opts,[{create_if_missing, true}, 
 					{error_if_exists, false},

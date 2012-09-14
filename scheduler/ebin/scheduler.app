@@ -12,7 +12,7 @@
 			 trigger_sup
              ]},
   {registered, [scheduler, scheduler_app, scheduler_sup, processing_sup, reg, reg_sup, trigger, trigger_sup]},
-  {applications, [kernel, stdlib, cache]},
+  {applications, [kernel, stdlib, cache, sasl, os_mon]},
   {mod, {scheduler_app, []}},
   {env,[
         {max_process_count, 5},

@@ -14,7 +14,10 @@ start() ->
 init([]) ->
     SessionManServer = {session_manager_server,{session_manager_server,start,[]},
         permanent,brutal_kill,worker,[session_manager_server]},
+        
+    SessionManager = {session_manager,{session_manager,start,[]},
+        permanent,brutal_kill,worker,[session_manager]},
 
     RestartStrategy = {one_for_all,100,1},
-    {ok,{RestartStrategy,[SessionManServer]}}.
+    {ok,{RestartStrategy,[SessionManServer, SessionManager]}}.
 

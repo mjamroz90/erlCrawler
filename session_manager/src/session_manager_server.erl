@@ -68,7 +68,12 @@ handle_call({start_crawler,_PropList}, _From, State) ->
 handle_call({start_session,PropList}, _From, State) ->
     SchedulerAppResult = start_scheduler_app(),
     set_env_props(PropList),
-    session_manager:insert(get_init_url(PropList),get_depth(PropList),get_width(PropList),get_validity_time(PropList)),
+    case get_remote_manager_server_node(PropList) =:= node() of
+		true -> rpc:multicall(get_contact_nodes(PropList), session_manager, set_default_validity_time, [get_default_validity_time(PropList)]);
+		_ -> ok
+	end,
+    %session_manager:insert(get_init_url(PropList),get_depth(PropList),get_width(PropList),get_validity_time(PropList)),
+    init_urls(common:get_param(init_urls, PropList)),
     {reply,[{scheduler,SchedulerAppResult}],State};
 
 handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
@@ -82,6 +87,8 @@ handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
 
 handle_call(stop_session,_From,State) ->
     SchedulerAppResult = application:stop(scheduler),
+    application:stop(os_mon),
+    application:stop(sasl),
     {reply,[{scheduler,SchedulerAppResult}],State}.
 
 %% @private
@@ -114,6 +121,9 @@ get_depth(PropList) ->
 get_validity_time(PropList) ->
     common:get_param(validity_time,PropList).
 
+get_default_validity_time(PropList) ->
+	common:get_param(default_validity_time, PropList).
+
 get_contact_nodes(PropList) ->
     common:get_param(contact_nodes,PropList).
 
@@ -131,6 +141,11 @@ get_buffer_size(PropList) ->
 
 get_trigger_time(PropList) ->
     common:get_param(trigger_time,PropList).
+
+init_urls([]) -> ok;
+init_urls([PropList | T]) ->
+	session_manager:insert(get_init_url(PropList),get_depth(PropList),get_width(PropList),get_validity_time(PropList)),
+	init_urls(T).
 
 set_env_props(PropList) ->
     application:set_env(session_manager,max_process_count,get_max_process_count(PropList)),
@@ -152,6 +167,8 @@ start_cache_app() ->
     application:start(cache).
 
 start_scheduler_app() ->
+	application:start(sasl),
+	application:start(os_mon),
     application:start(scheduler).
 
 log_crawl_event_rising() ->

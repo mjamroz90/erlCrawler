@@ -18,7 +18,10 @@ start(_StartType,_StartArgs) ->
 		end,	
 	%% Teraz mnesia uruchamiana jest w session_manager_server - mnesia:start(),
 	mnesia:wait_for_tables([domain_dispatch_server:get_domain_table_name()],infinity),	
-	TargetFun = fun(Load) -> Load end,
+	%TargetFun = fun(Load) -> Load end,
+	TargetFun = fun(Load) ->
+		common:get_param(cpu, Load) + common:get_param(memory, Load), + common:get_param(avgTime, Load)
+	end,
     crawl_event:log_message({info,node(),domain_manager,start,prepareMsgContent()}),
 	domain_manager_sup:start(TargetFun,Nodes).
 

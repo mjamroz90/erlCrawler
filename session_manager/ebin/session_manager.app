@@ -10,12 +10,28 @@
    {max_process_count,20},
    {buffer_size,300},
    {trigger_time,200},
-   {contact_nodes,['michal@127.0.0.1']},
-   {domain_manager_node,'michal@127.0.0.1'},
-   {remote_manager_server_node,'michal@127.0.0.1'},
+   {contact_nodes,['lukasz22@192.168.0.7', 'lukasz11@192.168.0.6']},
+   {domain_manager_node,'lukasz22@192.168.0.7'},
+   {remote_manager_server_node,'lukasz22@192.168.0.7'},
    {init_url,"www.google.pl"},
    {width,2},
    {depth,3},
-   {validity_time,2000}
+   {validity_time,2000},
+   {init_urls, [
+    [
+	   {init_url,"www.google.pl"},
+	   {width,2},
+	   {depth,3},
+	   {validity_time,2000}
+	],
+	[
+	   {init_url,"www.onet.pl"},
+	   {width,2},
+	   {depth,3},
+	   {validity_time,2000}
+	]
+   ]
+   },
+   {default_validity_time, 86400000} %24hours
   ]}]}
  ]}.

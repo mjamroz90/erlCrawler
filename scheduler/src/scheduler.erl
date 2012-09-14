@@ -3,7 +3,7 @@
 -module(scheduler).
 -behaviour(gen_server).
 -export([start_link/2,insert/2,completed/0, stop/0]).
--record(state,{process_limit, buffer_size, urls, current_process_count}).
+-record(state,{process_limit, buffer_size, urls, current_process_count, load_manager_counter, load_manager_timestamp}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
     
@@ -44,7 +44,8 @@ stop() ->
 
 %% @private
 init([ProcessLimit, BufferSize]) ->	
-	State = #state{process_limit = ProcessLimit, buffer_size = BufferSize, urls = [], current_process_count = 0},
+	State = #state{process_limit = ProcessLimit, buffer_size = BufferSize, urls = [], current_process_count = 0, load_manager_counter = 0, load_manager_timestamp = common:timestamp()},
+	reportLoad(State),%initial load
 	{ok, State}.
 	
 %% @private		
@@ -73,16 +74,25 @@ handle_cast(completed, State) ->
 handle_cast(process_next, State) when State#state.process_limit /= State#state.current_process_count ->
 	
 	case State#state.urls of	
-		[H | T] -> 
+		[H | T] ->
+			ProcessLimit = State#state.process_limit,
+			case State#state.load_manager_counter of
+				ProcessLimit ->
+					reportLoad(State),
+					LoadManagerCounter = 0,
+					LoadManagerTimestamp = common:timestamp();
+				Val ->
+					LoadManagerCounter = Val+1,
+					LoadManagerTimestamp = State#state.load_manager_timestamp
+			end,	
+	
 			processing_sup:start_child(common:get_param(id, url_server:lookup(H)),H),
 			
-			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = T},
+			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = T, load_manager_counter = LoadManagerCounter, load_manager_timestamp = LoadManagerTimestamp},
 			gen_server:cast(?MODULE, process_next);
 			
 		[] ->
 			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children())} 
-			
-			%TODO tu trzeba podpiac proces, ktory bedzie co jakis czas sprawdzal czy nie ma czasem juz czegos w bazie
 	end,
 		
 	{noreply, NewState};
@@ -154,10 +164,38 @@ process_new_params(Url, OldParams, NewParams) ->
 		CurrentTime > RefreshTime ->
 			%disk_cache_server:set_not_visited(Url);
 			io:format("refreshing ~p ~p ~p ~n", [Url, RefreshTime, CurrentTime]),
-			visited_urls_server:insert(common:get_param(id, OldParams));
+			visited_urls_server:insert(common:get_param(id, OldParams)); % TODO - sprawdzic czy adres nie ląduje kilkukrotnie w bazie
 		true ->
 			false
 	end.
+
+%% @private	
+reportLoad(State) ->
+	{Total,Allocated,_Worst} = memsup:get_memory_data(),
+	case State#state.load_manager_counter of
+		0 -> %initial load
+			MemUsage = 0,
+			CPULoad = 0,
+			AvgTime = 0;
+		N ->
+			MemUsage = Allocated*100/Total,
+			CPULoad = cpu_sup:avg1()*100/256, %% 0 - 100
+			AvgTime = (common:timestamp()-State#state.load_manager_timestamp)/1000/N
+	end,
+	
+	Params = common:stick_params({cpu, CPULoad},
+		common:stick_params({memory, MemUsage},
+			common:stick_params({avgTime, AvgTime}, [])
+		)
+	),
+	
+	case application:get_env(session_manager,domain_manager_node) of
+		{ok, Node} ->
+			rpc:call(Node, load_collector_server, report_load, [node(), Params]);
+		undefined ->
+			load_collector_server:report_load(node(), Params)
+	end,
+	ok.
 		
 %% @private	
 handle_info(_Msg,State) ->
