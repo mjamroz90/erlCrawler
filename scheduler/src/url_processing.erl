@@ -16,7 +16,7 @@ start_link(Id, Url) ->
 %% @end
 process(Id, Url) ->
 	%io:format("~p ~p ~n", [Id, Url]),
-	timer:sleep(5000),
+	%timer:sleep(5000),
 	%case Id of
 		%1 ->
 			%erlang:raise(exit, "Boom!", []);
@@ -26,23 +26,29 @@ process(Id, Url) ->
 	%io:format("END ~p ~p ~n", [Id, Url]),
 	
 	%updating timestamp
+	StartTime = common:timestamp(),
 	Params = url_server:lookup(Url),
 	NewParams = common:stick_params({timestamp, common:timestamp()}, Params),
 	url_server:update(Url, NewParams),
 	
 	
-	Urls = parse(Id, Url), %%%%% interfejs do przetwarzania
+	%Urls = parse(Id, Url), %%%%% interfejs do przetwarzania
+	Urls = url_extractor:extract(Id, Url),
 	
 	
 	
 	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url)),
 	scheduler:completed(),
+	EndTime = common:timestamp(),
+	
+	Time = EndTime - StartTime,
+	processing_time_server:report(Time),
 	ok.
 
 %% @private
 parse(Id, Url)->
 	io:format("parsing ~p ~p ~n", [Id, Url]),
-	[Url, Url ++ "/1"].
+	[Url, Url ++ "2", Url ++ "/1"].
 
 %% @private
 process_urls([], _RefParams, _RefDomain) -> ok;

@@ -1,0 +1,12 @@
+{application, url_extractor,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { url_extractor_app, []}},
+  {env, []}
+ ]}.

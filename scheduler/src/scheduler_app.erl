@@ -28,6 +28,7 @@ start(_StartType,_StartArgs) ->
 	reg_sup:start(),
 	processing_sup:start_link(),
 	trigger_sup:start(TriggerTime),
+	processing_time_sup:start(),
     crawl_event:log_message({info,node(),scheduler,start,prepareMsgContent(MaxProcessCount,BufferSize,TriggerTime)}),
 	scheduler_sup:start(MaxProcessCount,BufferSize).
 

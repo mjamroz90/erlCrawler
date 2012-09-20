@@ -19,15 +19,15 @@
    {validity_time,2000},
    {init_urls, [
     [
-	   {init_url,"www.google.pl"},
-	   {width,2},
-	   {depth,3},
-	   {validity_time,2000}
+	   {init_url,"http://www.onet.pl"},
+	   {width,100},
+	   {depth,100},
+	   {validity_time,60000}
 	],
 	[
-	   {init_url,"www.onet.pl"},
-	   {width,2},
-	   {depth,3},
+	   {init_url,"www.google.pl"},
+	   {width,50},
+	   {depth,50},
 	   {validity_time,2000}
 	]
    ]

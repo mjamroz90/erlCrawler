@@ -180,7 +180,8 @@ reportLoad(State) ->
 		N ->
 			MemUsage = Allocated*100/Total,
 			CPULoad = cpu_sup:avg1()*100/256, %% 0 - 100
-			AvgTime = (common:timestamp()-State#state.load_manager_timestamp)/1000/N
+			%AvgTime = (common:timestamp()-State#state.load_manager_timestamp)/1000/N
+			AvgTime = processing_time_server:get_mean_time()/1000
 	end,
 	
 	Params = common:stick_params({cpu, CPULoad},

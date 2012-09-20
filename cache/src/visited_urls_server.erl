@@ -62,7 +62,7 @@ handle_cast({pull_urls,{Count,From}},State = #state{visitedurl_db_ref = VisitedU
         {error,_} -> []
     end,
     gen_server:reply(From,Result),
-    {noreply,Result,State};
+    {noreply,State};
 
 handle_cast(stop,State) ->
 	{stop, "Made to stop", State}.

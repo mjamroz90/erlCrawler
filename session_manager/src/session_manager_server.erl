@@ -66,7 +66,7 @@ handle_call({start_crawler,_PropList}, _From, State) ->
     {reply, Reply, State#state{proplist = PropList}};
 
 handle_call({start_session,PropList}, _From, State) ->
-    SchedulerAppResult = start_scheduler_app(),
+    SchedulerAppResult = start_scheduler_app(get_contact_nodes(PropList)),
     set_env_props(PropList),
     case get_remote_manager_server_node(PropList) =:= node() of
 		true -> rpc:multicall(get_contact_nodes(PropList), session_manager, set_default_validity_time, [get_default_validity_time(PropList)]);
@@ -85,10 +85,14 @@ handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
     CrawlEventResult = application:stop(crawl_event),
     {reply,[{crawl_event,CrawlEventResult},{cache,CacheAppResult},{domain_manager,DomainManagerResult}],State};
 
-handle_call(stop_session,_From,State) ->
-    SchedulerAppResult = application:stop(scheduler),
-    application:stop(os_mon),
-    application:stop(sasl),
+handle_call(stop_session,_From,State = #state{proplist = PropList}) ->
+    %SchedulerAppResult = application:stop(scheduler),
+    %application:stop(os_mon),
+    %application:stop(sasl),
+    ContactNodes = get_contact_nodes(PropList),
+    SchedulerAppResult = rpc:call(ContactNodes, application, stop, [scheduler]),
+    rpc:call(ContactNodes, application, stop, [os_mon]),
+    rpc:call(ContactNodes, application, stop, [sasl]),
     {reply,[{scheduler,SchedulerAppResult}],State}.
 
 %% @private
@@ -166,10 +170,13 @@ start_domain_manager_app(Nodes) ->
 start_cache_app() ->
     application:start(cache).
 
-start_scheduler_app() ->
-	application:start(sasl),
-	application:start(os_mon),
-    application:start(scheduler).
+start_scheduler_app(Nodes) ->
+	%application:start(sasl),
+	%application:start(os_mon),
+    %application:start(scheduler).
+    rpc:multicall(Nodes, application, start, [sasl]),
+    rpc:multicall(Nodes, application, start, [os_mon]),
+    rpc:multicall(Nodes, application, start, [scheduler]).
 
 log_crawl_event_rising() ->
     MsgContent = "Aplikacja logujac zdarzenia wstala\n",
