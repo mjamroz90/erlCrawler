@@ -1,4 +1,4 @@
-%% app generated at {2012,9,20} {21,51,27}
+%% app generated at {2012,9,24} {13,33,38}
 {application,ibrowse,
              [{description,"Erlang HTTP client application"},
               {vsn,"4.0.1"},

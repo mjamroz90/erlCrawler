@@ -1,4 +1,4 @@
-%% rel generated at {2012,9,20} {21,51,24}
+%% rel generated at {2012,9,24} {13,33,36}
 {release,{"url_extractor","1"},
          {erts,"5.9.2"},
          [{kernel,"2.15.2"},

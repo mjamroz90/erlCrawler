@@ -11,6 +11,7 @@
 %% ===================================================================
 
 extract(ID,URL)->
+	ibrowse:start_link(),
 	url_extractor:extract(ID,URL).
 
 start(_StartType, _StartArgs) ->
