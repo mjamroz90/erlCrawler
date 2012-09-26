@@ -1,6 +1,10 @@
 compile: compile_cache compile_test compile_riak-erlang-client compile_domain_manager compile_crawl_event compile_scheduler compile_eleveldb compile_session_manager compile_remote_manager
 	
 clean: clean_cache clean_test clean_riak-erlang-client clean_domain_manager clean_crawl_event clean_scheduler clean_eleveldb clean_session_manager clean_remote_manager
+
+clean_db:
+	rm -rf ./db/*
+	rm -rf ./cache/priv/*
 	
 compile_cache:
 	cd ./cache; make compile

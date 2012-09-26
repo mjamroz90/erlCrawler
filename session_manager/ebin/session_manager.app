@@ -10,7 +10,7 @@
    {max_process_count,20},
    {buffer_size,300},
    {trigger_time,200},
-   {contact_nodes,['lukasz22@192.168.0.7', 'lukasz11@192.168.0.6']},
+   {contact_nodes,['lukasz22@192.168.0.7']},
    {domain_manager_node,'lukasz22@192.168.0.7'},
    {remote_manager_server_node,'lukasz22@192.168.0.7'},
    {init_url,"www.google.pl"},
