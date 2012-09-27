@@ -38,7 +38,7 @@
 			{riak_env,[{node_name,"127.0.0.1"},
 					  {port, 8087},
 					  {max_item_num_cache,1000000},
-					  {max_item_num_domain,1000}
+					  {max_item_num_domain,100000}
 					  ]}
 					  
 		]}

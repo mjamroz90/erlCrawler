@@ -7,9 +7,9 @@
   {applications, [kernel, stdlib]},
   {mod, {session_manager_app, []}},
   {env,[{prop_list,[
-   {max_process_count,20},
-   {buffer_size,300},
-   {trigger_time,200},
+   {max_process_count,7},
+   {buffer_size,3000},
+   {trigger_time,20000},
    {contact_nodes,['lukasz22@192.168.0.7']},
    {domain_manager_node,'lukasz22@192.168.0.7'},
    {remote_manager_server_node,'lukasz22@192.168.0.7'},
@@ -22,13 +22,13 @@
 	   {init_url,"http://www.onet.pl"},
 	   {width,100},
 	   {depth,100},
-	   {validity_time,60000}
+	   {validity_time,60000000}
 	],
 	[
-	   {init_url,"www.google.pl"},
+	   {init_url,"http://www.google.pl"},
 	   {width,50},
 	   {depth,50},
-	   {validity_time,2000}
+	   {validity_time,20000000}
 	]
    ]
    },
