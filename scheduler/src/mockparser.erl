@@ -18,7 +18,7 @@ stop() ->
 	gen_server:cast(?MODULE,stop).
 	
 mockparse(_Id, _Url) ->
-	get_many_addr(random:uniform(300)).
+	get_many_addr(random:uniform(80)).
 
 %============================CallBacks============================
 init([Filename]) ->	

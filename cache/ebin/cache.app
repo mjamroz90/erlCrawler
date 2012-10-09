@@ -39,7 +39,8 @@
 					  {port, 8087},
 					  {max_item_num_cache,1000000},
 					  {max_item_num_domain,100000}
-					  ]}
+					  ]},
+			{session_id, 0}
 					  
 		]}
  ]}.

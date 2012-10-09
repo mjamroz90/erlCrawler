@@ -7,6 +7,7 @@
   {applications, [kernel, stdlib]},
   {mod, {session_manager_app, []}},
   {env,[{prop_list,[
+   {session_id, 10},
    {max_process_count,7},
    {buffer_size,3000},
    {trigger_time,20000},

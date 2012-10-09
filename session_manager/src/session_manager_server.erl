@@ -145,6 +145,9 @@ get_buffer_size(PropList) ->
 
 get_trigger_time(PropList) ->
     common:get_param(trigger_time,PropList).
+    
+get_session_id(PropList) ->
+	common:get_param(session_id, PropList).
 
 init_urls([]) -> ok;
 init_urls([PropList | T]) ->
@@ -152,6 +155,7 @@ init_urls([PropList | T]) ->
 	init_urls(T).
 
 set_env_props(PropList) ->
+	application:set_env(cache, session_id, get_session_id(PropList)),
     application:set_env(session_manager,max_process_count,get_max_process_count(PropList)),
     application:set_env(session_manager,buffer_size,get_buffer_size(PropList)),
     application:set_env(session_manager,trigger_time,get_trigger_time(PropList)),

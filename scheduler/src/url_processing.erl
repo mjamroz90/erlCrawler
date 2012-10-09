@@ -33,8 +33,8 @@ process(Id, Url) ->
 	
 	
 	%Urls = parse(Id, Url), %%%%% interfejs do przetwarzania
-	%Urls = url_extractor:extract(Id, Url),
-	Urls = mockparser:mockparse(Id, Url),
+	Urls = url_extractor:extract(Id, Url),
+	%Urls = mockparser:mockparse(Id, Url),
 	
 	
 	
