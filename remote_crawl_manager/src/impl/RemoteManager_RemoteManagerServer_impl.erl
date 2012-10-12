@@ -126,7 +126,7 @@ start_on_node(Node,PropertyList,FunName) ->
     rpc:call(AtomNode,application,start, [session_manager]),
     CustomizedList = customize(PropertyList),
     io:format("~p\n",[CustomizedList]),
-    rpc:call(AtomNode,application,set_env,[session_manager,CustomizedList]),
+    rpc:call(AtomNode,application,set_env,[session_manager,prop_list,CustomizedList]),
     Response = rpc:call(AtomNode,session_manager_server,FunName,[CustomizedList]),
     serialize_to_proplist(Response).
 
@@ -152,13 +152,16 @@ customize([{"domain_manager_node",V} | PropertyList]) ->
 customize([{"init_url", V} | PropertyList]) ->
     [{init_url,V} | customize(PropertyList)];
 
+customize([{"init_urls",V} | PropertyList]) ->
+    [{init_urls,extract_term_from_string(V)} | customize(PropertyList)];
+
 customize([{"width", V} | PropertyList]) ->
     [{width,element(1,string:to_integer(V))} | customize(PropertyList)];
 
 customize([{"depth", V} | PropertyList]) ->
     [{depth,element(1,string:to_integer(V))} | customize(PropertyList)];
 
-customize([{"validity_time", V} | PropertyList]) ->
+customize([{"default_validity_time", V} | PropertyList]) ->
     [{validity_time,element(1,string:to_integer(V))} | customize(PropertyList)].
 
 serialize_to_proplist(List) ->

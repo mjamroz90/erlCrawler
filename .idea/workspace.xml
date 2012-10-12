@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea4a0c31-fe89-4a33-b8d6-14910de4eeb1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/session_manager/docs/gen_edoc.beam" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/remote_crawl_manager/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/idl/RemoteManager.idl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/session_manager/docs/gen_edoc.erl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/session_manager/src/session_event_handler.erl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/session_manager/src/session_manager_app.erl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/session_manager/src/session_manager_sup.erl" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/.gitignore" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/crawl.iml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/script.sh" afterPath="" />
@@ -22,24 +12,20 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/ram_cache_server_test.erl" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/ram_cache_test.erl" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/speedtest.erl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/scheduler/src/run.erl" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scheduler/ebin/scheduler.app" afterPath="$PROJECT_DIR$/scheduler/ebin/scheduler.app" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/ebin/session_manager.app" afterPath="$PROJECT_DIR$/session_manager/ebin/session_manager.app" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache/src/cache_app.erl" afterPath="$PROJECT_DIR$/cache/src/cache_app.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" afterPath="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawl_event/src/load_collector_handler.erl" afterPath="$PROJECT_DIR$/crawl_event/src/load_collector_handler.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/domain_manager/src/domain_manager_app.erl" afterPath="$PROJECT_DIR$/domain_manager/src/domain_manager_app.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/domain_manager/src/domain_manager_sup.erl" afterPath="$PROJECT_DIR$/domain_manager/src/domain_manager_sup.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/domain_manager/src/load_collector_server.erl" afterPath="$PROJECT_DIR$/domain_manager/src/load_collector_server.erl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile" afterPath="$PROJECT_DIR$/makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scheduler/src/scheduler.erl" afterPath="$PROJECT_DIR$/scheduler/src/scheduler.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" afterPath="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scheduler/src/url_processing.erl" afterPath="$PROJECT_DIR$/scheduler/src/url_processing.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/.gitignore" afterPath="$PROJECT_DIR$/session_manager/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/src/session_manager.erl" afterPath="$PROJECT_DIR$/session_manager/src/session_manager.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager.hrl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager.hrl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.hrl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.hrl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodeProperty.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodeProperty.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodesProperties.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodesProperties.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_propList.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_propList.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_property.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_property.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_stringList.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_stringList.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.hrl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.hrl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" afterPath="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
     </list>
     <ignored path="erlCrawler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -102,10 +88,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="remote_crawl_manager_sup.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl">
+      <file leaf-file-name="session_manager_server.erl" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="64" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
+            <state line="37" column="26" selection-start="1465" selection-end="1465" vertical-scroll-proportion="0.5189573">
               <folding />
             </state>
           </provider>
@@ -114,52 +100,25 @@
       <file leaf-file-name="RemoteManager_RemoteManagerServer_impl.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="21" selection-start="4014" selection-end="4014" vertical-scroll-proportion="0.0">
+            <state line="128" column="21" selection-start="6458" selection-end="6458" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/domain_manager/.gitignore">
+      <file leaf-file-name="crawl_event.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="21" column="20" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="makefile" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/makefile">
+      <file leaf-file-name="session_event_handler.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/session_manager/src/session_event_handler.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="7" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gen_edoc.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/docs/gen_edoc.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="69" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="makefile" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/domain_manager/makefile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="31" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RemoteManager.hrl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager.hrl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="26" column="24" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -168,14 +127,41 @@
       <file leaf-file-name="reporting_server.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="8" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
+            <state line="26" column="13" selection-start="900" selection-end="900" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="domain_ram_cache_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
+      <file leaf-file-name="eleveldb_disk_cache_server.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cache/src/eleveldb_disk_cache_server.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cache_app.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cache/src/cache_app.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="19" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="crawl_event_app.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_app.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="crawl_event_sup.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_sup.erl">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -199,22 +185,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/domain_manager/src/domain_manager_app.erl" />
-        <option value="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
         <option value="$PROJECT_DIR$/cache/src/cache_app.erl" />
         <option value="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/ebin/remote_crawl_manager.app" />
         <option value="$PROJECT_DIR$/session_manager/priv/session_manager_env.txt" />
         <option value="$PROJECT_DIR$/session_manager/src/session_manager_app.erl" />
         <option value="$PROJECT_DIR$/session_manager/src/session_manager.erl" />
-        <option value="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_app.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/corba_object_sup.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/makefile" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/docs/gen_edoc.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl" />
+        <option value="$PROJECT_DIR$/makefile" />
+        <option value="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" />
+        <option value="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
       </list>
     </option>
   </component>
@@ -222,10 +208,9 @@
     <option name="jreName" value="#JAVA_INTERNAL" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="-5" />
-    <option name="width" value="1402" />
-    <option name="height" value="1056" />
+    <option name="y" value="24" />
+    <option name="width" value="1400" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -271,26 +256,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -311,19 +276,131 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="session_manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="session_manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="remote_crawl_manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="remote_crawl_manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="crawl_event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cache" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="223" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="233" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="223" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="223" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="238" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1148" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="238" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="233" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -378,6 +455,37 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="ErlangApplicationRunConfiguration" factoryName="Erlang application">
+      <module name="" />
+      <option name="moduleAndFunction" value="" />
+      <option name="name" value="Erlang application" />
+      <option name="params" value="" />
+      <option name="saveOutputToFile" value="false" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -411,24 +519,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -446,6 +536,17 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -472,17 +573,6 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -520,30 +610,30 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-5" width="1402" height="1056" extended-state="6" />
+    <frame x="0" y="24" width="1400" height="1026" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21671598" sideWeight="0.9977876" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21671598" sideWeight="0.670354" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993576" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -640,112 +730,112 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodeProperty.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager.hrl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/domain_manager/makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="31" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="7" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0">
+        <state line="12" column="0" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/cache_sup.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/docs/gen_edoc.erl">
+    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_app.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="69" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_sup.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/eleveldb_worker.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/ebin/cache.app">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/eleveldb_disk_cache_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/cache_app.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="19" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="8" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
+        <state line="26" column="13" selection-start="900" selection-end="900" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl">
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_event_handler.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="64" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
+        <state line="26" column="24" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/.gitignore">
+    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="21" column="20" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawl_event/.gitignore">
+    <entry file="file://$PROJECT_DIR$/scheduler/src/common.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="17" column="0" selection-start="557" selection-end="557" vertical-scroll-proportion="0.39631903">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawl_test/.gitignore">
+    <entry file="file://$PROJECT_DIR$/session_manager/ebin/session_manager.app">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="32" column="6" selection-start="981" selection-end="981" vertical-scroll-proportion="0.72727275">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="21" selection-start="4014" selection-end="4014" vertical-scroll-proportion="0.0">
+        <state line="128" column="21" selection-start="6458" selection-end="6458" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/.gitignore">
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/domain_manager/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="37" column="26" selection-start="1465" selection-end="1465" vertical-scroll-proportion="0.5189573">
           <folding />
         </state>
       </provider>

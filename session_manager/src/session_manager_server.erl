@@ -66,14 +66,14 @@ handle_call({start_crawler,_PropList}, _From, State) ->
     {reply, Reply, State#state{proplist = PropList}};
 
 handle_call({start_session,PropList}, _From, State) ->
-    SchedulerAppResult = start_scheduler_app(get_contact_nodes(PropList)),
+    SchedulerAppResult = start_scheduler_app(),
     set_env_props(PropList),
-    case get_remote_manager_server_node(PropList) =:= node() of
-		true -> rpc:multicall(get_contact_nodes(PropList), session_manager, set_default_validity_time, [get_default_validity_time(PropList)]);
-		_ -> ok
-	end,
+    %% case get_remote_manager_server_node(PropList) =:= node() of
+	%%	true -> rpc:multicall(get_contact_nodes(PropList), session_manager, set_default_validity_time, [get_default_validity_time(PropList)]);
+	%%	_ -> ok
+	%%end,
     %session_manager:insert(get_init_url(PropList),get_depth(PropList),get_width(PropList),get_validity_time(PropList)),
-    init_urls(common:get_param(init_urls, PropList)),
+    init_urls(get_init_urls( PropList)),
     {reply,[{scheduler,SchedulerAppResult}],State};
 
 handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
@@ -86,13 +86,13 @@ handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
     {reply,[{crawl_event,CrawlEventResult},{cache,CacheAppResult},{domain_manager,DomainManagerResult}],State};
 
 handle_call(stop_session,_From,State = #state{proplist = PropList}) ->
-    %SchedulerAppResult = application:stop(scheduler),
-    %application:stop(os_mon),
-    %application:stop(sasl),
-    ContactNodes = get_contact_nodes(PropList),
-    SchedulerAppResult = rpc:call(ContactNodes, application, stop, [scheduler]),
-    rpc:call(ContactNodes, application, stop, [os_mon]),
-    rpc:call(ContactNodes, application, stop, [sasl]),
+    SchedulerAppResult = application:stop(scheduler),
+    application:stop(os_mon),
+    application:stop(sasl),
+    %% ContactNodes = get_contact_nodes(PropList),
+    %% SchedulerAppResult = rpc:call(ContactNodes, application, stop, [scheduler]),
+    %% rpc:call(ContactNodes, application, stop, [os_mon]),
+    %% rpc:call(ContactNodes, application, stop, [sasl]),
     {reply,[{scheduler,SchedulerAppResult}],State}.
 
 %% @private
@@ -134,6 +134,9 @@ get_contact_nodes(PropList) ->
 get_domain_manager_node(PropList) ->
     common:get_param(domain_manager_node,PropList).
 
+get_init_urls(PropList) ->
+    common:get_param(init_urls,PropList).
+
 get_init_url(PropList) ->
     common:get_param(init_url,PropList).
 
@@ -160,7 +163,8 @@ set_env_props(PropList) ->
     application:set_env(session_manager,buffer_size,get_buffer_size(PropList)),
     application:set_env(session_manager,trigger_time,get_trigger_time(PropList)),
     application:set_env(session_manager,contact_nodes,get_contact_nodes(PropList)),
-    application:set_env(session_manager,domain_manager_node,get_domain_manager_node(PropList)).
+    application:set_env(session_manager,domain_manager_node,get_domain_manager_node(PropList)),
+    application:set_env(session_manager,default_validity_time,get_default_validity_time(PropList)).
 
 start_crawl_event_app() ->
     application:start(crawl_event).
@@ -174,13 +178,13 @@ start_domain_manager_app(Nodes) ->
 start_cache_app() ->
     application:start(cache).
 
-start_scheduler_app(Nodes) ->
-	%application:start(sasl),
-	%application:start(os_mon),
-    %application:start(scheduler).
-    rpc:multicall(Nodes, application, start, [sasl]),
-    rpc:multicall(Nodes, application, start, [os_mon]),
-    rpc:multicall(Nodes, application, start, [scheduler]).
+start_scheduler_app() ->
+	application:start(sasl),
+	application:start(os_mon),
+  application:start(scheduler).
+    %% rpc:multicall(Nodes, application, start, [sasl]),
+    %% rpc:multicall(Nodes, application, start, [os_mon]),
+    %% rpc:multicall(Nodes, application, start, [scheduler]).
 
 log_crawl_event_rising() ->
     MsgContent = "Aplikacja logujac zdarzenia wstala\n",
