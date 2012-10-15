@@ -5,11 +5,11 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
 
--export([start/1, get_addr/0, stop/0, get_list/1, mockparse/2]).
+-export([start/2, get_addr/0, stop/0, get_list/1, mockparse/2, mockparse/3]).
 
 %============================API==================================     
-start(Filename) ->
-	gen_server:start_link({local,?MODULE},?MODULE,[Filename], []).
+start(Filename, ReadBefore) ->
+	gen_server:start_link({local,?MODULE},?MODULE,[Filename, ReadBefore], []).
 	
 get_addr() ->
 	gen_server:call(?MODULE,get_addr).
@@ -19,10 +19,24 @@ stop() ->
 	
 mockparse(_Id, _Url) ->
 	get_many_addr(random:uniform(80)).
+	
+mockparse(_Id, _Url, Num) ->
+	get_many_addr(Num).
 
 %============================CallBacks============================
-init([Filename]) ->	
-	{ok,get_list(Filename)}.
+init([Filename, ReadBefore]) ->	
+	case ReadBefore of
+		true ->
+			{ok,get_list(Filename)};
+		false ->
+			case file:open(Filename,[read]) of
+				{ok,Descr} ->			
+					{ok, {descr, Descr}};
+				_Err ->
+					{ok, []}
+			end
+	end.
+			
 	
 handle_cast(stop,State) ->
 	{stop,"Made to stop",State}.
@@ -30,9 +44,15 @@ handle_cast(stop,State) ->
 handle_call(get_addr,_From,State) ->
 	%Index = random:uniform(length(State)),
 	%Reply = lists:nth(Index, State),
-	[H | T] = State,
-	Reply = H,
-	{reply,Reply,T}.
+	case State of
+		{descr, Descr} ->
+			Reply = get_url(Descr),
+			{reply, Reply, State};
+		[H | T] ->
+			Reply = H,
+			{reply,Reply,T}
+	end.
+	
 
 handle_info(_Msg,State) ->
 	{ok,State}.
@@ -59,5 +79,12 @@ get_list1(Descr) ->
 			[Data | get_list1(Descr)]
 	end.
 	
+get_url(Descr) -> 
+	case io:get_line(Descr,"") of
+		eof -> [];
+		Data -> 
+			Data
+	end.
+
 get_many_addr(0) -> [];
 get_many_addr(N) -> [get_addr() | get_many_addr(N-1)].

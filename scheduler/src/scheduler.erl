@@ -77,7 +77,7 @@ handle_cast(completed, State) ->
 	
 	case CurrentBufferSize < MaxBufferSize/4 of
 		true ->
-			NewUrls = pull_urls();
+			NewUrls = pull_urls(State);
 		false ->
 			NewUrls = []
 	end,
@@ -136,7 +136,7 @@ handle_call({insert,{Url, Params}}, _From, State) ->
 	case url_server:lookup(Url) of
 		not_found ->
 			url_server:insert(Url, Params),
-			Id = common:get_param(id, url_server:lookup(Url)),
+			Id = common:get_param(id, url_server:lookup(Url)),%TODO - insert zwraca ID, nie trzeba pobierac
 			visited_urls_server:insert(Id);
 		ExistingParams ->
 			process_new_params(Url, ExistingParams, Params)
@@ -144,10 +144,10 @@ handle_call({insert,{Url, Params}}, _From, State) ->
 	{reply,ok,State}.
 	
 %% @private	
-pull_urls() ->
+pull_urls(State = #state{buffer_size = BufferSize}) ->
 	%Urls = disk_cache_server:pull_urls(100, false),
 	%Urls = disk_cache_server:pull_urls(100),
-	Urls = disk_cache_server:pull_urls(100), % due to a bug in disk_cache_server (gen_server call loop)
+	Urls = disk_cache_server:pull_urls(BufferSize), % due to a bug in disk_cache_server (gen_server call loop)
 	%set_visited(Urls),
 	Urls.
 	
