@@ -5,7 +5,7 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
 
--export([start/2, get_addr/0, stop/0, get_list/1, mockparse/2, mockparse/3, mockparse2/3]).
+-export([start/2, get_addr/0, stop/0, get_list/1, mockparse/2, mockparse/3, mockparse2/3, mockparse3/3]).
 
 %============================API==================================     
 start(Filename, ReadBefore) ->
@@ -27,11 +27,15 @@ mockparse(_Id, _Url, Num) ->
 mockparse2(_Id, _Url, 0) ->
 	[];
 mockparse2(Id, Url, Num) ->
-	["http://www.allegro.pl/" ++ integer_to_list(random:uniform(999999999999999999999999)) | mockparse2(Id, Url, Num-1)].
+	["http://www.allegro.pl/" ++ integer_to_list(random:uniform(999999999999999999999999)) ++ integer_to_list(common:timestamp()) | mockparse2(Id, Url, Num-1)].
+	%["http://www.allegro.pl/" ++ integer_to_list(random:uniform(999999999999999999999999)) | mockparse2(Id, Url, Num-1)].
+	
+mockparse3(Id, Url, Num) ->
+	gen_server:call(?MODULE, {mockparse3, Id, Url, Num}).
 
 %============================CallBacks============================
 init([Filename, ReadBefore]) ->	
-	random:seed(),
+	random:seed(now()),
 	case ReadBefore of
 		true ->
 			{ok,get_list(Filename)};
@@ -58,7 +62,11 @@ handle_call(get_addr,_From,State) ->
 		[H | T] ->
 			Reply = H,
 			{reply,Reply,T}
-	end.
+	end;
+	
+handle_call({mockparse3, Id, Url, Num}, _From, State) ->
+	{reply, mockparse2(Id, Url, Num), State}.
+	
 	
 
 handle_info(_Msg,State) ->

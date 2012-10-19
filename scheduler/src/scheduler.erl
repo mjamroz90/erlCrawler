@@ -135,10 +135,12 @@ handle_call(get_processed_count, _From, State) ->
 handle_call({insert,{Url, Params}}, _From, State) ->	
 	case url_server:lookup(Url) of
 		not_found ->
+			%io:format("not_found ~p ~n", [Url]),
 			url_server:insert(Url, Params),
 			Id = common:get_param(id, url_server:lookup(Url)),%TODO - insert zwraca ID, nie trzeba pobierac
 			visited_urls_server:insert(Id);
 		ExistingParams ->
+			%io:format("found ~p ~n", [Url]),
 			process_new_params(Url, ExistingParams, Params)
 	end,
 	{reply,ok,State}.
@@ -148,6 +150,7 @@ pull_urls(State = #state{buffer_size = BufferSize}) ->
 	%Urls = disk_cache_server:pull_urls(100, false),
 	%Urls = disk_cache_server:pull_urls(100),
 	Urls = disk_cache_server:pull_urls(BufferSize), % due to a bug in disk_cache_server (gen_server call loop)
+	%io:format("PULLED : ~p ~n", [Urls]),
 	%set_visited(Urls),
 	Urls.
 	

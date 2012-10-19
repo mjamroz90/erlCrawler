@@ -36,7 +36,8 @@ process(Id, Url) ->
 	%Urls = url_extractor:extract(Id, Url),
 	stats:report(),
 	%Urls = mockparser:mockparse(Id, Url, 100),
-	Urls = mockparser:mockparse2(Id, Url, 100),
+	%io:format("parsing ~p ~p ~n", [Id, Url]),
+	Urls = mockparser:mockparse3(Id, Url, 100),
 	
 	
 	
