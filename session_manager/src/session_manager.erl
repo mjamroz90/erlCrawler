@@ -38,7 +38,7 @@ insert(Url, MaxDepth, MaxWidth, ValidityTime) ->
 	DestinationNode.
 	
 re_insert(ValidityTime, DestinationNode, Url, Params) ->
-	timer:sleep(ValidityTime),
+	timer:sleep(ValidityTime/1000),
 	rpc:call(DestinationNode, scheduler, insert, [Url, Params]),
 	re_insert(ValidityTime, DestinationNode, Url, Params).
 	
