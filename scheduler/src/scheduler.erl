@@ -3,11 +3,9 @@
 -module(scheduler).
 -behaviour(gen_server).
 -export([start_link/2,insert/2,completed/0, get_processed_count/0, get_uptime/0, get_mean_speed/0, stop/0]).
--record(state,{scheduler_start_time, process_limit, buffer_size, urls, current_process_count, processed_count, load_manager_counter, load_manager_timestamp}).
+-record(state,{scheduler_start_time, process_limit, buffer_size, urls, current_process_count, processed_count, load_manager_counter}).%, load_manager_timestamp}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
-    
--define(URL_BUCKET,term_to_binary("Urls")).
 
 %% @type proplist() = [{Key::term(), Value::term()}] 
     
@@ -26,10 +24,11 @@ start_link(ProcessLimit, BufferSize) ->
 %% @doc Testuje adres i zwiazane z nim parametry na okolicznosc wczesniejszego wystepowania, aktualizuje dane o glebokosci/szerokosci i decyduje o przekazaniu do przetwarzania.
 %% @end
 insert(Url, Params) ->
-	gen_server:call(?MODULE,{insert,{Url, Params}}).
+	insert2(Url, Params).
+	%gen_server:call(?MODULE,{insert,{Url, Params}}).
 
 %% @spec completed() -> ok
-%% @doc Wywolanie wskazuje na zakonczenie jakiejs akcji (typowo zakonczenie przetwarzania adresu). Sprawdza mozliwosci uruchomienia przetwarzania kolejnego adresu i ewentualnie uruchamia przetwarzanie.
+%% @doc Wywolanie wskazuje na zakonczenie jakiejs akcji (typowo zakonczenie przetwarzania adresu). Sprawdza mozliwosc uruchomienia przetwarzania kolejnego adresu i ewentualnie uruchamia przetwarzanie.
 %% @end
 completed() ->
 	gen_server:cast(?MODULE,completed).
@@ -62,7 +61,7 @@ stop() ->
 
 %% @private
 init([ProcessLimit, BufferSize]) ->	
-	State = #state{scheduler_start_time = common:timestamp(), process_limit = ProcessLimit, buffer_size = BufferSize, urls = [], current_process_count = 0, processed_count= 0, load_manager_counter = 0, load_manager_timestamp = common:timestamp()},
+	State = #state{scheduler_start_time = common:timestamp(), process_limit = ProcessLimit, buffer_size = BufferSize, urls = [], current_process_count = 0, processed_count= 0, load_manager_counter = 0},%, load_manager_timestamp = common:timestamp()},
 	reportLoad(State),%initial load
 	{ok, State}.
 	
@@ -71,9 +70,8 @@ handle_cast(stop,State) ->
 	{stop,"Made to stop",State};
 
 %% @private	
-handle_cast(completed, State) ->
-	CurrentBufferSize = length(State#state.urls),
-	MaxBufferSize = State#state.buffer_size,
+handle_cast(completed, State = #state{urls = Urls, buffer_size = MaxBufferSize}) ->
+	CurrentBufferSize = length(Urls),
 	
 	case CurrentBufferSize < MaxBufferSize/4 of
 		true ->
@@ -82,9 +80,10 @@ handle_cast(completed, State) ->
 			NewUrls = []
 	end,
 	
-	Urls = State#state.urls,
-	
-	NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = Urls ++ NewUrls},
+	NewState = case NewUrls of
+		[] -> State#state{current_process_count = current_process_count(processing_sup:count_children())};
+		List -> State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = Urls ++ NewUrls}
+	end,	
 	gen_server:cast(?MODULE, process_next),
 	{noreply, NewState};
 
@@ -98,23 +97,23 @@ handle_cast(process_next, State) when State#state.process_limit /= State#state.c
 			case State#state.load_manager_counter of
 				ProcessLimit ->
 					reportLoad(State),
-					LoadManagerCounter = 0,
-					LoadManagerTimestamp = common:timestamp();
+					LoadManagerCounter = 0;%,
+					%LoadManagerTimestamp = common:timestamp();
 				Val ->
-					LoadManagerCounter = Val+1,
-					LoadManagerTimestamp = State#state.load_manager_timestamp
+					LoadManagerCounter = Val+1%,
+					%LoadManagerTimestamp = State#state.load_manager_timestamp
 			end,	
 	
 			processing_sup:start_child(common:get_param(id, url_server:lookup(H)),H),
 			
 			ProcessedCount = State#state.processed_count,
-			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = T, processed_count = ProcessedCount + 1, load_manager_counter = LoadManagerCounter, load_manager_timestamp = LoadManagerTimestamp},
+			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = T, processed_count = ProcessedCount + 1, load_manager_counter = LoadManagerCounter},%, load_manager_timestamp = LoadManagerTimestamp},
 			gen_server:cast(?MODULE, process_next);
 			
 		[] ->
 			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children())} 
 	end,
-		
+
 	{noreply, NewState};
 
 %% @private
@@ -131,13 +130,14 @@ handle_call(get_processed_count, _From, State) ->
 	Reply = State#state.processed_count,
 	{reply, Reply, State};
 
-%% @private	
+%% @private
+%% @deprecated
 handle_call({insert,{Url, Params}}, _From, State) ->	
 	case url_server:lookup(Url) of
 		not_found ->
 			%io:format("not_found ~p ~n", [Url]),
-			url_server:insert(Url, Params),
-			Id = common:get_param(id, url_server:lookup(Url)),%TODO - insert zwraca ID, nie trzeba pobierac
+			NewParams = url_server:insert(Url, Params),
+			Id = common:get_param(id, NewParams),
 			visited_urls_server:insert(Id);
 		ExistingParams ->
 			%io:format("found ~p ~n", [Url]),
@@ -145,11 +145,22 @@ handle_call({insert,{Url, Params}}, _From, State) ->
 	end,
 	{reply,ok,State}.
 	
+%% @private
+insert2(Url, Params) ->
+	case url_server:lookup(Url) of
+		not_found ->
+			%io:format("not_found ~p ~n", [Url]),
+			NewParams = url_server:insert(Url, Params),
+			Id = common:get_param(id, NewParams),
+			visited_urls_server:insert(Id);
+		ExistingParams ->
+			%io:format("found ~p ~n", [Url]),
+			process_new_params(Url, ExistingParams, Params)
+	end.
+	
 %% @private	
 pull_urls(State = #state{buffer_size = BufferSize}) ->
-	%Urls = disk_cache_server:pull_urls(100, false),
-	%Urls = disk_cache_server:pull_urls(100),
-	Urls = disk_cache_server:pull_urls(BufferSize), % due to a bug in disk_cache_server (gen_server call loop)
+	Urls = disk_cache_server:pull_urls(BufferSize),
 	%io:format("PULLED : ~p ~n", [Urls]),
 	%set_visited(Urls),
 	Urls.
@@ -178,7 +189,6 @@ process_new_params(Url, OldParams, NewParams) ->
 			true;
 		((Width > OldWidth) and (Depth >= 0)) or ((Width == OldWidth) and (Depth > OldDepth)) ->
 			%jestesmy w mniejszej szerokosci badz w tej samej, ale na mniejszej glebokosci
-			%Params = [{timestamp, OldTimestamp}, {width, Width}, {depth, Depth}],
 			Params = common:stick_params({timestamp, OldTimestamp},
 				common:stick_params({width, Width},
 					common:stick_params({depth, Depth}, OldParams)

@@ -20,19 +20,13 @@
    {validity_time,2000},
    {init_urls, [
     [
-	   {init_url,"http://www.onet.pl"},
-	   {width,100},
-	   {depth,100},
-	   {validity_time,86400000}
-	],
-	[
-	   {init_url,"http://www.google.pl"},
-	   {width,50},
-	   {depth,50},
-	   {validity_time,86400000}
+	   {init_url,"http://www.allegro.pl"},
+	   {width,0},
+	   {depth,999999999},
+	   {validity_time,86400000000}
 	]
    ]
    },
-   {default_validity_time, 86400000} %24hours
+   {default_validity_time, 86400000000} %24hours
   ]}]}
  ]}.

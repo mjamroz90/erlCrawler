@@ -34,13 +34,17 @@ insert(Url, MaxDepth, MaxWidth, ValidityTime) ->
 			),
 	rpc:call(DestinationNode, session_manager, set_validity_time, [Domain, ValidityTime]),
 	rpc:call(DestinationNode, scheduler, insert, [Url, Params]),
-	spawn_link(session_manager, re_insert, [ValidityTime, DestinationNode, Url, Params]),
-	DestinationNode.
 	
+	%spawn_link(session_manager, re_insert, [ValidityTime, DestinationNode, Url, Params]),
+	timer:apply_interval(ValidityTime/1000, rpc, call, [DestinationNode, scheduler, insert, [Url, Params]]),
+	DestinationNode.
+
+%% @deprecated	
 re_insert(ValidityTime, DestinationNode, Url, Params) ->
 	timer:sleep(ValidityTime/1000),
 	rpc:call(DestinationNode, scheduler, insert, [Url, Params]),
 	re_insert(ValidityTime, DestinationNode, Url, Params).
+
 	
 %% @spec get_validity_time(Domain :: url()) -> int()
 %% @doc Zwraca czas po ktorym nalezy ponownie odwiedzic strony z danej domeny.

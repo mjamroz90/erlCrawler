@@ -77,7 +77,7 @@ process_urls([Url | T], RefParams, RefDomain) ->
 	),
 	
 	if
-		(Width >= 0) and (Depth >= 0) ->
+		(Width >= 0) and (Depth >= 0) -> %czy jest sens przetwarzac
 			case Domain of 
 				RefDomain -> %ta sama domena - przetwarzanie na tym samym wezle
 					scheduler:insert(Url, Params);
@@ -96,11 +96,17 @@ process_urls([Url | T], RefParams, RefDomain) ->
 							DestinationNode = Node
 					end,
 					if
-						(Width >= 0) and (Depth >= 0) ->
-							rpc:call(DestinationNode, scheduler, insert, [Url, Params]);
+						DestinationNode =:= node() ->
+							scheduler:insert(Url, Params);
 						true ->
-							false
+							rpc:call(DestinationNode, scheduler, insert, [Url, Params])
 					end
+					%if
+						%(Width >= 0) and (Depth >= 0) ->
+							%rpc:call(DestinationNode, scheduler, insert, [Url, Params]);
+						%true ->
+							%false
+					%end
 			end;
 		true ->
 			false

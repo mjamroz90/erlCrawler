@@ -28,11 +28,11 @@ lookup(Url) ->
 
 
 insert1(Url,Params) ->
-	case disk_cache_server:insert(Url, Params) of
-		{ok,NewParams} -> ram_cache_server:insert(Url, NewParams);
+	ReturnParams = case disk_cache_server:insert(Url, Params) of
+		{ok,NewParams} -> ram_cache_server:insert(Url, NewParams), NewParams;
 		{error,_ } -> void
 	end,	
-	ok.
+	ReturnParams.
 	
 update1(Url, Params) ->
 	case disk_cache_server:update(Url, Params) of
