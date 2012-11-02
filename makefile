@@ -61,6 +61,6 @@ clean_remote_manager:
 	cd ./remote_crawl_manager; make clean
 	
 run:
-	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin remote_crawl_manager/ebin ./URLExtractor/apps/url_extractor/ebin ./URLExtractor/deps/ibrowse/ebin/ ./URLExtractor/deps/mochiweb/ebin/ -name lukasz@127.0.0.1 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
+	erl -pa ./crawl_test cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin remote_crawl_manager/ebin ./URLExtractor/apps/url_extractor/ebin ./URLExtractor/deps/ibrowse/ebin/ ./URLExtractor/deps/mochiweb/ebin/ -name node1@127.0.0.1 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
 	
 			

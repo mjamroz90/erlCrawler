@@ -41,7 +41,8 @@ stop() ->
 %===================================Callbacks=============================
 
 %% @private
-init([VisitedUrlDbName]) ->	
+init([VisitedUrlDbName]) ->
+  os:cmd("rm -rf "++[VisitedUrlDbName]),
 	case eleveldb:open(VisitedUrlDbName,?OPEN_OPTS) of
 		{ok,VisitedUrlDb_Ref} -> 
 						{ok,#state{visitedurl_db_ref = VisitedUrlDb_Ref}};

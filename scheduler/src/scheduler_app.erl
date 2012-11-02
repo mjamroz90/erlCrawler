@@ -19,12 +19,13 @@ start(_StartType,_StartArgs) ->
 			{ok,N} -> N;
 			undefined -> ?BUFFER_SIZE
 		end,
-		
-	TriggerTime = case application:get_env(session_manager,trigger_time) of
-			{ok,Time} -> Time;
-			undefined -> ?TRIGGER_TIME
-		end,
 
+  TriggerTime = ?TRIGGER_TIME,
+%	TriggerTime = case application:get_env(session_manager,trigger_time) of
+%			{ok,Time} -> Time;
+%			undefined -> ?TRIGGER_TIME
+%		end,
+  mockparser:start("plik",false),
 	reg_sup:start(),
 	processing_sup:start_link(),
 	trigger_sup:start(TriggerTime),

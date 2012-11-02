@@ -66,8 +66,8 @@ handle_call({start_crawler,_PropList}, _From, State) ->
     {reply, Reply, State#state{proplist = PropList}};
 
 handle_call({start_session,PropList}, _From, State) ->
-    SchedulerAppResult = start_scheduler_app(),
     set_env_props(PropList),
+    SchedulerAppResult = start_scheduler_app(),
     %% case get_remote_manager_server_node(PropList) =:= node() of
 	%%	true -> rpc:multicall(get_contact_nodes(PropList), session_manager, set_default_validity_time, [get_default_validity_time(PropList)]);
 	%%	_ -> ok

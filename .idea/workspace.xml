@@ -2,29 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea4a0c31-fe89-4a33-b8d6-14910de4eeb1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/crawl.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/script.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/url_test_server.erl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/urls.erl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawl/urls.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/disk_cache_server_test.erl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/ram_cache_server_test.erl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/ram_cache_test.erl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/domain_manager/test/speedtest.erl" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache/src/visited_urls_server.erl" afterPath="$PROJECT_DIR$/cache/src/visited_urls_server.erl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile" afterPath="$PROJECT_DIR$/makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager.hrl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager.hrl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.hrl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_RemoteManagerServer.hrl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodeProperty.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodeProperty.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodesProperties.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_nodesProperties.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_propList.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_propList.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_property.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_property.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_stringList.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/RemoteManager_stringList.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.hrl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/generated/oe_RemoteManager.hrl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" afterPath="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/ebin/session_manager.app" afterPath="$PROJECT_DIR$/session_manager/ebin/session_manager.app" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" afterPath="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
     </list>
     <ignored path="erlCrawler.iws" />
@@ -88,10 +71,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="scheduler_app.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/src/scheduler_app.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="35" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scheduler_sup.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/src/scheduler_sup.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scheduler.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/src/scheduler.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="96" column="14" selection-start="3683" selection-end="3683" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="visited_urls_server.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cache/src/visited_urls_server.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="44" column="40" selection-start="1786" selection-end="1786" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="url_server.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cache/src/url_server.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="25" selection-start="1176" selection-end="1176" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trigger_sup.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/src/trigger_sup.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="0" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="url_processing.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/src/url_processing.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="25" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="session_manager_server.erl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="26" selection-start="1465" selection-end="1465" vertical-scroll-proportion="0.5189573">
+            <state line="61" column="14" selection-start="2330" selection-end="2330" vertical-scroll-proportion="0.24239008">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="session_manager_sup.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_sup.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="44" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -100,70 +155,7 @@
       <file leaf-file-name="RemoteManager_RemoteManagerServer_impl.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="21" selection-start="6458" selection-end="6458" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="crawl_event.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="20" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="session_event_handler.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/session_manager/src/session_event_handler.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="24" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reporting_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="13" selection-start="900" selection-end="900" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="eleveldb_disk_cache_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/eleveldb_disk_cache_server.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cache_app.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/cache_app.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="19" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="crawl_event_app.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_app.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="crawl_event_sup.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_sup.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="130" column="57" selection-start="6643" selection-end="6643" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -185,9 +177,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/cache/src/cache_app.erl" />
-        <option value="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" />
-        <option value="$PROJECT_DIR$/remote_crawl_manager/ebin/remote_crawl_manager.app" />
         <option value="$PROJECT_DIR$/session_manager/priv/session_manager_env.txt" />
         <option value="$PROJECT_DIR$/session_manager/src/session_manager_app.erl" />
         <option value="$PROJECT_DIR$/session_manager/src/session_manager.erl" />
@@ -199,7 +188,10 @@
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl" />
         <option value="$PROJECT_DIR$/makefile" />
         <option value="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
+        <option value="$PROJECT_DIR$/session_manager/ebin/session_manager.app" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" />
+        <option value="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" />
+        <option value="$PROJECT_DIR$/cache/src/visited_urls_server.erl" />
         <option value="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
       </list>
     </option>
@@ -209,8 +201,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="24" />
-    <option name="width" value="1400" />
-    <option name="height" value="1026" />
+    <option name="width" value="1920" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -256,22 +248,22 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="erlCrawler" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -318,7 +310,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="session_manager" />
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="erlCrawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -355,20 +361,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crawl_event" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -610,14 +602,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1400" height="1026" extended-state="6" />
+    <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -629,10 +620,11 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21671598" sideWeight="0.670354" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21634616" sideWeight="0.670354" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993576" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -730,112 +722,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/cache_sup.erl">
+    <entry file="file://$PROJECT_DIR$/scheduler/src/trigger.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_app.erl">
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_app.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event_sup.erl">
+    <entry file="file://$PROJECT_DIR$/erlCrawler.app">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/eleveldb_worker.erl">
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_sup.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="17" column="44" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/ebin/cache.app">
+    <entry file="file://$PROJECT_DIR$/scheduler/src/trigger_sup.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="11" column="0" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/eleveldb_disk_cache_server.erl">
+    <entry file="file://$PROJECT_DIR$/scheduler/src/url_processing.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
+        <state line="39" column="25" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file:///usr/lib/erlang/lib/kernel-2.15.1/src/application.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="119" column="0" selection-start="4544" selection-end="4544" vertical-scroll-proportion="0.33258173">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/cache_app.erl">
+    <entry file="file://$PROJECT_DIR$/scheduler/src/mockparser.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="19" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
+        <state line="28" column="8" selection-start="723" selection-end="723" vertical-scroll-proportion="0.5050733">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl">
+    <entry file="file://$PROJECT_DIR$/scheduler/src/scheduler_sup.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="13" selection-start="900" selection-end="900" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager/src/session_event_handler.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="24" selection-start="1300" selection-end="1300" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="20" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/src/common.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="557" selection-end="557" vertical-scroll-proportion="0.39631903">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager/ebin/session_manager.app">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="6" selection-start="981" selection-end="981" vertical-scroll-proportion="0.72727275">
+        <state line="13" column="0" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="21" selection-start="6458" selection-end="6458" vertical-scroll-proportion="0.0">
+        <state line="130" column="57" selection-start="6643" selection-end="6643" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/src/common.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="557" selection-end="557" vertical-scroll-proportion="0.30665162">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/src/scheduler_app.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="35" selection-start="827" selection-end="827" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/url_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="25" selection-start="1176" selection-end="1176" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/src/scheduler.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="14" selection-start="3683" selection-end="3683" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/visited_urls_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="40" selection-start="1786" selection-end="1786" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="26" selection-start="1465" selection-end="1465" vertical-scroll-proportion="0.5189573">
+        <state line="61" column="14" selection-start="2330" selection-end="2330" vertical-scroll-proportion="0.24239008">
           <folding />
         </state>
       </provider>
