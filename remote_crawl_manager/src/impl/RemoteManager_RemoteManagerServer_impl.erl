@@ -168,7 +168,11 @@ customize([{"session_id",V} | PropertyList]) ->
     [{session_id,element(1,string:to_integer(V))} | customize(PropertyList)].
 
 serialize_to_proplist(List) ->
-    lists:map(fun({K,V}) -> {lists:flatten(io_lib:format("~p",[K])), lists:flatten(io_lib:format("~p",[V]))} end,List).
+    try
+      lists:map(fun({K,V}) -> {lists:flatten(io_lib:format("~p",[K])), lists:flatten(io_lib:format("~p",[V]))} end,List)
+    catch
+      _:_ -> []
+    end.
 
 extract_term_from_string(Str) ->
     NewStr = case lists:last(Str) of
