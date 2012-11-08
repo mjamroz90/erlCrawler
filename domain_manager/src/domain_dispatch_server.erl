@@ -84,7 +84,7 @@ code_change(_OldVsn,State,_Extra) ->
 	{ok,State}.
 	
 write_to_caches(Url,NodeName,Nodes) ->
-	F = fun() -> mnesia:write(?DOMAIN_TO_NODES,#domain_to_node{domain=Url,node=NodeName}) end,
+	F = fun() -> mnesia:write(#domain_to_node{domain=Url,node=NodeName}) end,
 	mnesia:transaction(F),
 	spawn (fun() -> rpc:multicall(Nodes,domain_ram_cache_server,insert,[Url,NodeName]) end).
 		
