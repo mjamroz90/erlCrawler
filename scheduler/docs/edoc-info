@@ -1,3 +1,4 @@
 {packages,[]}.
-{modules,[common,processing_sup,reg,reg_sup,scheduler,scheduler_app,
-          scheduler_sup,trigger,trigger_sup,url_processing]}.
+{modules,[common,mockparser,processing_sup,processing_time_server,
+          processing_time_sup,reg,reg_sup,scheduler,scheduler_app,
+          scheduler_sup,stats,trigger,trigger_sup,url_processing]}.
