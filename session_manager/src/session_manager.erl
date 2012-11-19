@@ -17,8 +17,8 @@ terminate/2, code_change/3]).
 start() ->
     gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
-%% @spec insert(Url :: url(), MaxDepth :: integer(), MaxWidth :: integer(), _ValidityTime :: integer()) -> node()
-%% @doc Przekazuje adres do przetworzenia dla scheduler'a.
+%% @spec insert(Url :: url(), MaxDepth :: integer(), MaxBradth :: integer(), ValidityTime :: integer()) -> node()
+%% @doc Tutaj nalezy przekazywac adresy poczatkowe wraz z parametrami. Odpytuje domain_managera o wezel i przekazuje adres do przetworzenia do scheduler'a na odpowiednim wezle.
 insert(Url, MaxDepth, MaxWidth, ValidityTime) ->
 	Domain = reg:get_domain(Url),
 	case application:get_env(session_manager,domain_manager_node) of
@@ -47,17 +47,17 @@ re_insert(ValidityTime, DestinationNode, Url, Params) ->
 
 	
 %% @spec get_validity_time(Domain :: url()) -> int()
-%% @doc Zwraca czas po ktorym nalezy ponownie odwiedzic strony z danej domeny.
+%% @doc Zwraca czas po ktorym nalezy ponownie odwiedzic strony z danej domeny (w mikrosekundach).
 get_validity_time(Domain) ->
 	gen_server:call(?MODULE,{get_domain_validity_time,Domain}).
 	
 %% @spec set_validity_time(Domain :: url(), ValidityTime :: int()) -> ok
-%% @doc Ustawia czas po ktorym nalezy ponownie odwiedzic strony z danej domeny.
+%% @doc Ustawia czas po ktorym nalezy ponownie odwiedzic strony z danej domeny (w mikrosekundach).
 set_validity_time(Domain, ValidityTime) ->
 	gen_server:call(?MODULE,{set_domain_validity_time, Domain, ValidityTime}).
 	
 %% @spec set_default_validity_time(ValidityTime :: int()) -> ok
-%% @doc Ustawia domyslny czas po ktorym nalezy ponownie odwiedzic strony z domen nie wyspecyfikowanych jako startowe.
+%% @doc Ustawia domyslny czas po ktorym nalezy ponownie odwiedzic strony z domen nie wyspecyfikowanych jako startowe (w mikrosekundach).
 set_default_validity_time(ValidityTime) ->
 	gen_server:call(?MODULE, {set_default_domain_validity_time, ValidityTime}).
 	
@@ -76,7 +76,7 @@ remove(_Url) ->
 
 %% @private
 init([]) ->
-    {ok, #state{domain_validity_time_proplist = [], default_domain_validity_time = 1000*3600*24}}.
+    {ok, #state{domain_validity_time_proplist = [], default_domain_validity_time = 1000000*3600*24}}.
 
 %% @private
 handle_call({set_domain_validity_time, Domain, ValidityTime}, _From, State = #state{domain_validity_time_proplist = DomainValidityTimeProplist}) ->

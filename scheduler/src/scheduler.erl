@@ -82,7 +82,7 @@ handle_cast(completed, State = #state{urls = Urls, buffer_size = MaxBufferSize})
 	
 	NewState = case NewUrls of
 		[] -> State#state{current_process_count = current_process_count(processing_sup:count_children())};
-		List -> State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = Urls ++ NewUrls}
+		_NotEmptyList -> State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = Urls ++ NewUrls}
 	end,	
 	gen_server:cast(?MODULE, process_next),
 	{noreply, NewState};
@@ -214,16 +214,15 @@ process_new_params(Url, OldParams, NewParams) ->
 
 %% @private	
 reportLoad(State) ->
-	{Total,Allocated,_Worst} = memsup:get_memory_data(),
+	%{Total,Allocated,_Worst} = memsup:get_memory_data(),
 	case State#state.load_manager_counter of
 		0 -> %initial load
 			MemUsage = 0,
 			CPULoad = 0,
 			AvgTime = 0;
-		N ->
-			MemUsage = Allocated*100/Total,
-			CPULoad = cpu_sup:avg1()*100/256, %% 0 - 100
-			%AvgTime = (common:timestamp()-State#state.load_manager_timestamp)/1000/N
+		_N ->
+			MemUsage = stats:get_percentage_memory_load(),%Allocated*100/Total,
+			CPULoad = stats:get_percentage_cpu_load(),% cpu_sup:avg1()*100/256, %% 0 - 100
 			AvgTime = processing_time_server:get_mean_time()/1000
 	end,
 	

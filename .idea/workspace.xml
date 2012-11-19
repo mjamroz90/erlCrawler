@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea4a0c31-fe89-4a33-b8d6-14910de4eeb1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl" afterPath="$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makefile" afterPath="$PROJECT_DIR$/makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/URLExtractor/deps/ibrowse" afterPath="$PROJECT_DIR$/URLExtractor/deps/ibrowse" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/src/session_manager.erl" afterPath="$PROJECT_DIR$/session_manager/src/session_manager.erl" />
     </list>
     <ignored path="erlCrawler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,7 +69,7 @@
       <file leaf-file-name="url_server.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cache/src/url_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="32" selection-start="975" selection-end="975" vertical-scroll-proportion="0.0">
+            <state line="31" column="32" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -106,7 +105,7 @@
       <file leaf-file-name="domain_dispatch_server.erl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="25" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.2886133">
+            <state line="61" column="25" selection-start="2159" selection-end="2159" vertical-scroll-proportion="0.027422303">
               <folding />
             </state>
           </provider>
@@ -124,7 +123,7 @@
       <file leaf-file-name="domain_ram_cache_server.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="26" selection-start="717" selection-end="717" vertical-scroll-proportion="0.0">
+            <state line="18" column="26" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -133,7 +132,7 @@
       <file leaf-file-name="gen_ram_cache_server.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cache/src/gen_ram_cache_server.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="21" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.0">
+            <state line="64" column="21" selection-start="2668" selection-end="2668" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -142,7 +141,7 @@
       <file leaf-file-name="ram_cache.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cache/src/ram_cache.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="41" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0">
+            <state line="20" column="41" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -183,13 +182,11 @@
       </list>
     </option>
   </component>
-  <component name="MavenRunner">
-    <option name="jreName" value="#JAVA_INTERNAL" />
-  </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
-    <option name="width" value="1920" />
-    <option name="height" value="1056" />
+    <option name="x" value="384" />
+    <option name="y" value="195" />
+    <option name="width" value="1152" />
+    <option name="height" value="780" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -423,13 +420,13 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="223" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="233" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="223" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="238" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1148" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1148" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1148" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="238" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="233" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -484,37 +481,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="ErlangApplicationRunConfiguration" factoryName="Erlang application">
-      <module name="" />
-      <option name="moduleAndFunction" value="" />
-      <option name="name" value="Erlang application" />
-      <option name="params" value="" />
-      <option name="saveOutputToFile" value="false" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -548,6 +514,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -565,17 +549,6 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -602,6 +575,17 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -648,27 +632,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
+    <frame x="384" y="195" width="1152" height="780" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21597096" sideWeight="0.6231263" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21634616" sideWeight="0.6231263" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -788,9 +772,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_app.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/corba_object_sup.erl">
@@ -800,77 +782,65 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
+    <entry file="file://$PROJECT_DIR$/cache/src/domain_cache_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="43" selection-start="6480" selection-end="6480" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/gen_ram_cache_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="21" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/ram_cache.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="41" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.3348365" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cache/src/url_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="32" selection-start="975" selection-end="975" vertical-scroll-proportion="0.0">
+        <state line="31" column="32" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cache/src/ram_cache_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="8" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="3" column="8" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="26" selection-start="717" selection-end="717" vertical-scroll-proportion="0.0">
+        <state line="191" column="18" selection-start="6982" selection-end="6982" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="43" selection-start="6480" selection-end="6480" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="25" selection-start="2159" selection-end="2159" vertical-scroll-proportion="0.027422303">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_manager_app.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="50" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0">
+        <state line="20" column="50" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="26" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
+    <entry file="file://$PROJECT_DIR$/cache/src/gen_ram_cache_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="191" column="18" selection-start="6982" selection-end="6982" vertical-scroll-proportion="0.0">
+        <state line="64" column="21" selection-start="2668" selection-end="2668" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/domain_cache_server.erl">
+    <entry file="file://$PROJECT_DIR$/cache/src/ram_cache.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.3348365">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="25" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.2886133">
+        <state line="20" column="41" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

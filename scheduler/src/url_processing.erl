@@ -34,11 +34,12 @@ process(Id, Url) ->
 	
 	%Urls = parse(Id, Url), %%%%% interfejs do przetwarzania
 	%Urls = url_extractor:extract(Id, Url),
-	stats:report(),
+	
 	%Urls = mockparser:mockparse(Id, Url, 100),
 	%io:format("parsing ~p ~p ~n", [Id, Url]),
 	Urls = mockparser:mockparse3(Id, Url, 100),
 	
+	stats:report(common:stick_params({urls_counter, length(Urls)}, [])),
 	
 	
 	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url)),
