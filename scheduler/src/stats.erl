@@ -226,10 +226,18 @@ log_to_file(Descr, TotalCounter, TotalMeanSpeed, PartMeanSpeed, TotalUrlsCounter
 		Device ->
 			Device
 	end,
-	%liczba przetworzonych stron, sredni chwilowy czas przetwarzania strony, srednia chwilowa liczby stron na sekunde, sredni czas przetwarzania strony, srednia chwilowa liczby stron na sekunde,
-	%uzycie procesora, uzycie pamieci, liczba dotychczas uzyskanych adresow, srednia chwilowa liczby adresow na stronie, srednia liczba adresów na stronie
+	%liczba przetworzonych stron+, sredni chwilowy czas przetwarzania strony, srednia chwilowa liczby stron na sekunde, sredni czas przetwarzania strony+, srednia chwilowa liczby stron na sekunde,
+	%uzycie procesora+, uzycie pamieci+, liczba dotychczas uzyskanych adresow+, srednia chwilowa liczby adresow na stronie+, srednia liczba adresów na stronie+
 	io:format(IoDevice,"~p ~p ~p ~p ~p ~p ~p ~p ~p ~p~n", [TotalCounter, PartMeanSpeed, 1000000/PartMeanSpeed, TotalMeanSpeed, 1000000/TotalMeanSpeed, get_percentage_cpu_load(), get_percentage_memory_load(), TotalUrlsCounter, PartMeanUrlsCounter, TotalMeanUrlsCounter]).
 
+
+%% @private
+log_to_web(TotalCounter,TotalMeanSpeed, PrtMeanSpeed, TotalUrlsCounter, TotalMeanUrlsCounter, PartMeanUrlCounter) ->
+  Msg = [{nodeName,node()},{totalProcessedSitesNum,TotalCounter},{meanSiteProcessingNum,TotalMeanSpeed},{meanProcessorUsage,get_percentage_cpu_load()},
+          {memoryUsage,get_percentage_memory_load()},{totalAddressesFetchedNum,TotalUrlsCounter},{meanAddressesNumPerSite,TotalMeanUrlsCounter},
+          {partAddressesNumPerSite,PartMeanUrlCounter}
+  ],
+  crawl_event:report_stats(Msg).
 
 %% @private
 get_percentage_memory_load1() ->

@@ -3,7 +3,7 @@
 %% @end
 
 -module(crawl_event).
--export([start/0,add_handler/2,delete_handler/2,report_load/1, log_message/1]).
+-export([start/0,add_handler/2,delete_handler/2,report_load/1, log_message/1, report_stats/1]).
 
 %% @type proplist() = [{Key :: term(), Value :: term()}]
 
@@ -30,3 +30,5 @@ report_load(Load) ->
 log_message(Msg) ->
     gen_event:notify(?MODULE,{log_message,Msg}).
 	
+report_stats(Msg) ->
+    gen_event:notify(?MODULE,{report_stats,Msg}).
