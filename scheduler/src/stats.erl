@@ -237,7 +237,7 @@ log_to_web(TotalCounter,TotalMeanSpeed, PrtMeanSpeed, TotalUrlsCounter, TotalMea
           {memoryUsage,get_percentage_memory_load()},{totalAddressesFetchedNum,TotalUrlsCounter},{meanAddressesNumPerSite,TotalMeanUrlsCounter},
           {partAddressesNumPerSite,PartMeanUrlCounter}
   ],
-  crawl_event:report_stats(Msg).
+  crawl_event:report_stats(Msg,false).
 
 %% @private
 get_percentage_memory_load1() ->

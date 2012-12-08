@@ -21,10 +21,10 @@ handle_event({log_message,{Msg_Type,Node,AppName,EventName,Content}},HttpServerN
     end,
     {ok,HttpServerNode};
 
-handle_event({report_stats,Msg},HttpServerNode) ->
+handle_event({report_stats,Msg,Test},HttpServerNode) ->
     case HttpServerNode =:= node() of
-      true -> reporting_server:report_stats(Msg);
-      false -> gen_server:cast({reporting_server,HttpServerNode}, {report_stats,Msg})
+      true -> reporting_server:report_stats(Msg,Test);
+      false -> gen_server:cast({reporting_server,HttpServerNode}, {report_stats,Msg,Test})
     end,
   {ok,HttpServerNode};
 

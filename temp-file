@@ -1,0 +1,5 @@
+[{totalProcessedSitesNum,23123},{meanSiteProcessingNum,2131.21},{meanProcessorUsage,54.2131},
+          {memoryUsage,67.89},{totalAddressesFetchedNum,13123},{meanAddressesNumPerSite,12.23123},
+          {partAddressesNumPerSite,45.67},
+{nodeName,'node1@127.0.0.1'}
+  ].

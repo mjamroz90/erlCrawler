@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea4a0c31-fe89-4a33-b8d6-14910de4eeb1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/URLExtractor/deps/ibrowse" afterPath="$PROJECT_DIR$/URLExtractor/deps/ibrowse" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/src/session_manager.erl" afterPath="$PROJECT_DIR$/session_manager/src/session_manager.erl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/temp-file" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" afterPath="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl" afterPath="$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scheduler/src/stats.erl" afterPath="$PROJECT_DIR$/scheduler/src/stats.erl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session_manager/src/session_event_handler.erl" afterPath="$PROJECT_DIR$/session_manager/src/session_event_handler.erl" />
     </list>
     <ignored path="erlCrawler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,19 +70,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="url_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/url_server.erl">
+      <file leaf-file-name="cache_app.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cache/src/cache_app.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="32" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ram_cache_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/ram_cache_server.erl">
+      <file leaf-file-name="crawl_event.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="8" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+            <state line="5" column="92" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stats.erl" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scheduler/src/stats.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="207" column="38" selection-start="7431" selection-end="7431" vertical-scroll-proportion="0.1395881">
               <folding />
             </state>
           </provider>
@@ -93,6 +106,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="reporting_server.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="54" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="RemoteManager_RemoteManagerServer_impl.erl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
           <provider selected="true" editor-type-id="text-editor">
@@ -102,46 +124,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="domain_dispatch_server.erl" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl">
+      <file leaf-file-name="remote_crawl_manager_sup.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="25" selection-start="2159" selection-end="2159" vertical-scroll-proportion="0.027422303">
+            <state line="15" column="49" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="domain_manager_app.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_manager_app.erl">
+      <file leaf-file-name="remote_crawl_manager_app.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_app.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="50" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0">
+            <state line="19" column="39" selection-start="736" selection-end="736" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="domain_ram_cache_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
+      <file leaf-file-name="session_event_handler.erl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/session_manager/src/session_event_handler.erl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="26" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gen_ram_cache_server.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/gen_ram_cache_server.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="21" selection-start="2668" selection-end="2668" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ram_cache.erl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/src/ram_cache.erl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="41" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
+            <state line="25" column="38" selection-start="1358" selection-end="1358" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -163,30 +167,29 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/session_manager/src/session_manager_app.erl" />
-        <option value="$PROJECT_DIR$/session_manager/src/session_manager.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_app.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/corba_object_sup.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/makefile" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/docs/gen_edoc.erl" />
-        <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl" />
         <option value="$PROJECT_DIR$/makefile" />
-        <option value="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
         <option value="$PROJECT_DIR$/session_manager/ebin/session_manager.app" />
         <option value="$PROJECT_DIR$/scheduler/src/scheduler_app.erl" />
         <option value="$PROJECT_DIR$/cache/src/visited_urls_server.erl" />
         <option value="$PROJECT_DIR$/session_manager/src/session_manager_server.erl" />
         <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl" />
         <option value="$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl" />
+        <option value="$PROJECT_DIR$/session_manager/src/session_event_handler.erl" />
+        <option value="$PROJECT_DIR$/crawl_event/src/crawl_event.erl" />
+        <option value="$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl" />
+        <option value="$PROJECT_DIR$/scheduler/src/stats.erl" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="384" />
-    <option name="y" value="195" />
-    <option name="width" value="1152" />
-    <option name="height" value="780" />
+    <option name="y" value="24" />
+    <option name="width" value="1920" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -288,75 +291,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="scheduler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="remote_crawl_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="remote_crawl_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domain_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domain_manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="crawl_event" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -371,24 +306,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="cache" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="erlCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cache" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -481,6 +398,19 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="ErlangUnitRunConfigurationType" factoryName="Eunit">
+      <module name="" />
+      <option name="moduleAndFunction" value="" />
+      <option name="name" value="Erlang" />
+      <option name="params" value="" />
+      <option name="saveOutputToFile" value="false" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -525,6 +455,19 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ErlangApplicationRunConfiguration" factoryName="Erlang application">
+      <module name="" />
+      <option name="moduleAndFunction" value="" />
+      <option name="name" value="Erlang application" />
+      <option name="params" value="" />
+      <option name="saveOutputToFile" value="false" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -628,31 +571,35 @@
       <created>1352047551373</created>
       <updated>1352047551374</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Zrobione raportowanie statystyk do web-a.">
+      <created>1353880114228</created>
+      <updated>1353880114228</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="384" y="195" width="1152" height="780" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21597096" sideWeight="0.6231263" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39940828" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21581197" sideWeight="0.6231263" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -697,7 +644,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Łapanie wykątku w funkcji serialize_to_proplist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zrobione raportowanie statystyk do web-a." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -712,6 +659,7 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Likwidacja błędu w session_manager_server, środowisko jest ustawiane teraz wcześniej niż sesja startuje." />
     <MESSAGE value="Łapanie wykątku w funkcji serialize_to_proplist" />
+    <MESSAGE value="Zrobione raportowanie statystyk do web-a." />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -755,70 +703,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scheduler/src/trigger_sup.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/src/url_processing.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="25" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_sup.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="44" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_app.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/corba_object_sup.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/domain_cache_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.3348365" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/url_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="32" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cache/src/ram_cache_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="8" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="191" column="18" selection-start="6982" selection-end="6982" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="43" selection-start="6480" selection-end="6480" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="25" selection-start="2159" selection-end="2159" vertical-scroll-proportion="0.027422303">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_manager_app.erl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="50" selection-start="719" selection-end="719" vertical-scroll-proportion="0.0" />
@@ -826,21 +710,83 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cache/src/domain_ram_cache_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="26" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="18" column="26" selection-start="717" selection-end="717" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cache/src/gen_ram_cache_server.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="21" selection-start="2668" selection-end="2668" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="64" column="21" selection-start="2676" selection-end="2676" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cache/src/ram_cache.erl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="41" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
+        <state line="20" column="41" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/domain_manager/src/domain_dispatch_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="28" selection-start="1930" selection-end="1930" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/URLExtractor/rebar.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/ram_cache_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="8" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/cache_app.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/RemoteManager_RemoteManagerServer_impl.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="43" selection-start="6480" selection-end="6480" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_sup.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="49" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/remote_crawl_manager_app.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="39" selection-start="736" selection-end="736" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_manager_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="191" column="18" selection-start="6982" selection-end="6982" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawl_event/src/crawl_event.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="92" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/session_manager/src/session_event_handler.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="38" selection-start="1358" selection-end="1358" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/remote_crawl_manager/src/impl/reporting_server.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="54" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/src/stats.erl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="207" column="38" selection-start="7431" selection-end="7431" vertical-scroll-proportion="0.1395881">
           <folding />
         </state>
       </provider>

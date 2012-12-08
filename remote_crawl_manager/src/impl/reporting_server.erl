@@ -4,7 +4,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start/1,log_message/1, stop/0, report_stats/1]).
+-export([start/1,log_message/1, stop/0, report_stats/2]).
 
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -31,8 +31,8 @@ log_message(Msg) ->
 stop() ->
     gen_server:cast(?SERVER,stop).
 
-report_stats(Msg) ->
-    gen_server:cast(?SERVER,{report_stats,Msg}).
+report_stats(Msg,Test) ->
+    gen_server:cast(?SERVER,{report_stats,Msg,Test}).
 
 %%======================================== CallBacks ===================================
 
@@ -51,10 +51,11 @@ handle_cast({log_message,Msg}, State = #state{web_app_controller_url = WebAppCtr
     io:format("Otrzymalem wiadomosc - ~p\n",[Msg]),
     {noreply, State};
 
-handle_cast({report_stats,Msg}, State = #state{web_app_controller_url = WebAppCtrlUrl}) ->
+handle_cast({report_stats,Msg,Test}, State = #state{web_app_controller_url = WebAppCtrlUrl}) ->
     {Str,Sum} = serialize_to_string(Msg),
-    NodeParam = lists:flatten(io_lib:format("~p=~p",[hashValue,compute_hash(Sum)])),
-    Body = string:concat(Str,NodeParam),
+    NodeParam = lists:flatten(io_lib:format("~p=~p&",[hashValue,compute_hash(Sum)])),
+    TestParam = lists:flatten(io_lib:format("~p=~p",[test,Test])),
+    Body = string:concat(Str,string:concat(NodeParam,TestParam)),
     DataType = "application/x-www-form-urlencoded",
     httpc:request(post,{WebAppCtrlUrl,[],DataType,Body},[],[]),
     io:format("Body=\n~p\nSum=~p",[Body,Sum]),
