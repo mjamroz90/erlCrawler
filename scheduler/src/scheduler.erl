@@ -3,9 +3,13 @@
 -module(scheduler).
 -behaviour(gen_server).
 -export([start_link/2,insert/2,completed/0, get_processed_count/0, get_uptime/0, get_mean_speed/0, stop/0]).
--record(state,{scheduler_start_time, process_limit, buffer_size, urls, current_process_count, processed_count, load_manager_counter}).%, load_manager_timestamp}).
+-record(state,{interface_type, scheduler_start_time, process_limit, buffer_size, urls, current_process_count, processed_count, load_manager_counter}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
+
+-define(SINGLE_CALL_INTERFACE, single_call).
+-define(DOWNLOAD_AND_PROCESS_SEPARATELY_INTERFACE, download_and_process_separately).
+-define(INTERFACE_TYPE, ?SINGLE_CALL_INTERFACE). 
 
 %% @type proplist() = [{Key::term(), Value::term()}] 
     
@@ -61,7 +65,7 @@ stop() ->
 
 %% @private
 init([ProcessLimit, BufferSize]) ->	
-	State = #state{scheduler_start_time = common:timestamp(), process_limit = ProcessLimit, buffer_size = BufferSize, urls = [], current_process_count = 0, processed_count= 0, load_manager_counter = 0},%, load_manager_timestamp = common:timestamp()},
+	State = #state{interface_type = ?INTERFACE_TYPE, scheduler_start_time = common:timestamp(), process_limit = ProcessLimit, buffer_size = BufferSize, urls = [], current_process_count = 0, processed_count= 0, load_manager_counter = 0},%, load_manager_timestamp = common:timestamp()},
 	reportLoad(State),%initial load
 	{ok, State}.
 	
@@ -70,7 +74,7 @@ handle_cast(stop,State) ->
 	{stop,"Made to stop",State};
 
 %% @private	
-handle_cast(completed, State = #state{urls = Urls, buffer_size = MaxBufferSize}) ->
+handle_cast(completed, State = #state{urls = Urls, buffer_size = MaxBufferSize}) when State#state.interface_type == ?SINGLE_CALL_INTERFACE ->
 	CurrentBufferSize = length(Urls),
 	
 	case CurrentBufferSize < MaxBufferSize/4 of
@@ -81,37 +85,72 @@ handle_cast(completed, State = #state{urls = Urls, buffer_size = MaxBufferSize})
 	end,
 	
 	NewState = case NewUrls of
-		[] -> State#state{current_process_count = current_process_count(processing_sup:count_children())};
-		_NotEmptyList -> State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = Urls ++ NewUrls}
+		[] -> State#state{current_process_count = get_current_process_count()};
+		_NotEmptyList -> State#state{current_process_count = get_current_process_count(), urls = Urls ++ NewUrls}
 	end,	
 	gen_server:cast(?MODULE, process_next),
 	{noreply, NewState};
+	
+%% @private
+handle_cast(completed, State) when State#state.interface_type == ?DOWNLOAD_AND_PROCESS_SEPARATELY_INTERFACE ->
+	gen_server:cast(?MODULE, process_next),
+	{noreply, State#state{current_process_count = get_current_process_count()}};
 
 %% @private	
-handle_cast(process_next, State) when State#state.process_limit /= State#state.current_process_count ->
+handle_cast(process_next, State) when (State#state.interface_type == ?SINGLE_CALL_INTERFACE) and (State#state.process_limit /= State#state.current_process_count) ->
 	
 	case State#state.urls of	
-		[H | T] ->
+		%[H | T] ->
+		[{UrlId, Url} | T] ->
 			ProcessLimit = State#state.process_limit,
 			
 			case State#state.load_manager_counter of
 				ProcessLimit ->
 					reportLoad(State),
-					LoadManagerCounter = 0;%,
-					%LoadManagerTimestamp = common:timestamp();
+					LoadManagerCounter = 0;
 				Val ->
-					LoadManagerCounter = Val+1%,
-					%LoadManagerTimestamp = State#state.load_manager_timestamp
+					LoadManagerCounter = Val+1
+					
 			end,	
 	
-			processing_sup:start_child(common:get_param(id, url_server:lookup(H)),H),
+			%processing_sup:start_child(common:get_param(id, url_server:lookup(H)),H),
+			processing_sup:start_child(UrlId, Url),
 			
 			ProcessedCount = State#state.processed_count,
-			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children()), urls = T, processed_count = ProcessedCount + 1, load_manager_counter = LoadManagerCounter},%, load_manager_timestamp = LoadManagerTimestamp},
+			NewState = State#state{current_process_count = get_current_process_count(), urls = T, processed_count = ProcessedCount + 1, load_manager_counter = LoadManagerCounter},
 			gen_server:cast(?MODULE, process_next);
 			
 		[] ->
-			NewState = State#state{current_process_count = current_process_count(processing_sup:count_children())} 
+			NewState = State#state{current_process_count = get_current_process_count()} 
+	end,
+
+	{noreply, NewState};
+	
+%% @private	
+handle_cast(process_next, State) when State#state.interface_type == ?DOWNLOAD_AND_PROCESS_SEPARATELY_INTERFACE, State#state.process_limit /= State#state.current_process_count ->
+	
+	case url_download_server:get_page_to_process() of				
+		{UrlId, Url, Source} ->
+			ProcessLimit = State#state.process_limit,
+			
+			case State#state.load_manager_counter of
+				ProcessLimit ->
+					reportLoad(State),
+					LoadManagerCounter = 0;
+				Val ->
+					LoadManagerCounter = Val+1
+			end,	
+	
+			processing_sup:start_child(UrlId, Url, Source),
+			
+			ProcessedCount = State#state.processed_count,
+			NewState = State#state{current_process_count = get_current_process_count(), processed_count = ProcessedCount + 1, load_manager_counter = LoadManagerCounter},
+			gen_server:cast(?MODULE, process_next);
+		
+		empty ->
+			NewState = State#state{current_process_count = get_current_process_count()}
+			
+		
 	end,
 
 	{noreply, NewState};
@@ -149,12 +188,10 @@ handle_call({insert,{Url, Params}}, _From, State) ->
 insert2(Url, Params) ->
 	case url_server:lookup(Url) of
 		not_found ->
-			%io:format("not_found ~p ~n", [Url]),
 			NewParams = url_server:insert(Url, Params),
 			Id = common:get_param(id, NewParams),
 			visited_urls_server:insert(Id);
 		ExistingParams ->
-			%io:format("found ~p ~n", [Url]),
 			process_new_params(Url, ExistingParams, Params)
 	end.
 	
@@ -169,11 +206,16 @@ pull_urls(State = #state{buffer_size = BufferSize}) ->
 %set_visited([H|T]) ->
 	%disk_cache_server:set_visited(H),
 	%set_visited(T).
+	
+%% @private
+get_current_process_count() ->
+	[_, {active, Count}, _, _] = processing_sup:count_children(),
+	Count.
 
 %% @private	
-current_process_count(PropListOfCounts) ->
-	[_, {active, Count}, _, _] = PropListOfCounts,
-	Count.
+%current_process_count(PropListOfCounts) ->
+	%[_, {active, Count}, _, _] = PropListOfCounts,
+	%Count.
 
 %% @private	
 process_new_params(Url, OldParams, NewParams) ->

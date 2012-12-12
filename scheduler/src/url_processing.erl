@@ -10,11 +10,20 @@
 start_link(Id, Url) ->
 	Pid = spawn_link(?MODULE, process, [Id, Url]),
 	{ok, Pid}.
+	
+%% @spec start_link(Id :: term(), Url :: string(), Source :: binary()) -> {ok, Pid}
+%% @doc Uruchamia proces przetwarzajacy zrodlo Source spod adresu Url z identyfikatorem Id.
+%% @end
+start_link(Id, Url, Source) ->
+	Pid = spawn_link(?MODULE, process, [Id, Url, Source]),
+	{ok, Pid}.
 
 %% @spec process(Id :: term(), Url :: string()) -> ok
 %% @doc Aktualizuje date przetworzenia strony, uruchamia parsowanie, przetwarzanie adresow uzyskanych ze strony, powiadamia schedulera o zakonczeniu przetwarzania.
 %% @end
 process(Id, Url) ->
+	%% TODO - integracja
+	
 	%io:format("~p ~p ~n", [Id, Url]),
 	%timer:sleep(5000),
 	%case Id of
@@ -49,6 +58,11 @@ process(Id, Url) ->
 	Time = EndTime - StartTime,
 	processing_time_server:report(Time),
 	ok.
+
+	
+process(Id, Url, _Source) ->
+	%% TODO - integracja
+	process(Id, Url).
 
 %% @private
 parse(Id, Url)->

@@ -19,6 +19,17 @@ start_link() ->
 %% @end
 start_child(Id, Url) ->
 	supervisor:start_child(?MODULE, [Id, Url]).
+	
+%% @spec start_child(Id :: term(), Url :: string(), Source :: binary()) -> {ok, Pid :: pid()} | {error, term()}
+%% @doc Uruchamia proces przetwarzajacy z parametrami:
+%% <ul>
+%% <li> Id - identyfikator strony</li>
+%% <li> Url - adres strony</li>
+%% <li> Source - pobrane zrodlo strony</li>
+%% </ul>
+%% @end
+start_child(Id, Url, Source) ->
+	supervisor:start_child(?MODULE, [Id, Url, Source]).
 
 %% @spec count_children() -> integer()
 %% @doc Zwraca liczbe aktualnie pracujacych procesow przetwarzajacych

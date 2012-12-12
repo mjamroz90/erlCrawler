@@ -58,7 +58,8 @@ handle_cast({pull_urls,{Count,From}},State = #state{visitedurl_db_ref = VisitedU
                     List = collect_keys(ItrRef,1,Count,[binary_to_term(BinKey)]),
                     remove_keys(List,VisitedUrlDb_Ref),
                     %lists:map(fun(Id) -> eleveldb_disk_cache_server:get_url_by_id(Id) end,List);
-                    lists:map(fun(Id) -> disk_cache_server:get_url_by_id(Id) end,List);
+                    %lists:map(fun(Id) -> disk_cache_server:get_url_by_id(Id) end,List);
+                    lists:map(fun(Id) -> {Id, disk_cache_server:get_url_by_id(Id)} end,List);
                 {error,_ } ->	[]
             end;
         {error,_} -> []
