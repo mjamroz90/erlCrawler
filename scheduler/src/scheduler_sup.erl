@@ -19,7 +19,10 @@ start(MaxProcessCount,BufferSize) ->
 init([MaxProcessCount,BufferSize]) ->	
 	SchedulerServer = {scheduler,{scheduler,start_link,[MaxProcessCount, BufferSize]},
 				permanent,brutal_kill,worker,[scheduler]},
+				
+	UrlDownloadServer = {url_download_server,{url_download_server,start,[BufferSize]},
+				permanent,brutal_kill,worker,[url_download_server]},
 					
-	RestartStrategy = {one_for_all,100,1},
-	{ok,{RestartStrategy,[SchedulerServer]}}.
+	RestartStrategy = {one_for_one,100,1},
+	{ok,{RestartStrategy,[SchedulerServer, UrlDownloadServer]}}.
 

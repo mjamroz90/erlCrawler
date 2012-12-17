@@ -9,7 +9,8 @@
 
 -define(SINGLE_CALL_INTERFACE, single_call).
 -define(DOWNLOAD_AND_PROCESS_SEPARATELY_INTERFACE, download_and_process_separately).
--define(INTERFACE_TYPE, ?SINGLE_CALL_INTERFACE). 
+%-define(INTERFACE_TYPE, ?SINGLE_CALL_INTERFACE). 
+-define(INTERFACE_TYPE, ?DOWNLOAD_AND_PROCESS_SEPARATELY_INTERFACE). 
 
 %% @type proplist() = [{Key::term(), Value::term()}] 
     

@@ -4,7 +4,7 @@
 -module(processing_sup).
 -behaviour(supervisor).
 
--export([start_link/0, start_child/2, count_children/0, init/1]).
+-export([start_link/0, start_child/2, start_child/3, count_children/0, init/1]).
 
 %% @spec start_link() -> ok | {error, term()}
 start_link() ->

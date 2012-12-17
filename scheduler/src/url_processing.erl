@@ -2,7 +2,7 @@
 %% @end
 -module(url_processing).
 
--export([start_link/2, process/2]).
+-export([start_link/2, start_link/3, process/2, process/3]).
 
 %% @spec start_link(Id :: term(), Url :: string()) -> {ok, Pid}
 %% @doc Uruchamia proces przetwarzajacy adres Url z identyfikatorem Id.
