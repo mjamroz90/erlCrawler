@@ -32,7 +32,7 @@
 					{cache_size, 16777216}]},
 					
 					{root_dir,"./db"},
-					{partition_num,4}]
+					{partition_num,32}]
 					},
 										
 			{riak_env,[{node_name,"127.0.0.1"},

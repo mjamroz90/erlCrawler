@@ -1,7 +1,7 @@
 compile:
-	erlc *.erl	
+	erlc -o ./ebin ./src/*.erl	
 clean: 
-	rm *.beam
+	rm ./ebin/*.beam
 
 
 
