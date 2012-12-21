@@ -131,7 +131,7 @@ handle_cast(process_next, State) when (State#state.interface_type == ?SINGLE_CAL
 handle_cast(process_next, State) when State#state.interface_type == ?DOWNLOAD_AND_PROCESS_SEPARATELY_INTERFACE, State#state.process_limit /= State#state.current_process_count ->
 	
 	case url_download_server:get_page_to_process() of				
-		{UrlId, Url, Source} ->
+		{UrlId, Url, RedirectedUrl, Source} ->
 			ProcessLimit = State#state.process_limit,
 			
 			case State#state.load_manager_counter of
@@ -142,7 +142,7 @@ handle_cast(process_next, State) when State#state.interface_type == ?DOWNLOAD_AN
 					LoadManagerCounter = Val+1
 			end,	
 	
-			processing_sup:start_child(UrlId, Url, Source),
+			processing_sup:start_child(UrlId, Url, RedirectedUrl, Source),
 			
 			ProcessedCount = State#state.processed_count,
 			NewState = State#state{current_process_count = get_current_process_count(), processed_count = ProcessedCount + 1, load_manager_counter = LoadManagerCounter},

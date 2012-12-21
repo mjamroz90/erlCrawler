@@ -4,7 +4,7 @@
 -module(processing_sup).
 -behaviour(supervisor).
 
--export([start_link/0, start_child/2, start_child/3, count_children/0, init/1]).
+-export([start_link/0, start_child/2, start_child/4, count_children/0, init/1]).
 
 %% @spec start_link() -> ok | {error, term()}
 start_link() ->
@@ -28,8 +28,8 @@ start_child(Id, Url) ->
 %% <li> Source - pobrane zrodlo strony</li>
 %% </ul>
 %% @end
-start_child(Id, Url, Source) ->
-	supervisor:start_child(?MODULE, [Id, Url, Source]).
+start_child(Id, Url, RedirectedUrl, Source) ->
+	supervisor:start_child(?MODULE, [Id, Url, RedirectedUrl, Source]).
 
 %% @spec count_children() -> integer()
 %% @doc Zwraca liczbe aktualnie pracujacych procesow przetwarzajacych

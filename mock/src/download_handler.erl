@@ -15,7 +15,7 @@ download() ->
 	download().
 	
 report([{UrlId, Url} | T]) ->
-	url_download_server:report(UrlId, Url, term_to_binary(empty), ok),
+	url_download_server:report(UrlId, Url, Url, term_to_binary(empty), ok),
 	report(T);
 report([]) ->
 	ok.

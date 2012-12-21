@@ -1,6 +1,6 @@
 -module(url_download_server).
 -behaviour(gen_server).
--export([start/1, stop/0, pull/1, report/4, get_page_to_process/0]).
+-export([start/1, stop/0, pull/1, report/5, get_page_to_process/0]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
 -record(state,{queue_limit, download_queue, processing_queue, processing_queue_size}).
@@ -26,11 +26,11 @@ stop() ->
 pull(Count) ->
 	gen_server:call(?MODULE, {pull, Count}).
 	
-%% @spec report(UrlId :: term(), Url :: string(), Source :: binary(), Status :: ok/error)
-%% @doc Przyjmuje informacje o przetworzeniu adresu, wraz z jego zrodlem lub informacja o bledzie
+%% @spec report(UrlId :: term(), Url :: string(), RedirectedUrl :: string(), Source :: binary(), Status :: ok/error)
+%% @doc Przyjmuje informacje o przetworzeniu adresu, wraz z jego zrodlem lub informacja o bledzie, wartoscia RedirectedUrl powinien byc adres faktycznie pobranej strony
 %% @end
-report(UrlId, Url, Source, Status) ->
-	gen_server:cast(?MODULE, {report, UrlId, Url, Source, Status}).
+report(UrlId, Url, RedirectedUrl, Source, Status) ->
+	gen_server:cast(?MODULE, {report, UrlId, Url, RedirectedUrl, Source, Status}).
 	
 %% @spec get_page_to_process() -> empty/{UrlId :: term(), Url :: string(), Source :: binary()}
 %% @doc Zwraca identyfikator, adres i zrodlo strony do przetworzenia.
@@ -94,11 +94,12 @@ State = #state{processing_queue = ProcessingQueue, processing_queue_size = Proce
 	
 	
 %% @private
-handle_cast({report, UrlId, Url, Source, Status},
+handle_cast({report, UrlId, Url, RedirectedUrl, Source, Status},
 State = #state{processing_queue = ProcessingQueue, processing_queue_size = ProcessingQueueSize}) ->
+	%io:format("got report ~p ~p~n", [Url, Status]),
 	NewState = case Status of
 		ok ->
-			State#state{processing_queue = ProcessingQueue ++ [{UrlId, Url, Source}],
+			State#state{processing_queue = ProcessingQueue ++ [{UrlId, Url, RedirectedUrl, Source}],
 			processing_queue_size = ProcessingQueueSize+1};
 		error ->
 			State

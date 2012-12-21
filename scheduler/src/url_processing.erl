@@ -2,7 +2,7 @@
 %% @end
 -module(url_processing).
 
--export([start_link/2, start_link/3, process/2, process/3]).
+-export([start_link/2, start_link/4, process/2, process/4]).
 
 %% @spec start_link(Id :: term(), Url :: string()) -> {ok, Pid}
 %% @doc Uruchamia proces przetwarzajacy adres Url z identyfikatorem Id.
@@ -14,8 +14,8 @@ start_link(Id, Url) ->
 %% @spec start_link(Id :: term(), Url :: string(), Source :: binary()) -> {ok, Pid}
 %% @doc Uruchamia proces przetwarzajacy zrodlo Source spod adresu Url z identyfikatorem Id.
 %% @end
-start_link(Id, Url, Source) ->
-	Pid = spawn_link(?MODULE, process, [Id, Url, Source]),
+start_link(Id, Url, RedirectedUrl, Source) ->
+	Pid = spawn_link(?MODULE, process, [Id, Url, RedirectedUrl, Source]),
 	{ok, Pid}.
 
 %% @spec process(Id :: term(), Url :: string()) -> ok
@@ -46,7 +46,8 @@ process(Id, Url) ->
 	
 	%Urls = mockparser:mockparse(Id, Url, 100),
 	%io:format("parsing ~p ~p ~n", [Id, Url]),
-	Urls = mockparser:mockparse3(Id, Url, 100),
+	%Urls = mockparser:mockparse3(Id, Url, 100),
+	Urls = processing_handler:process_data(Id, Url),
 	
 	stats:report(common:stick_params({urls_counter, length(Urls)}, [])),
 	
@@ -58,11 +59,30 @@ process(Id, Url) ->
 	Time = EndTime - StartTime,
 	processing_time_server:report(Time),
 	ok.
+	
+
+%process(Id, Url, _Source) ->
+	%process(Id, Url).
 
 	
-process(Id, Url, _Source) ->
-	%% TODO - integracja
-	process(Id, Url).
+process(Id, Url, RedirectedUrl, Source) ->	
+	%process(Id, Url).
+	StartTime = common:timestamp(),
+	Params = url_server:lookup(Url),
+	NewParams = common:stick_params({timestamp, common:timestamp()}, Params),
+	url_server:update(Url, NewParams),
+	
+	Urls = processing_handler:process_data(Id, RedirectedUrl, Source),
+	
+	stats:report(common:stick_params({urls_counter, length(Urls)}, [])),
+	
+	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url)),
+	scheduler:completed(),
+	EndTime = common:timestamp(),
+	
+	Time = EndTime - StartTime,
+	processing_time_server:report(Time),
+	ok.
 
 %% @private
 parse(Id, Url)->
