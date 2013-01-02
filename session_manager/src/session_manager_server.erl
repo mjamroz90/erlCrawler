@@ -26,7 +26,7 @@ start() ->
 %% ResultTuple = {crawl_event, result()} | {cache, result()} | {domain_manager, result()}
 %% @doc Uruchamia wszystkie komponenty crawler'a, ktore beda braly udzial w sciaganiu tresci. PropList to lista parametrow konfiguracyjnych.
 start_crawler(PropList) ->
-    gen_server:call(?MODULE,{start_crawler,PropList}).
+    gen_server:call(?MODULE,{start_crawler,PropList},30000).
 
 %% @spec start_session(PropList :: proplist()) -> [{scheduler, result()}]
 %% @doc  Uruchamia sesje crawl'u. PropList to parametry konfiguracyjne dla tej sesji.

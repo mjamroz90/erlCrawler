@@ -60,12 +60,13 @@ handle_cast(stop,State) ->
 %% @private		
 handle_call({get_domain,Url}, _From, State = #state{second_level_domains = SecondLevelDomains}) ->
 	RetType = [{return, list}],
-	Page = re:replace(re:replace(re:replace(re:replace(string:to_lower(Url), State#state.http_pattern, "", RetType),
+	%Page = re:replace(re:replace(re:replace(re:replace(string:to_lower(Url), State#state.http_pattern, "", RetType),
+	Page = re:replace(re:replace(re:replace(re:replace(Url, State#state.http_pattern, "", RetType),
 			State#state.www_pattern, "", RetType),
 			State#state.slash_pattern, "", RetType),
 			State#state.query_string_pattern, "", RetType),
 	
-	Reversed = lists:reverse(string:tokens(Page, ".")),
+	Reversed = lists:reverse(string:tokens(string:to_lower(Page), ".")),
 	Reply = case length(Reversed) of
 		0 -> undefined;
 		1 -> undefined;
