@@ -62,12 +62,23 @@ handle_call({start_crawler,_PropList}, _From, State) ->
         _ -> void
     end,
     CacheAppResult = start_cache_app(),
+    
+    %%starting ErlCrawler
+    lager:start(),
+    ibrowse:start(),
+    %%end
+    
     Reply = [{crawl_event,CrawlEventResult},{cache,CacheAppResult},{domain_manager,DomainManagerResult}],
     {reply, Reply, State#state{proplist = PropList}};
 
 handle_call({start_session,PropList}, _From, State) ->
     set_env_props(PropList),
     SchedulerAppResult = start_scheduler_app(),
+    
+    %%starting ErlCrawler
+	ErlCrawlerAppResult = application:start(crawler_app),
+	%%end
+    
     %% case get_remote_manager_server_node(PropList) =:= node() of
 	%%	true -> rpc:multicall(get_contact_nodes(PropList), session_manager, set_default_validity_time, [get_default_validity_time(PropList)]);
 	%%	_ -> ok
@@ -83,9 +94,19 @@ handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
         _ -> void
     end,
     CrawlEventResult = application:stop(crawl_event),
+    
+    %%stopping ErlCrawler
+    ibrowse:stop(),
+    %%end
+    
     {reply,[{crawl_event,CrawlEventResult},{cache,CacheAppResult},{domain_manager,DomainManagerResult}],State};
 
 handle_call(stop_session,_From,State = #state{proplist = PropList}) ->
+	
+	%%stopping ErlCrawler
+    ErlCrawlerAppResult = application:stop(crawler_app),
+    %%end
+    
     SchedulerAppResult = application:stop(scheduler),
     application:stop(os_mon),
     application:stop(sasl),
