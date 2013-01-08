@@ -1,5 +1,5 @@
 -module(stats).
--export([start/2, report/1, get_total_counter/0, get_part_counter/0, get_mean_speed/0, get_part_mean_speed/0,
+-export([start/2, report/1, log_stats_to_web/0, get_total_counter/0, get_part_counter/0, get_mean_speed/0, get_part_mean_speed/0,
 		get_total_urls_counter/0, get_part_urls_counter/0, get_mean_urls_counter/0, get_part_mean_urls_counter/0,
 		get_percentage_cpu_load/0, get_percentage_memory_load/0, stop/0]).
 
@@ -30,6 +30,11 @@ start(LogToFile, PartSize) ->
 %% @doc raportuje przetworzenie strony do serwera, Proplist powinna zawierac parametr urls_counter opisujacy liczbe adresow uzyskanych z przetworzonej strony.
 report(Proplist) ->
 	gen_server:cast(?MODULE, {report, Proplist}).
+	
+%% @spec log_stats_to_web() -> ok
+%% @doc Wysyla zebrane statystyki do aplikacji webowej
+log_stats_to_web() ->
+	gen_server:cast(?MODULE, log_stats_to_web).
 	
 %% @spec get_total_counter() -> int()
 %% @doc Zwraca ogolna liczbe przetworzonych stron.
@@ -80,6 +85,8 @@ get_percentage_cpu_load() ->
 %% @doc Zwraca wykorzystanie pamieci w skali 0 - 100.
 get_percentage_memory_load() ->
 	get_percentage_memory_load1().
+	
+
 
 %% @spec stop() -> ok
 %% @doc Zatrzymuje serwer.
@@ -101,6 +108,7 @@ init([LogToFile, PartSize]) ->
 			end
 		
 	end,
+	timer:apply_interval(60000,?MODULE, log_stats_to_web, []),
 	{ok,#state{file_descr = Descr, start_time = 0, total_counter = 0,
 		part_size = PartSize, part_start_time = 0, part_counter = 0, part_mean_speed = 0,
 		total_urls_counter = 0, part_urls_counter = 0, part_mean_urls_counter = 0 }}.
@@ -156,7 +164,29 @@ handle_cast({report, Proplist}, State = #state{file_descr = Descr, start_time = 
 	
 	{noreply, State#state{start_time = NewStartTime, total_counter = TotalCounter + 1, part_start_time = NewPartStartTime,
 		part_counter = (PartCounter + 1) rem PartSize, part_mean_speed = NewPartMeanSpeed,
-		total_urls_counter = NewTotalUrlsCounter, part_urls_counter = NewPartUrlsCounter, part_mean_urls_counter = NewPartMeanUrlsCounter}}.
+		total_urls_counter = NewTotalUrlsCounter, part_urls_counter = NewPartUrlsCounter, part_mean_urls_counter = NewPartMeanUrlsCounter}};
+
+
+handle_cast(log_stats_to_web, State = #state{start_time = StartTime, total_counter = TotalCounter,
+	part_mean_speed = PartMeanSpeed, total_urls_counter = TotalUrlsCounter, part_mean_urls_counter = PartMeanUrlsCounter}) ->
+	
+	TotalMeanSpeed = case TotalCounter of
+		0 -> 0;
+		N -> 1000000/((common:timestamp() - StartTime)/N)
+	end,
+	
+	TotalMeanUrlsCounter = case TotalCounter of
+		0 -> 0;
+		N2 -> TotalUrlsCounter/N2
+	end,
+	
+	PartMeanSpeed2 = case PartMeanSpeed of
+		0 -> 0;
+		N3 -> 1000000/N3
+	end,
+	
+	log_to_web(TotalCounter, TotalMeanSpeed, PartMeanSpeed2, TotalUrlsCounter, TotalMeanUrlsCounter, PartMeanUrlsCounter),
+	{noreply, State}.
 		
 			
 %% @private	
@@ -236,7 +266,7 @@ log_to_web(TotalCounter,TotalMeanSpeed, PrtMeanSpeed, TotalUrlsCounter, TotalMea
   Msg = [{nodeName,node()},{totalProcessedSitesNum,TotalCounter},{meanSiteProcessingNum,TotalMeanSpeed},{meanProcessorUsage,get_percentage_cpu_load()},
           {memoryUsage,get_percentage_memory_load()},{totalAddressesFetchedNum,TotalUrlsCounter},{meanAddressesNumPerSite,TotalMeanUrlsCounter},
           {partAddressesNumPerSite,PartMeanUrlCounter}
-  ],
+  ],io:format("logging to web"),
   crawl_event:report_stats(Msg,false).
 
 %% @private

@@ -64,8 +64,15 @@ handle_call({start_crawler,_PropList}, _From, State) ->
     CacheAppResult = start_cache_app(),
     
     %%starting ErlCrawler
-    lager:start(),
-    ibrowse:start(),
+    case erlang:function_exported(lager, start, 0) of
+		true -> lager:start();
+		false -> ok
+	end,
+		
+    case erlang:function_exported(ibrowse, start, 0) of
+		true -> ibrowse:start();
+		false -> ok
+    end,
     %%end
     
     Reply = [{crawl_event,CrawlEventResult},{cache,CacheAppResult},{domain_manager,DomainManagerResult}],
@@ -96,7 +103,10 @@ handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
     CrawlEventResult = application:stop(crawl_event),
     
     %%stopping ErlCrawler
-    ibrowse:stop(),
+    case erlang:function_exported(ibrowse, stop, 0) of
+		true -> ibrowse:stop();
+		false -> ok
+	end,
     %%end
     
     {reply,[{crawl_event,CrawlEventResult},{cache,CacheAppResult},{domain_manager,DomainManagerResult}],State};
