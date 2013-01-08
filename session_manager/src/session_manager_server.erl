@@ -66,12 +66,12 @@ handle_call({start_crawler,_PropList}, _From, State) ->
     %%starting ErlCrawler
     case erlang:function_exported(lager, start, 0) of
 		true -> lager:start();
-		false -> ok
+		false -> io:format("lager not found~n")
 	end,
 		
     case erlang:function_exported(ibrowse, start, 0) of
 		true -> ibrowse:start();
-		false -> ok
+		false -> io:format("ibrowse not found~n")
     end,
     %%end
     
@@ -105,7 +105,7 @@ handle_call(stop_crawler,_From,State = #state{proplist = PropList}) ->
     %%stopping ErlCrawler
     case erlang:function_exported(ibrowse, stop, 0) of
 		true -> ibrowse:stop();
-		false -> ok
+		false -> io:format("ibrowse not found~n")
 	end,
     %%end
     

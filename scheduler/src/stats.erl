@@ -266,7 +266,7 @@ log_to_web(TotalCounter,TotalMeanSpeed, PrtMeanSpeed, TotalUrlsCounter, TotalMea
   Msg = [{nodeName,node()},{totalProcessedSitesNum,TotalCounter},{meanSiteProcessingNum,TotalMeanSpeed},{meanProcessorUsage,get_percentage_cpu_load()},
           {memoryUsage,get_percentage_memory_load()},{totalAddressesFetchedNum,TotalUrlsCounter},{meanAddressesNumPerSite,TotalMeanUrlsCounter},
           {partAddressesNumPerSite,PartMeanUrlCounter}
-  ],io:format("logging to web"),
+  ],
   crawl_event:report_stats(Msg,false).
 
 %% @private
