@@ -6,5 +6,5 @@
   {registered, [reporting_server,remote_crawl_manager_sup,corba_object_sup]},
   {applications, [kernel, stdlib]},
   {mod, {remote_crawl_manager_app, []}},
-  {env,[{web_app_controller_url,"localhost:8080/ecm/stats"}]}
+  {env,[{web_app_controller_url,"http://localhost:8080/ecm/stats"}]}
  ]}.
