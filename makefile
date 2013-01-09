@@ -69,8 +69,10 @@ clean_mock:
 	cd ./mock; make clean
 	
 run:
-	erl -pa crawl_test/ebin cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin remote_crawl_manager/ebin ./ErlCrawler/apps/crawler_app/ebin ./ErlCrawler/deps/ibrowse/ebin/ ./ErlCrawler/deps/mochiweb/ebin/ ./ErlCrawler/deps/lager/ebin/  -name node1@127.0.0.1 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
+	erl -pa crawl_test/ebin cache/ebin crawl_event/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin remote_crawl_manager/ebin ./ErlCrawler/apps/crawler_app/ebin ./ErlCrawler/deps/ibrowse/ebin/ ./ErlCrawler/deps/mochiweb/ebin/ ./ErlCrawler/deps/lager/ebin/  -name node1@127.0.0.1 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
 	
 run_mocks:
-	erl -pa ./crawl_test/ebin cache/ebin crawl_event/ebin riak-erlang-client/ebin riak-erlang-client/deps/*/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin remote_crawl_manager/ebin mock/ebin -name node1@127.0.0.1 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
-			
+	erl -pa ./crawl_test/ebin cache/ebin crawl_event/ebin domain_manager/ebin scheduler/ebin eleveldb/ebin session_manager/ebin remote_crawl_manager/ebin mock/ebin -name node1@127.0.0.1 -mnesia dir '"cache/priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
+	
+run_remote:
+	erl -pa remote_crawl_manager/ebin -name remote_node@127.0.0.1 -mnesia dir '"priv"' -mnesia dc_dump_limit 40 -mnesia dump_log_write_treshold 50000 -setcookie abc
