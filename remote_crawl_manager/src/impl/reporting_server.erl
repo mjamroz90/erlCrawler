@@ -80,10 +80,14 @@ code_change(_OldVsn, State, _Extra) ->
 %% @private
 serialize_to_string(Msg) ->
   {Str,Sum} = lists:foldl(fun({Key,Value},{Acc,Val}) ->
-                Param = lists:flatten(io_lib:format("~p=~p&",[Key,Value])),
+				Value_Trunc = case is_float(Value) of
+					true -> {Val2,_} = string:to_float(lists:flatten(io_lib:format("~.2f",[Value]))),Val2;
+					false -> Value
+				end,
+                Param = lists:flatten(io_lib:format("~p=~p&",[Key,Value_Trunc])),
                 Val1 = case Key =:= nodeName of
                       true -> Val;
-                      false -> Val+Value
+                      false -> Val+Value_Trunc
                 end,
                 {string:concat(Acc,Param),Val1} end,{"",0},Msg),
   {Str,Sum}.
