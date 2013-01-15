@@ -32,7 +32,7 @@ pull(Count) ->
 report(UrlId, Url, RedirectedUrl, Source, Status) ->
 	gen_server:cast(?MODULE, {report, UrlId, Url, RedirectedUrl, Source, Status}).
 	
-%% @spec get_page_to_process() -> empty/{UrlId :: term(), Url :: string(), Source :: binary()}
+%% @spec get_page_to_process() -> empty/{UrlId :: term(), Url :: string(), RedirectedUrl :: string(), Source :: binary()}
 %% @doc Zwraca identyfikator, adres i zrodlo strony do przetworzenia.
 %% @end
 get_page_to_process() ->
