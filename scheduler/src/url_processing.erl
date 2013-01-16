@@ -91,7 +91,7 @@ parse(Id, Url)->
 
 %% @private
 process_urls([], _RefParams, _RefDomain) -> ok;
-process_urls([Url | T], RefParams, RefDomain) ->
+process_urls([Url | T], RefParams, RefDomain) when length(Url) < 2000 ->
 	RefWidth = common:get_param(width, RefParams),
 	RefDepth = common:get_param(depth, RefParams),
 	Domain = reg:get_domain(Url),
@@ -147,51 +147,8 @@ process_urls([Url | T], RefParams, RefDomain) ->
 			false
 	end,
 	
-	%case url_server:lookup(Url) of
-		%not_found ->		
-			%if
-				%(Width >= 0) and (Depth >= 0) ->
-					%%Params = [{timestamp, 0}, {width, Width}, {depth, Depth}],
-					
-					%url_server:insert(Url, Params);
-				%true ->
-					%false
-			%end;
-		%ExistingParams ->
-			%scheduler:process_new_params(Url, ExistingParams, Params
-			%%%[{timestamp, ExistingTimestamp}, {width, ExistingWitdh}, {depth, ExistingDepth}] = ExistingParams,
-			%%ExistingTimestamp = common:get_param(timestamp, ExistingParams),
-			%%ExistingWidth = common:get_param(width, ExistingParams),
-			%%ExistingDepth = common:get_param(depth, ExistingParams),
-			
-			%%if
-				%%ExistingWitdh > Width -> %bylismy blizej
-					%%true;
-				%%((Width > ExistingWitdh) and (Depth >= 0)) or ((Width == ExistingWitdh) and (Depth > ExistingDepth)) ->
-					%%%jestesmy w mniejszej szerokosci badz w tej samej, ale na mniejszej glebokosci
-					%%%Params = [{timestamp, ExistingTimestamp}, {width, Width}, {depth, Depth}],
-					%%Params = common:stick_params({timestamp, ExistingTimestamp},
-						%%common:stick_params({width, Width},
-							%%common:stick_params({depth, Depth}, ExistingParams)
-						%%)
-					%%),
-					%%url_server:update(Url, Params);
-				%%true ->
-					%%false
-			%%end,
-			
-			%%%TODO - sprawdzic timestamp, moze czas odswiezyc
-			%%ValidityTime = session_manager:get_validity_time(Domain),
-			%%RefreshTime = ExistingTimestamp + ValidityTime,
-			%%CurrentTime = common:timestamp(),
-			%%if
-				%%CurrentTime > RefreshTime ->
-					%%disk_cache_server:set_not_visited(Url);
-				%%true ->
-					%%false
-			%%end
-				
-			
-						
-	%end,
+	process_urls(T, RefParams, RefDomain);
+	
+
+process_urls([Url | T], RefParams, RefDomain) ->
 	process_urls(T, RefParams, RefDomain).
