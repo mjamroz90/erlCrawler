@@ -2,7 +2,7 @@
 %% @end
 
 -module(url_server).
--export([insert/2,lookup/1, update/2]).
+-export([insert/2,lookup/1, update/2, get_url_by_id/1]).
 
 %================================API===========================================
 
@@ -23,6 +23,11 @@ update(Url, Params) ->
 %% @doc Zwraca liste parametrow dla podanego adresu.
 lookup(Url) ->
 	lookup1(Url).
+	
+%% @spec get_url_by_id(Id :: integer()) -> key()
+%% @doc Zwraca adres dla podanego identyfikatora.	
+get_url_by_id(Id) ->
+	disk_cache_server:get_url_by_id(Id).
 
 %===============================Callbacks======================================
 
