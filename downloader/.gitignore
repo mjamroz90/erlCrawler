@@ -1,0 +1,4 @@
+ebin/*.beam
+priv/parse_html_driver.so
+docs/*.html
+docs/*.css
