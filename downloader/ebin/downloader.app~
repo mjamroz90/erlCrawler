@@ -12,7 +12,7 @@
   {mod, {downloader_app, []}},
   {env, [{conn_timeout,20000},
   		 {idle_timeout,5000},
-  		 {max_workers_num,50}
+  		 {max_workers_num,4}
 		]
 	}	
  ]}.

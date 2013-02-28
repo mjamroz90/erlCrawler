@@ -6,6 +6,7 @@
 -record(state,{connection_timeout,idle_time,self_pid,port}).
 
 -define(CORRECT_HTTP_STATUS,[200,202,206]).
+-define(SO_DIR,"downloader/priv").
 
 %% ============================ API ===================================
 
@@ -21,7 +22,7 @@ download_content(WorkerPid,Url,Pid) ->
 %% ============================ Callbacks =============================
 
 init([ConnTimeout,IdleTime]) ->
-	{Res,Port} = case erl_ddll:load("priv","parse_html_driver") of	
+	{Res,Port} = case erl_ddll:load(?SO_DIR,"parse_html_driver") of	
 		ok -> {ok, open_port({spawn,"parse_html_driver"},[binary])};
 		_Other -> {stop,stop}
 	end,		
