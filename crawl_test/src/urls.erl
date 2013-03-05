@@ -1,6 +1,7 @@
 -module(urls).
 -compile(export_all).
 -define(TESTED_MOD,disk_cache_server).
+-define(TESTED_APP,cache).
 
 remove_partially(Size,Max) ->
 	start(),
@@ -95,10 +96,10 @@ test(Ins,Max,Size,Descr,F) ->
 	[{Ins+Size,{Time_ins,Time_lookup}} | test(Ins+Size,Max,Size,Descr,F)].
 	
 start() ->
-	application:start(eleveldb_cache).
+	application:start(?TESTED_APP).
 
 stop() ->
-	application:stop(eleveldb_cache).
+	application:stop(?TESTED_APP).
 
 time_insert_list_domain(List) ->
 	{Time_ins,_} = timer:tc(fun()->insert_domain(List) end),
