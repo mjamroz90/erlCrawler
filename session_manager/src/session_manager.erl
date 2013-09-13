@@ -2,13 +2,13 @@
 -module(session_manager).
 -behaviour(gen_server).
 
--export([get_validity_time/1, set_validity_time/2, set_default_validity_time/1]).
+-export([get_validity_time/1, set_validity_time/2, set_default_validity_time/1, get_subdomain_params/1, set_subdomain_params/3]).
 -export([insert/4, re_insert/4, update/4, remove/1]).
 
 -export([start/0, init/1, handle_call/3, handle_cast/2, handle_info/2,
 terminate/2, code_change/3]).
 
--record(state, {domain_validity_time_proplist, default_domain_validity_time}).
+-record(state, {domain_validity_time_proplist, default_domain_validity_time, subdomain_params_proplist, default_breadth, default_depth}).
 
 %% @type url() = string()
 
@@ -55,6 +55,17 @@ get_validity_time(Domain) ->
 %% @doc Ustawia czas po ktorym nalezy ponownie odwiedzic strony z danej domeny (w mikrosekundach).
 set_validity_time(Domain, ValidityTime) ->
 	gen_server:call(?MODULE,{set_domain_validity_time, Domain, ValidityTime}).
+
+%% @spec get_subdomain_params(Domain :: url()) -> {Breadth :: int(), Depth :: int()}
+%% @doc Zwraca poczatkowe parametry szerokosci i glebokosci dla poddomen.
+get_subdomain_params(Domain) ->
+  gen_server:call(?MODULE, {get_subdomain_params, Domain}).
+
+%% @spec set_subdomain_params(Domain :: url(), Breadth :: int(), Depth :: int()) -> ok
+%% @doc Ustawia poczatkowe parametry szerokosci i glebokosci dla poddomen w okreslonej domenie
+set_subdomain_params(Domain, Breadth, Depth) ->
+  gen_server:call(?MODULE, {set_subdomain_params, Domain, {Breadth, Depth}}).
+
 	
 %% @spec set_default_validity_time(ValidityTime :: int()) -> ok
 %% @doc Ustawia domyslny czas po ktorym nalezy ponownie odwiedzic strony z domen nie wyspecyfikowanych jako startowe (w mikrosekundach).
@@ -69,20 +80,18 @@ update(_Url, _MaxDepth, _MaxWidth, _ValidityTime) ->
 remove(_Url) ->
 	ok.
 
-%tutaj chyba bedzie tez glowne api do statystyk
-
 %==============================CallBacks================================
 
 
 %% @private
 init([]) ->
-    {ok, #state{domain_validity_time_proplist = [], default_domain_validity_time = 1000000*3600*24}}.
+    {ok, #state{domain_validity_time_proplist = [], default_domain_validity_time = 1000000*3600*24, subdomain_params_proplist = [], default_breadth = 0, default_depth = 0}}.
 
 %% @private
 handle_call({set_domain_validity_time, Domain, ValidityTime}, _From, State = #state{domain_validity_time_proplist = DomainValidityTimeProplist}) ->
 	NewState = State#state{domain_validity_time_proplist = common:stick_params({Domain, ValidityTime}, DomainValidityTimeProplist)},
     {reply,ok,NewState};
-%% @private
+
 handle_call({get_domain_validity_time, Domain}, _From, State = #state{domain_validity_time_proplist = DomainValidityTimeProplist, default_domain_validity_time = DefaultValidityTime}) ->
 	Reply = case common:get_param(Domain, DomainValidityTimeProplist) of
 		not_found -> DefaultValidityTime;
@@ -90,7 +99,17 @@ handle_call({get_domain_validity_time, Domain}, _From, State = #state{domain_val
 	end,
 	{reply,Reply, State};
 	
-%% @private
+handle_call({get_subdomain_params, Domain}, _From, State = #state{subdomain_params_proplist = SubdomainParamsProplist}) ->
+  Reply = case common:get_param(Domain, SubdomainParamsProplist) of
+            not_found -> {0, 0};%%TODO - moze jakas lepsza wartosc
+            Params -> Params
+  end,
+  {reply, Reply, State};
+
+handle_call({set_subdomain_params, Domain, {Breadth, Depth}}, _From, State = #state{subdomain_params_proplist = SubdomainParamsProplist}) ->
+  NewState = State#state{subdomain_params_proplist = common:stick_params({Domain, {Breadth, Depth}}, SubdomainParamsProplist)},
+  {reply, ok, NewState};
+
 handle_call({set_default_domain_validity_time, ValidityTime}, _From, State) ->
 	{reply, ok, State#state{default_domain_validity_time = ValidityTime}}.
 

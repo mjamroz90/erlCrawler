@@ -52,7 +52,7 @@ process(Id, Url) ->
 	stats:report(common:stick_params({urls_counter, length(Urls)}, [])),
 	
 	
-	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url)),
+	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url), reg:get_full_domain(Url)),
 	scheduler:completed(),
 	EndTime = common:timestamp(),
 	
@@ -76,7 +76,7 @@ process(Id, Url, RedirectedUrl, Source) ->
 	
 	stats:report(common:stick_params({urls_counter, length(Urls)}, [])),
 	
-	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url)),
+	process_urls(Urls, url_server:lookup(Url), reg:get_domain(Url), reg:get_full_domain(Url)),
 	scheduler:completed(),
 	EndTime = common:timestamp(),
 	
@@ -90,19 +90,22 @@ parse(Id, Url)->
 	[Url, Url ++ "2", Url ++ "/1"].
 
 %% @private
-process_urls([], _RefParams, _RefDomain) -> ok;
-process_urls([Url | T], RefParams, RefDomain) when length(Url) < 2000 ->
+process_urls([], _RefParams, _RefDomain, _RefFullDomain) -> ok;
+process_urls([Url | T], RefParams, RefDomain, RefFullDomain) when length(Url) < 2000 ->
 	RefWidth = common:get_param(width, RefParams),
 	RefDepth = common:get_param(depth, RefParams),
 	Domain = reg:get_domain(Url),
-	case Domain of
+  {Width, Depth} = case Domain of
 		RefDomain ->
-			Width = RefWidth,
-			Depth = RefDepth-1;
+      case reg:get_full_domain(Url) of
+        RefFullDomain -> %identyczna domena
+          {RefWidth, RefDepth-1};
+        _OtherSubdomain -> %inna poddomena
+          session_manager:get_subdomain_start_params(Domain)
+      end;
 			
 		_OtherDomain ->
-			Width = RefWidth-1,
-			Depth = RefDepth
+      {RefWidth-1, RefDepth}
 	end,
 	
 	Params = common:stick_params({timestamp, 0},
@@ -147,8 +150,8 @@ process_urls([Url | T], RefParams, RefDomain) when length(Url) < 2000 ->
 			false
 	end,
 	
-	process_urls(T, RefParams, RefDomain);
+	process_urls(T, RefParams, RefDomain, RefFullDomain);
 	
 
-process_urls([Url | T], RefParams, RefDomain) ->
-	process_urls(T, RefParams, RefDomain).
+process_urls([_Url | T], RefParams, RefDomain, RefFullDomain) ->
+	process_urls(T, RefParams, RefDomain, RefFullDomain).
