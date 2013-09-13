@@ -3,7 +3,7 @@
 
 -module(reg).
 -behaviour(gen_server).
--export([start_link/0,get_domain/1, stop/0]).
+-export([start_link/0,get_domain/1, get_full_domain/1, stop/0]).
 -record(state,{http_pattern, www_pattern, slash_pattern, query_string_pattern, second_level_domains}).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
@@ -18,10 +18,16 @@ start_link() ->
 	gen_server:start_link({local,?MODULE},?MODULE,[],[]).
 
 %% @spec get_domain(Url :: string()) -> string()
-%% @doc Dla podanego adresu url zwraca nazwe domeny.
+%% @doc Dla podanego adresu url zwraca nazwe domeny (dwa lub trzy ostatnie czlony).
 %% @end
 get_domain(Url) ->
 	gen_server:call(?MODULE, {get_domain, Url}).
+
+%% @spec get_full_domain(Url :: string()) -> string()
+%% @doc Dla podanego adresu url zwraca pelna domene
+%% @end
+get_full_domain(Url)->
+  gen_server:call(?MODULE, {get_full_domain, Url}).
 
 %% @spec stop() -> ok
 %% @doc Zatrzymuje serwer.
@@ -57,7 +63,15 @@ init([]) ->
 handle_cast(stop,State) ->
 	{stop,"Made to stop",State}.
 	
-%% @private		
+%% @private
+handle_call({get_full_domain, Url}, _From, State) ->
+  RetType = [{return, list}],
+  Page = re:replace(re:replace(re:replace(re:replace(Url, State#state.http_pattern, "", RetType),
+    State#state.www_pattern, "", RetType),
+    State#state.slash_pattern, "", RetType),
+    State#state.query_string_pattern, "", RetType),
+  {reply, Page, State};
+
 handle_call({get_domain,Url}, _From, State = #state{second_level_domains = SecondLevelDomains}) ->
 	RetType = [{return, list}],
 	%Page = re:replace(re:replace(re:replace(re:replace(string:to_lower(Url), State#state.http_pattern, "", RetType),
@@ -71,7 +85,7 @@ handle_call({get_domain,Url}, _From, State = #state{second_level_domains = Secon
 		0 -> undefined;
 		1 -> undefined;
 		2 -> Page;
-		N ->
+		_N ->
 			[First, Second, Third | _T] = Reversed,
 			TwoLevels = Second ++ "." ++ First,
 			case sets:is_element(TwoLevels, SecondLevelDomains) of
@@ -95,4 +109,3 @@ terminate(_Reason,_State) ->
 %% @private	
 code_change(_OldVsn,State,_Extra) ->
 	{ok,State}.
-	
