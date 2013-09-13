@@ -2,9 +2,9 @@ CXX = g++
 OTPROOT = /usr/lib/erlang
 C_SRC = c_src
 PRIV = priv
-CFLAGS_LIB = -Wall -g -O2 -std=c++0x -I $(OTPROOT)/lib/erl_interface-3.7.7/include -I $(OTPROOT)/erts-5.9.1/include -I $(C_SRC) -L  $(OTPROOT)/lib/erl_interface-3.7.7/lib -L $(PRIV)
+CFLAGS_LIB = -Wall -g -O2 -std=c++0x -I $(OTPROOT)/lib/erl_interface-3.7.13/include -I $(OTPROOT)/erts-5.10.2/include -I $(C_SRC) -L  $(OTPROOT)/lib/erl_interface-3.7.13/lib -L $(PRIV)
 
-all: compile lib32
+all: compile lib64
 
 compile:
 	erlc -o ./ebin ./src/*.erl ./test/*.erl
