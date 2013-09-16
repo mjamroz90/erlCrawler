@@ -105,7 +105,16 @@ process_urls([Url | T], RefParams, RefDomain, RefFullDomain) when length(Url) < 
       end;
 			
 		_OtherDomain ->
-      {RefWidth-1, RefDepth}
+      DefBreadth = session_manager:get_default_breadth(),
+      DefDepth = session_manager:get_default_depth(),
+      if
+        (RefWidth-1 > DefBreadth) ->
+          {DefBreadth, DefDepth};
+        (RefDepth > DefDepth) ->
+          {RefWidth-1, DefDepth};
+        true ->
+          {RefWidth-1, RefDepth}
+      end
 	end,
 	
 	Params = common:stick_params({timestamp, 0},

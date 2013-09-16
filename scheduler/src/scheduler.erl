@@ -243,7 +243,7 @@ process_new_params(Url, OldParams, NewParams) ->
 	end,
 
 	%sprawdzamy timestamp czy czas juz odswiezyc
-	ValidityTime = session_manager:get_validity_time(reg:get_domain(Url)),
+	ValidityTime = session_manager:get_validity_time(reg:get_full_domain(Url)),
 	RefreshTime = OldTimestamp + ValidityTime,
 	CurrentTime = common:timestamp(),
 	if

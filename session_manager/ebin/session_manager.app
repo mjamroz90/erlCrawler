@@ -21,11 +21,11 @@
       {init_urls, [
         [
           {init_url, "http://www.allegro.pl"},
-          {width, 0},
+          {width, 1},
           {depth, 999999999},
           {validity_time, 86400000000},
 
-          {subdomain_width, 0},
+          {subdomain_breadth, 1},
           {subdomain_depth, 999999999},
           {subdomain_validity_time, 86400000000}
 
@@ -33,7 +33,7 @@
       ]
       },
       {default_validity_time, 86400000000}, %24hours
-      {default_width, 1},
+      {default_breadth, 1},
       {default_depth, 1}
 
     ]}]}

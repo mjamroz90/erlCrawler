@@ -146,6 +146,12 @@ get_depth(PropList) ->
 get_validity_time(PropList) ->
     common:get_param(validity_time,PropList).
 
+get_default_breadth(PropList) ->
+  common:get_param(default_breadth,PropList).
+
+get_default_depth(PropList) ->
+  common:get_param(default_depth,PropList).
+
 get_default_validity_time(PropList) ->
 	common:get_param(default_validity_time, PropList).
 
@@ -173,19 +179,33 @@ get_trigger_time(PropList) ->
 get_session_id(PropList) ->
 	common:get_param(session_id, PropList).
 
+get_subdomain_breadth(PropList) ->
+  common:get_param(subdomain_breadth, PropList).
+
+get_subdomain_depth(PropList) ->
+  common:get_param(subdomain_depth, PropList).
+
+get_subdomain_validity_time(PropList) ->
+  common:get_param(subdomain_validity_time, PropList).
+
 init_urls([]) -> ok;
 init_urls([PropList | T]) ->
-	session_manager:insert(get_init_url(PropList),get_depth(PropList),get_width(PropList),get_validity_time(PropList)),
+	session_manager:insert(get_init_url(PropList),get_depth(PropList),get_width(PropList),get_validity_time(PropList),get_subdomain_breadth(PropList),get_subdomain_depth(PropList),get_subdomain_validity_time(PropList)),
 	init_urls(T).
 
+
+
 set_env_props(PropList) ->
-	application:set_env(cache, session_id, get_session_id(PropList)),
-    application:set_env(session_manager,max_process_count,get_max_process_count(PropList)),
-    application:set_env(session_manager,buffer_size,get_buffer_size(PropList)),
-    application:set_env(session_manager,trigger_time,get_trigger_time(PropList)),
-    application:set_env(session_manager,contact_nodes,get_contact_nodes(PropList)),
-    application:set_env(session_manager,domain_manager_node,get_domain_manager_node(PropList)),
-    application:set_env(session_manager,default_validity_time,get_default_validity_time(PropList)).
+  application:set_env(cache, session_id, get_session_id(PropList)),
+  application:set_env(session_manager, max_process_count, get_max_process_count(PropList)),
+  application:set_env(session_manager, buffer_size, get_buffer_size(PropList)),
+  application:set_env(session_manager, trigger_time, get_trigger_time(PropList)),
+  application:set_env(session_manager, contact_nodes, get_contact_nodes(PropList)),
+  application:set_env(session_manager, domain_manager_node, get_domain_manager_node(PropList)),
+  application:set_env(session_manager, default_validity_time, get_default_validity_time(PropList)),
+  application:set_env(session_manager, default_breatdh, get_default_breadth(PropList)),
+  application:set_env(session_manager, default_depth, get_default_depth(PropList)).
+
 
 start_crawl_event_app() ->
     application:start(crawl_event).
