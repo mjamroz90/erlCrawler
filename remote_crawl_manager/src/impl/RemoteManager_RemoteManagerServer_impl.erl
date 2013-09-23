@@ -165,7 +165,23 @@ customize([{"default_validity_time", V} | PropertyList]) ->
     [{validity_time,element(1,string:to_integer(V))} | customize(PropertyList)];
 
 customize([{"session_id",V} | PropertyList]) ->
-    [{session_id,element(1,string:to_integer(V))} | customize(PropertyList)].
+    [{session_id,element(1,string:to_integer(V))} | customize(PropertyList)];
+
+customize([{"default_breadth", V} | PropertyList]) ->
+    [{default_breadth,element(1,string:to_integer(V))} | customize(PropertyList)];
+
+customize([{"default_depth", V} | PropertyList]) ->
+    [{default_depth,element(1,string:to_integer(V))} | customize(PropertyList)];
+
+customize([{"subdomain_depth", V} | PropertyList]) ->
+    [{subdomain_depth,element(1,string:to_integer(V))} | customize(PropertyList)]; 
+
+customize([{"subdomain_breadth", V} | PropertyList]) ->
+    [{subdomain_breadth,element(1,string:to_integer(V))} | customize(PropertyList)];
+
+customize([{"subdomain_validity_time", V} | PropertyList]) ->
+    [{subdomain_validity_time,element(1,string:to_integer(V))} | customize(PropertyList)].           
+    
 
 serialize_to_proplist(List) ->
     try
