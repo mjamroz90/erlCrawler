@@ -101,7 +101,7 @@ process_urls([Url | T], RefParams, RefDomain, RefFullDomain) when length(Url) < 
         RefFullDomain -> %identyczna domena
           {RefWidth, RefDepth-1};
         _OtherSubdomain -> %inna poddomena
-          session_manager:get_subdomain_start_params(Domain)
+          session_manager:get_subdomain_params(Domain)
       end;
 			
 		_OtherDomain ->
