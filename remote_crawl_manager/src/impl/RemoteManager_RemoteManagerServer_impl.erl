@@ -162,7 +162,7 @@ customize([{"depth", V} | PropertyList]) ->
     [{depth,element(1,string:to_integer(V))} | customize(PropertyList)];
 
 customize([{"default_validity_time", V} | PropertyList]) ->
-    [{validity_time,element(1,string:to_integer(V))} | customize(PropertyList)];
+    [{default_validity_time,element(1,string:to_integer(V))} | customize(PropertyList)];
 
 customize([{"session_id",V} | PropertyList]) ->
     [{session_id,element(1,string:to_integer(V))} | customize(PropertyList)];
